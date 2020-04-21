@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_circle.html" title="{Circle\n||+ Circle()\l+ paint()\l+ update()\l}" alt="" coords="5,329,85,449"/>
+<area shape="rect" id="node5" href="$class_square.html" title="{Square\n||+ Square()\l+ ~Square()\l+ paint()\l+ update()\l}" alt="" coords="109,321,200,458"/>
+<area shape="rect" id="node7" href="$class_triangle.html" title="{Triangle\n||+ Triangle()\l+ ~Triangle()\l+ paint()\l+ setBounds()\l+ update()\l}" alt="" coords="224,312,328,467"/>
+</map>

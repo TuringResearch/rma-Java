@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$spec_2dds_2sub_2_coherent_access_8hpp.html" title="dds/sub/CoherentAccess.hpp" alt="" coords="609,83,804,112"/>
+<area shape="rect" id="node5" href="$ddssub_8hpp.html" title="dds/sub/ddssub.hpp" alt="" coords="637,160,776,189"/>
+<area shape="rect" id="node7" href="$dds_8hpp.html" title="dds/dds.hpp" alt="" coords="660,237,753,267"/>
+<area shape="rect" id="node9" href="$_bouncing_shape_dynamics_8hpp.html" title="demos/iShapes/BouncingShapeDynamics.hpp" alt="" coords="169,315,460,344"/>
+<area shape="rect" id="node15" href="$_d_d_s_shape_dynamics_8hpp.html" title="demos/iShapes/DDSShapeDynamics.hpp" alt="" coords="371,392,637,421"/>
+<area shape="rect" id="node18" href="$_filter_dialog_8hpp.html" title="demos/iShapes/FilterDialog.hpp" alt="" coords="535,315,740,344"/>
+<area shape="rect" id="node20" href="$_shapes_dialog_8hpp.html" title="demos/iShapes/ShapesDialog.hpp" alt="" coords="667,392,888,421"/>
+<area shape="rect" id="node23" href="$_reader_qos_dialog_8hpp.html" title="demos/iShapes/ReaderQosDialog.hpp" alt="" coords="815,315,1057,344"/>
+<area shape="rect" id="node27" href="$_writer_qos_dialog_8hpp.html" title="demos/iShapes/WriterQosDialog.hpp" alt="" coords="1081,315,1319,344"/>
+<area shape="rect" id="node11" href="$_bouncing_shape_dynamics_8cpp.html" title="demos/iShapes/BouncingShapeDynamics.cpp" alt="" coords="5,392,296,421"/>
+<area shape="rect" id="node13" href="$_shapes_dialog_8cpp.html" title="demos/iShapes/ShapesDialog.cpp" alt="" coords="393,469,615,499"/>
+</map>

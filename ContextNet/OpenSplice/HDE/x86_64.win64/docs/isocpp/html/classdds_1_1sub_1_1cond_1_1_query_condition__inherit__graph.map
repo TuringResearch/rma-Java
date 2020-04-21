@@ -1,0 +1,5 @@
+<map id="dds::sub::cond::QueryCondition" name="dds::sub::cond::QueryCondition">
+<area shape="rect" id="node2" href="$classdds_1_1sub_1_1cond_1_1_t_read_condition.html" title="{dds::sub::cond::TReadCondition\l\&lt; dds::sub::cond::detail::\lQueryCondition \&gt;\n||+ TReadCondition()\l+ TReadCondition()\l+ TReadCondition()\l+ ~TReadCondition()\l+ data_reader()\l+ state_filter()\l}" alt="" coords="5,569,216,775"/>
+<area shape="rect" id="node4" href="$classdds_1_1core_1_1cond_1_1_t_condition.html" title="{dds::core::cond::TCondition\l\&lt; dds::sub::cond::detail\l::QueryCondition \&gt;\n||+ ~TCondition()\l+ dispatch()\l+ trigger_value()\l}" alt="" coords="20,365,201,520"/>
+<area shape="rect" id="node6" href="$classdds_1_1core_1_1_reference.html" title="{dds::core::Reference\l\&lt; dds::sub::cond::detail\l::QueryCondition \&gt;\n|# impl_\l|+ Reference()\l+ Reference()\l+ Reference()\l+ Reference()\l+ Reference()\l+ ~Reference()\l+ delegate()\l+ delegate()\l+ is_nil()\l+ operator const DELEGATE\l_REF_T &amp;()\land 11 more...\l}" alt="" coords="15,6,207,317"/>
+</map>

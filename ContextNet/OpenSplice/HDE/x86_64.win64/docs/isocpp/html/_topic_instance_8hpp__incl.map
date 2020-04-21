@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_time_8hpp.html" title="dds/core/Time.hpp" alt="" coords="149,160,280,189"/>
+<area shape="rect" id="node17" href="$spec_2dds_2core_2_instance_handle_8hpp.html" title="dds/core/InstanceHandle.hpp" alt="" coords="433,83,625,112"/>
+<area shape="rect" id="node5" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="288,315,421,344"/>
+<area shape="rect" id="node11" href="$inttypes_8hpp.html" title="dds/core/detail/inttypes.hpp" alt="" coords="83,392,264,421"/>
+<area shape="rect" id="node13" href="$spec_2dds_2core_2macros_8hpp.html" title="dds/core/macros.hpp" alt="" coords="288,392,432,421"/>
+<area shape="rect" id="node15" href="$dds_2core_2detail_2conformance_8hpp.html" title="dds/core/detail/conformance.hpp" alt="" coords="456,392,667,421"/>
+<area shape="rect" id="node20" href="$dds_2core_2detail_2_instance_handle_8hpp.html" title="dds/core/detail/InstanceHandle.hpp" alt="" coords="416,160,643,189"/>
+<area shape="rect" id="node22" href="$_t_instance_handle_8hpp.html" title="dds/core/TInstanceHandle.hpp" alt="" coords="499,237,699,267"/>
+<area shape="rect" id="node25" href="$_instance_handle_impl_8hpp.html" title="org/opensplice/core/InstanceHandleImpl.hpp" alt="" coords="195,237,475,267"/>
+</map>

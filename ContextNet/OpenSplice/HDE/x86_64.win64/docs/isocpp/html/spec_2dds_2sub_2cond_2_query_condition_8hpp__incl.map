@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dds_2core_2detail_2conformance_8hpp.html" title="dds/core/detail/conformance.hpp" alt="" coords="5,315,216,344"/>
+<area shape="rect" id="node5" href="$dds_2sub_2cond_2detail_2_query_condition_8hpp.html" title="dds/sub/cond/detail/QueryCondition.hpp" alt="" coords="131,83,384,112"/>
+<area shape="rect" id="node23" href="$_t_read_condition_8hpp.html" title="dds/sub/cond/TReadCondition.hpp" alt="" coords="477,83,699,112"/>
+<area shape="rect" id="node7" href="$dds_2sub_2cond_2detail_2_read_condition_8hpp.html" title="dds/sub/cond/detail/ReadCondition.hpp" alt="" coords="404,160,655,189"/>
+<area shape="rect" id="node18" href="$spec_2dds_2sub_2_query_8hpp.html" title="dds/sub/Query.hpp" alt="" coords="144,160,275,189"/>
+<area shape="rect" id="node9" href="$spec_2dds_2core_2ref__traits_8hpp.html" title="dds/core/ref_traits.hpp" alt="" coords="711,315,863,344"/>
+<area shape="rect" id="node11" href="$_condition_impl_8hpp.html" title="org/opensplice/core/ConditionImpl.hpp" alt="" coords="707,237,949,267"/>
+<area shape="rect" id="node13" href="$_executor_8hpp.html" title="dds/sub/cond/detail/Executor.hpp" alt="" coords="253,237,469,267"/>
+<area shape="rect" id="node15" href="$spec_2dds_2sub_2_any_data_reader_8hpp.html" title="dds/sub/AnyDataReader.hpp" alt="" coords="493,237,683,267"/>
+<area shape="rect" id="node20" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="96,237,229,267"/>
+<area shape="rect" id="node25" href="$_t_condition_8hpp.html" title="dds/core/cond/TCondition.hpp" alt="" coords="679,160,873,189"/>
+</map>

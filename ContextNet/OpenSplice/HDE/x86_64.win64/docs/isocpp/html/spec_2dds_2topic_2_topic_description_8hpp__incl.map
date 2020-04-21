@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dds_2topic_2detail_2_topic_description_8hpp.html" title="dds/topic/detail/TopicDescription.hpp" alt="" coords="613,83,851,112"/>
+<area shape="rect" id="node19" href="$_t_topic_description_8hpp.html" title="dds/topic/TTopicDescription.hpp" alt="" coords="880,83,1091,112"/>
+<area shape="rect" id="node7" href="$_entity_delegate_8hpp.html" title="org/opensplice/core/EntityDelegate.hpp" alt="" coords="269,160,520,189"/>
+<area shape="rect" id="node15" href="$spec_2dds_2domain_2_domain_participant_8hpp.html" title="dds/domain/DomainParticipant.hpp" alt="" coords="616,160,840,189"/>
+<area shape="rect" id="node9" href="$include_2dcps_2_c_09_09_2isocpp_2org_2opensplice_2core_2config_8hpp.html" title="org/opensplice/core/config.hpp" alt="" coords="5,237,203,267"/>
+<area shape="rect" id="node11" href="$spec_2dds_2core_2_instance_handle_8hpp.html" title="dds/core/InstanceHandle.hpp" alt="" coords="227,237,419,267"/>
+<area shape="rect" id="node13" href="$_state_8hpp.html" title="dds/core/status/State.hpp" alt="" coords="443,237,613,267"/>
+<area shape="rect" id="node17" href="$dds_2domain_2detail_2_domain_participant_8hpp.html" title="dds/domain/detail/DomainParticipant.hpp" alt="" coords="637,237,896,267"/>
+<area shape="rect" id="node21" href="$_t_entity_8hpp.html" title="dds/core/TEntity.hpp" alt="" coords="915,160,1056,189"/>
+<area shape="rect" id="node24" href="$spec_2dds_2topic_2_topic_traits_8hpp.html" title="dds/topic/TopicTraits.hpp" alt="" coords="1080,160,1248,189"/>
+</map>

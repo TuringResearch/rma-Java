@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$demos_2i_shapes_2config_8hpp.html" title="config.hpp" alt="" coords="5,83,88,112"/>
+<area shape="rect" id="node5" href="$_shapes_dialog_8hpp.html" title="ShapesDialog.hpp" alt="" coords="528,83,656,112"/>
+<area shape="rect" id="node11" href="$_circle_8hpp.html" title="Circle.hpp" alt="" coords="777,160,857,189"/>
+<area shape="rect" id="node17" href="$_square_8hpp.html" title="Square.hpp" alt="" coords="731,83,819,112"/>
+<area shape="rect" id="node20" href="$_triangle_8hpp.html" title="Triangle.hpp" alt="" coords="989,83,1083,112"/>
+<area shape="rect" id="node22" href="$_bouncing_shape_dynamics_8hpp.html" title="BouncingShapeDynamics.hpp" alt="" coords="112,83,309,112"/>
+<area shape="rect" id="node25" href="$_d_d_s_shape_dynamics_8hpp.html" title="DDSShapeDynamics.hpp" alt="" coords="333,83,504,112"/>
+<area shape="rect" id="node7" href="$dds_8hpp.html" title="dds/dds.hpp" alt="" coords="372,160,465,189"/>
+</map>

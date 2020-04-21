@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_reference_8hpp.html" title="dds/core/Reference.hpp" alt="" coords="301,83,461,112"/>
+<area shape="rect" id="node13" href="$spec_2dds_2sub_2_sample_8hpp.html" title="dds/sub/Sample.hpp" alt="" coords="668,237,809,267"/>
+<area shape="rect" id="node19" href="$spec_2dds_2sub_2_loaned_samples_8hpp.html" title="dds/sub/LoanedSamples.hpp" alt="" coords="548,83,737,112"/>
+<area shape="rect" id="node26" href="$dds_2sub_2detail_2_shared_samples_8hpp.html" title="dds/sub/detail/SharedSamples.hpp" alt="" coords="925,83,1149,112"/>
+<area shape="rect" id="node5" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="368,160,501,189"/>
+<area shape="rect" id="node7" href="$refmacros_8hpp.html" title="dds/core/refmacros.hpp" alt="" coords="5,160,163,189"/>
+<area shape="rect" id="node11" href="$_exception_8hpp.html" title="dds/core/Exception.hpp" alt="" coords="187,160,344,189"/>
+<area shape="rect" id="node9" href="$spec_2dds_2core_2ref__traits_8hpp.html" title="dds/core/ref_traits.hpp" alt="" coords="235,237,387,267"/>
+<area shape="rect" id="node15" href="$dds_2sub_2detail_2_sample_8hpp.html" title="dds/sub/detail/Sample.hpp" alt="" coords="557,315,733,344"/>
+<area shape="rect" id="node17" href="$_t_sample_8hpp.html" title="dds/sub/TSample.hpp" alt="" coords="757,315,907,344"/>
+<area shape="rect" id="node23" href="$dds_2sub_2detail_2_loaned_samples_8hpp.html" title="dds/sub/detail/LoanedSamples.hpp" alt="" coords="627,160,851,189"/>
+</map>

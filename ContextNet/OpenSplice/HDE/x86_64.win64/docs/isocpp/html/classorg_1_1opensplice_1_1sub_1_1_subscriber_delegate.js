@@ -1,0 +1,27 @@
+var classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate =
+[
+    [ "SubscriberDelegate", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a8a2d08a981464964caefb60df0f3bdc3", null ],
+    [ "~SubscriberDelegate", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#ac52359d7b270139b9d473a84f4cb9b16", null ],
+    [ "close", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#afb9de9028a8a02cf801fc7527b3cdea6", null ],
+    [ "default_datareader_qos", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#aafea3e2c853d99b7a1b12920281c630c", null ],
+    [ "default_datareader_qos", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a97ce92cf124a23b3b9dd27941c074e30", null ],
+    [ "enable", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#acc5ae4806b79fb8420bede7f8ead7201", null ],
+    [ "event_forwarder", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a21ead3da1f1c8a7493fb0b91218ee65f", null ],
+    [ "get_dds_entity", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#afa34e21e9a5e1575c03a46dcba5e1ac7", null ],
+    [ "init_builtin", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#af0a9b39c7e5bc37fe5188bce39397071", null ],
+    [ "instance_handle", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#ab316a0334127a3a784a08b4b2f633843", null ],
+    [ "is_builtin", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a28d463564461f3a5b812c3eb46c7584b", null ],
+    [ "listener", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a7f262d9762a4d0d27dc33696ca73e30b", null ],
+    [ "notify_datareaders", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#aa5273affc35d1eb2918f0a45ccc271dc", null ],
+    [ "participant", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a651c159bafee1aa4567e78fe4037ca66", null ],
+    [ "qos", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a4728567351f3d9539ccb3a0baa96a0ad", null ],
+    [ "qos", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#acb783d1e8f64d613f0593226c240595e", null ],
+    [ "retain", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a1159cbe0fb8e5a81b5204fabbc5d83ba", null ],
+    [ "status_changes", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a87aebe36210f9ab103d418cf9eb47f44", null ],
+    [ "dp_", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a0a231db83470fb370f77392b4da736d5", null ],
+    [ "enabled_", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#adeeb28d0a53fb880167f43fea1b1e0f8", null ],
+    [ "entity_", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#aca1aa17217e0f7c3010419481e9ae79e", null ],
+    [ "entityID_", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a2d2824eb6e44a8457cf3d5085ba382b6", null ],
+    [ "sub_", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a6a03936afd978b664babd54e234ddb2c", null ],
+    [ "sub_event_forwarder_", "classorg_1_1opensplice_1_1sub_1_1_subscriber_delegate.html#a5904104aab0933ad4b297e39117b1b41", null ]
+];

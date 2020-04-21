@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$spec_2dds_2core_2macros_8hpp.html" title="dds/core/macros.hpp" alt="" coords="492,83,636,112"/>
+<area shape="rect" id="node28" href="$maplog_8hpp.html" title="dds/core/detail/maplog.hpp" alt="" coords="660,83,839,112"/>
+<area shape="rect" id="node5" href="$_exception_8hpp.html" title="dds/core/Exception.hpp" alt="" coords="83,160,240,189"/>
+<area shape="rect" id="node9" href="$spec_2dds_2pub_2_any_data_writer_8hpp.html" title="dds/pub/AnyDataWriter.hpp" alt="" coords="5,237,187,267"/>
+<area shape="rect" id="node11" href="$refmacros_8hpp.html" title="dds/core/refmacros.hpp" alt="" coords="264,160,421,189"/>
+<area shape="rect" id="node14" href="$_state_8hpp.html" title="dds/core/status/State.hpp" alt="" coords="488,237,659,267"/>
+<area shape="rect" id="node16" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="445,160,579,189"/>
+<area shape="rect" id="node21" href="$spec_2dds_2sub_2find_8hpp.html" title="dds/sub/find.hpp" alt="" coords="653,160,771,189"/>
+<area shape="rect" id="node23" href="$include_2dcps_2_c_09_09_2isocpp_2org_2opensplice_2core_2config_8hpp.html" title="org/opensplice/core/config.hpp" alt="" coords="795,160,992,189"/>
+<area shape="rect" id="node25" href="$memory_8hpp.html" title="org/opensplice/core/memory.hpp" alt="" coords="856,237,1067,267"/>
+<area shape="rect" id="node7" href="$_reference_8hpp.html" title="dds/core/Reference.hpp" alt="" coords="263,237,423,267"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="demo::ishapes::ShapeDynamics" name="demo::ishapes::ShapeDynamics">
+<area shape="rect" id="node3" href="$classdemo_1_1ishapes_1_1_bouncing_shape_dynamics.html" title="{demo::ishapes::BouncingShape\lDynamics\n||+ BouncingShapeDynamics()\l+ ~BouncingShapeDynamics()\l+ simulate()\l}" alt="" coords="5,278,211,415"/>
+<area shape="rect" id="node5" href="$classdemo_1_1ishapes_1_1_d_d_s_shape_dynamics.html" title="{demo::ishapes::DDSShapeDynamics\n||+ DDSShapeDynamics()\l+ ~DDSShapeDynamics()\l+ setShape()\l+ simulate()\l}" alt="" coords="235,278,475,415"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="demo::ishapes::Shape" name="demo::ishapes::Shape">
+<area shape="rect" id="node3" href="$classdemo_1_1ishapes_1_1_circle.html" title="{demo::ishapes::Circle\n||+ Circle()\l+ paint()\l+ update()\l}" alt="" coords="5,329,155,449"/>
+<area shape="rect" id="node5" href="$classdemo_1_1ishapes_1_1_square.html" title="{demo::ishapes::Square\n||+ Square()\l+ ~Square()\l+ paint()\l+ update()\l}" alt="" coords="179,321,333,458"/>
+<area shape="rect" id="node7" href="$classdemo_1_1ishapes_1_1_triangle.html" title="{demo::ishapes::Triangle\n||+ Triangle()\l+ ~Triangle()\l+ paint()\l+ setBounds()\l+ update()\l}" alt="" coords="357,312,517,467"/>
+</map>

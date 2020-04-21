@@ -1,0 +1,5 @@
+<map id="dds::topic::detail::TDHolderBase" name="dds::topic::detail::TDHolderBase">
+<area shape="rect" id="node3" href="$classdds_1_1topic_1_1detail_1_1_t_d_holder.html" title="{dds::topic::detail\l::TDHolder\&lt; T \&gt;\n|# td_\l|+ TDHolder()\l+ ~TDHolder()\l+ domain_participant()\l+ get()\l+ name()\l+ type_name()\l}" alt="" coords="5,217,155,407"/>
+<area shape="rect" id="node5" href="$classdds_1_1topic_1_1detail_1_1_t_holder_base.html" title="{dds::topic::detail\l::THolderBase\n||+ ~THolderBase()\l+ domain_participant()\l+ get_dds_topic()\l+ inconsistent_topic\l_status()\l+ qos()\l+ qos()\l}" alt="" coords="179,209,328,415"/>
+<area shape="rect" id="node7" href="$classdds_1_1topic_1_1detail_1_1_t_holder.html" title="{dds::topic::detail\l::THolder\&lt; T \&gt;\n||+ THolder()\l+ ~THolder()\l+ domain_participant()\l+ get()\l+ get_dds_topic()\l+ inconsistent_topic\l_status()\l+ name()\l+ qos()\l+ qos()\l+ type_name()\l}" alt="" coords="179,465,328,741"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_state_8hpp.html" title="dds/core/status/State.hpp" alt="" coords="152,237,323,267"/>
+<area shape="rect" id="node14" href="$_t_condition_8hpp.html" title="dds/core/cond/TCondition.hpp" alt="" coords="5,83,200,112"/>
+<area shape="rect" id="node19" href="$dds_2core_2cond_2detail_2_status_condition_8hpp.html" title="dds/core/cond/detail/StatusCondition.hpp" alt="" coords="280,83,541,112"/>
+<area shape="rect" id="node25" href="$spec_2dds_2core_2_entity_8hpp.html" title="dds/core/Entity.hpp" alt="" coords="351,237,484,267"/>
+<area shape="rect" id="node7" href="$spec_2dds_2core_2macros_8hpp.html" title="dds/core/macros.hpp" alt="" coords="129,392,273,421"/>
+<area shape="rect" id="node11" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="44,315,177,344"/>
+<area shape="rect" id="node9" href="$dds_2core_2detail_2macros_8hpp.html" title="dds/core/detail/macros.hpp" alt="" coords="112,469,291,499"/>
+<area shape="rect" id="node16" href="$_reference_8hpp.html" title="dds/core/Reference.hpp" alt="" coords="24,160,184,189"/>
+<area shape="rect" id="node22" href="$_status_condition_impl_8hpp.html" title="org/opensplice/core/StatusConditionImpl.hpp" alt="" coords="275,160,557,189"/>
+<area shape="rect" id="node27" href="$dds_2core_2detail_2_entity_8hpp.html" title="dds/core/detail/Entity.hpp" alt="" coords="332,315,503,344"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_t_condition_8hpp.html" title="dds/core/cond/TCondition.hpp" alt="" coords="189,83,384,112"/>
+<area shape="rect" id="node5" href="$_reference_8hpp.html" title="dds/core/Reference.hpp" alt="" coords="207,160,367,189"/>
+<area shape="rect" id="node7" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="389,237,523,267"/>
+<area shape="rect" id="node19" href="$refmacros_8hpp.html" title="dds/core/refmacros.hpp" alt="" coords="27,237,184,267"/>
+<area shape="rect" id="node24" href="$_exception_8hpp.html" title="dds/core/Exception.hpp" alt="" coords="208,237,365,267"/>
+<area shape="rect" id="node13" href="$inttypes_8hpp.html" title="dds/core/detail/inttypes.hpp" alt="" coords="509,315,691,344"/>
+<area shape="rect" id="node15" href="$spec_2dds_2core_2macros_8hpp.html" title="dds/core/macros.hpp" alt="" coords="181,315,325,344"/>
+<area shape="rect" id="node17" href="$dds_2core_2detail_2conformance_8hpp.html" title="dds/core/detail/conformance.hpp" alt="" coords="715,315,925,344"/>
+<area shape="rect" id="node22" href="$spec_2dds_2core_2ref__traits_8hpp.html" title="dds/core/ref_traits.hpp" alt="" coords="5,315,157,344"/>
+</map>

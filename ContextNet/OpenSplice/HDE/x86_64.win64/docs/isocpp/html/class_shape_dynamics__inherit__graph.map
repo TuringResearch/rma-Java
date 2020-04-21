@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_bouncing_shape_dynamics.html" title="{BouncingShapeDynamics\n||+ BouncingShapeDynamics()\l+ ~BouncingShapeDynamics()\l+ simulate()\l}" alt="" coords="5,287,205,407"/>
+<area shape="rect" id="node5" href="$class_d_d_s_shape_dynamics.html" title="{DDSShapeDynamics\n||+ DDSShapeDynamics()\l+ ~DDSShapeDynamics()\l+ setShape()\l+ simulate()\l}" alt="" coords="229,278,403,415"/>
+</map>

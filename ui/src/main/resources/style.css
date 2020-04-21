@@ -1,0 +1,37 @@
+.root {
+    -fx-base: white;
+    -fx-secundary: #087558;
+}
+
+.dashboard-box {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, black, 5, 0, 0, 0);
+    -fx-padding: 15;
+    -fx-min-width: 400px;
+    -fx-min-height: 400px;
+    -fx-max-width: 400px;
+    -fx-max-height: 400px;
+}
+
+.dashboard-box:hover {
+    -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 0);
+}
+
+#dashboard-title-label {
+    -fx-font-family: "Century Gothic";
+    -fx-text-fill: #75968d;
+    -fx-font-size: 20px;
+}
+
+#dashboard-unit-label {
+    -fx-font-family: "Century Gothic";
+    -fx-text-fill: -fx-secundary;
+    -fx-font-size: 20px;
+    -fx-padding: 0 0 0 10;
+}
+
+#dashboard-value-label {
+    -fx-font-family: "Century Gothic";
+    -fx-text-fill: -fx-secundary;
+    -fx-font-size: 50px;
+}

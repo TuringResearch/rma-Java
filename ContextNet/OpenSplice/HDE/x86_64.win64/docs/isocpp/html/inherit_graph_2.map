@@ -1,0 +1,21 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classdds_1_1core_1_1_exception.html" title="dds::core::Exception" alt="" coords="159,401,300,431"/>
+<area shape="rect" id="node3" href="$classdds_1_1core_1_1_already_closed_error.html" title="dds::core::AlreadyClosed\lError" alt="" coords="361,546,529,593"/>
+<area shape="rect" id="node5" href="$classdds_1_1core_1_1_error.html" title="dds::core::Error" alt="" coords="389,616,501,645"/>
+<area shape="rect" id="node7" href="$classdds_1_1core_1_1_illegal_operation_error.html" title="dds::core::IllegalOperation\lError" alt="" coords="359,669,532,715"/>
+<area shape="rect" id="node9" href="$classdds_1_1core_1_1_immutable_policy_error.html" title="dds::core::ImmutablePolicy\lError" alt="" coords="355,738,536,785"/>
+<area shape="rect" id="node11" href="$classdds_1_1core_1_1_inconsistent_policy_error.html" title="dds::core::InconsistentPolicy\lError" alt="" coords="351,807,540,854"/>
+<area shape="rect" id="node13" href="$classdds_1_1core_1_1_invalid_argument_error.html" title="dds::core::InvalidArgument\lError" alt="" coords="589,563,768,610"/>
+<area shape="rect" id="node15" href="$classdds_1_1core_1_1_invalid_data_error.html" title="dds::core::InvalidDataError" alt="" coords="356,317,535,347"/>
+<area shape="rect" id="node17" href="$classdds_1_1core_1_1_invalid_downcast_error.html" title="dds::core::InvalidDowncast\lError" alt="" coords="355,5,536,51"/>
+<area shape="rect" id="node19" href="$classdds_1_1core_1_1_not_enabled_error.html" title="dds::core::NotEnabledError" alt="" coords="356,371,535,400"/>
+<area shape="rect" id="node21" href="$classdds_1_1core_1_1_null_reference_error.html" title="dds::core::NullReference\lError" alt="" coords="363,74,528,121"/>
+<area shape="rect" id="node23" href="$classdds_1_1core_1_1_out_of_resources_error.html" title="dds::core::OutOfResources\lError" alt="" coords="355,143,536,190"/>
+<area shape="rect" id="node25" href="$classdds_1_1core_1_1_precondition_not_met_error.html" title="dds::core::PreconditionNot\lMetError" alt="" coords="357,423,533,470"/>
+<area shape="rect" id="node27" href="$classdds_1_1core_1_1_timeout_error.html" title="dds::core::TimeoutError" alt="" coords="367,213,524,243"/>
+<area shape="rect" id="node29" href="$classdds_1_1core_1_1_unsupported_error.html" title="dds::core::UnsupportedError" alt="" coords="352,493,539,523"/>
+<area shape="rect" id="node30" title="STL class." alt="" coords="5,353,109,383"/>
+<area shape="rect" id="node32" title="STL class." alt="" coords="176,555,283,584"/>
+<area shape="rect" id="node46" title="STL class." alt="" coords="168,152,291,181"/>
+<area shape="rect" id="node43" title="STL class." alt="" coords="372,877,519,907"/>
+</map>

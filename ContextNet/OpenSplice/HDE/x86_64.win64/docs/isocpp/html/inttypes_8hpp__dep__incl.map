@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="633,83,767,112"/>
+<area shape="rect" id="node5" href="$_t_wait_set_8hpp.html" title="dds/core/cond/TWaitSet.hpp" alt="" coords="5,237,192,267"/>
+<area shape="rect" id="node7" href="$ddscore_8hpp.html" title="dds/core/ddscore.hpp" alt="" coords="233,237,380,267"/>
+<area shape="rect" id="node9" href="$_duration_8hpp.html" title="dds/core/Duration.hpp" alt="" coords="120,160,269,189"/>
+<area shape="rect" id="node13" href="$_reference_8hpp.html" title="dds/core/Reference.hpp" alt="" coords="344,160,504,189"/>
+<area shape="rect" id="node15" href="$_state_8hpp.html" title="dds/core/status/State.hpp" alt="" coords="528,160,699,189"/>
+<area shape="rect" id="node17" href="$_time_8hpp.html" title="dds/core/Time.hpp" alt="" coords="723,160,853,189"/>
+<area shape="rect" id="node20" href="$_t_domain_participant_8hpp.html" title="dds/domain/TDomainParticipant.hpp" alt="" coords="723,237,955,267"/>
+<area shape="rect" id="node22" href="$_t_instance_handle_8hpp.html" title="dds/core/TInstanceHandle.hpp" alt="" coords="928,160,1128,189"/>
+<area shape="rect" id="node25" href="$_t_publisher_8hpp.html" title="dds/pub/TPublisher.hpp" alt="" coords="1152,160,1309,189"/>
+<area shape="rect" id="node27" href="$spec_2dds_2sub_2_query_8hpp.html" title="dds/sub/Query.hpp" alt="" coords="1333,160,1464,189"/>
+</map>

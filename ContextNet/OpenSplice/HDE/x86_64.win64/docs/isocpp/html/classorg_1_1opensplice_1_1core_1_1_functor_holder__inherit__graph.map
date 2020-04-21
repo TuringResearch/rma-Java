@@ -1,0 +1,5 @@
+<map id="org::opensplice::core::FunctorHolder" name="org::opensplice::core::FunctorHolder">
+<area shape="rect" id="node3" href="$classorg_1_1opensplice_1_1core_1_1_one_arg_functor_holder.html" title="{org::opensplice::core\l::OneArgFunctorHolder\l\&lt; Functor, ARG1 \&gt;\n||+ OneArgFunctorHolder()\l+ ~OneArgFunctorHolder()\l+ invoke()\l}" alt="" coords="5,173,181,328"/>
+<area shape="rect" id="node5" href="$classorg_1_1opensplice_1_1core_1_1_two_arg_functor_holder.html" title="{org::opensplice::core\l::TwoArgFunctorHolder\l\&lt; Functor, ARG1, ARG2 \&gt;\n||+ TwoArgFunctorHolder()\l+ ~TwoArgFunctorHolder()\l+ invoke()\l}" alt="" coords="205,173,384,328"/>
+<area shape="rect" id="node7" href="$classorg_1_1opensplice_1_1core_1_1_void_functor_holder.html" title="{org::opensplice::core\l::VoidFunctorHolder\&lt;\l Functor \&gt;\n||+ VoidFunctorHolder()\l+ ~VoidFunctorHolder()\l+ invoke()\l}" alt="" coords="408,173,565,328"/>
+</map>

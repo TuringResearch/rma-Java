@@ -1,0 +1,1 @@
+call OpenSplice/install.bat

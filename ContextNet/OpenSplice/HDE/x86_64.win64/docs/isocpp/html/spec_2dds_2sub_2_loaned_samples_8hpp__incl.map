@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$spec_2dds_2core_2ref__traits_8hpp.html" title="dds/core/ref_traits.hpp" alt="" coords="123,83,275,112"/>
+<area shape="rect" id="node11" href="$spec_2dds_2sub_2_sample_8hpp.html" title="dds/sub/Sample.hpp" alt="" coords="367,160,508,189"/>
+<area shape="rect" id="node17" href="$dds_2sub_2detail_2_loaned_samples_8hpp.html" title="dds/sub/detail/LoanedSamples.hpp" alt="" coords="524,83,748,112"/>
+<area shape="rect" id="node5" href="$dds_2core_2detail_2ref__traits_8hpp.html" title="dds/core/detail/ref_traits.hpp" alt="" coords="41,160,228,189"/>
+<area shape="rect" id="node7" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="5,237,139,267"/>
+<area shape="rect" id="node13" href="$dds_2sub_2detail_2_sample_8hpp.html" title="dds/sub/detail/Sample.hpp" alt="" coords="163,237,339,267"/>
+<area shape="rect" id="node15" href="$_t_sample_8hpp.html" title="dds/sub/TSample.hpp" alt="" coords="363,237,512,267"/>
+<area shape="rect" id="node19" href="$include_2dcps_2_c_09_09_2isocpp_2org_2opensplice_2core_2config_8hpp.html" title="org/opensplice/core/config.hpp" alt="" coords="587,160,784,189"/>
+<area shape="rect" id="node21" href="$_loaned_sequence_8hpp.html" title="org/opensplice/sub/LoanedSequence.hpp" alt="" coords="808,160,1067,189"/>
+<area shape="rect" id="node23" href="$org_2opensplice_2topic_2_topic_traits_8hpp.html" title="org/opensplice/topic/TopicTraits.hpp" alt="" coords="1091,160,1323,189"/>
+</map>

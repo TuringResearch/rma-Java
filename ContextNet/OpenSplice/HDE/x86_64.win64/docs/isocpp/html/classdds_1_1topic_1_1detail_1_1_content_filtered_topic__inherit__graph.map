@@ -1,0 +1,4 @@
+<map id="dds::topic::detail::ContentFilteredTopic&lt; T &gt;" name="dds::topic::detail::ContentFilteredTopic&lt; T &gt;">
+<area shape="rect" id="node2" href="$classdds_1_1topic_1_1detail_1_1_topic_description.html" title="{dds::topic::detail\l::TopicDescription\&lt; T \&gt;\n|# dp_\l# name_\l# type_name_\l|+ TopicDescription()\l+ domain_participant()\l+ name()\l+ type_name()\l}" alt="" coords="16,312,176,501"/>
+<area shape="rect" id="node4" href="$classorg_1_1opensplice_1_1core_1_1_entity_delegate.html" title="{org::opensplice::core\l::EntityDelegate\n|# enabled_\l# entity_\l# entityID_\l|+ EntityDelegate()\l+ ~EntityDelegate()\l+ close()\l+ enable()\l+ get_dds_entity()\l+ instance_handle()\l+ retain()\l+ status_changes()\l}" alt="" coords="25,5,167,264"/>
+</map>

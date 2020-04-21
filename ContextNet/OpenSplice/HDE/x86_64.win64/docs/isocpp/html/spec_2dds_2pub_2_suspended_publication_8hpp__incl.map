@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dds_2pub_2detail_2_suspended_publication_8hpp.html" title="dds/pub/detail/SuspendedPublication.hpp" alt="" coords="275,83,536,112"/>
+<area shape="rect" id="node5" href="$_t_suspended_publication_8hpp.html" title="dds/pub/TSuspendedPublication.hpp" alt="" coords="139,160,373,189"/>
+<area shape="rect" id="node23" href="$_suspended_publication_impl_8hpp.html" title="org/opensplice/pub/SuspendedPublicationImpl.hpp" alt="" coords="397,160,712,189"/>
+<area shape="rect" id="node7" href="$spec_2dds_2pub_2_publisher_8hpp.html" title="dds/pub/Publisher.hpp" alt="" coords="181,237,331,267"/>
+<area shape="rect" id="node9" href="$dds_2pub_2detail_2_publisher_8hpp.html" title="dds/pub/detail/Publisher.hpp" alt="" coords="163,315,349,344"/>
+<area shape="rect" id="node11" href="$_t_publisher_8hpp.html" title="dds/pub/TPublisher.hpp" alt="" coords="296,392,453,421"/>
+<area shape="rect" id="node19" href="$_publisher_delegate_8hpp.html" title="org/opensplice/pub/PublisherDelegate.hpp" alt="" coords="5,392,272,421"/>
+<area shape="rect" id="node13" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="276,469,409,499"/>
+<area shape="rect" id="node15" href="$_t_entity_8hpp.html" title="dds/core/TEntity.hpp" alt="" coords="433,469,575,499"/>
+<area shape="rect" id="node17" href="$spec_2dds_2core_2cond_2_status_condition_8hpp.html" title="dds/core/cond/StatusCondition.hpp" alt="" coords="25,469,252,499"/>
+</map>

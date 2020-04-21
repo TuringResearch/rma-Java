@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dds_2sub_2detail_2_sample_8hpp.html" title="dds/sub/detail/Sample.hpp" alt="" coords="707,83,883,112"/>
+<area shape="rect" id="node24" href="$_t_sample_8hpp.html" title="dds/sub/TSample.hpp" alt="" coords="907,83,1056,112"/>
+<area shape="rect" id="node5" href="$spec_2dds_2sub_2_sample_info_8hpp.html" title="dds/sub/SampleInfo.hpp" alt="" coords="713,160,876,189"/>
+<area shape="rect" id="node7" href="$_t_sample_info_8hpp.html" title="dds/sub/TSampleInfo.hpp" alt="" coords="573,315,744,344"/>
+<area shape="rect" id="node21" href="$dds_2sub_2detail_2_sample_info_8hpp.html" title="dds/sub/detail/SampleInfo.hpp" alt="" coords="560,237,757,267"/>
+<area shape="rect" id="node9" href="$_time_8hpp.html" title="dds/core/Time.hpp" alt="" coords="5,392,136,421"/>
+<area shape="rect" id="node11" href="$_value_8hpp.html" title="dds/core/Value.hpp" alt="" coords="965,392,1099,421"/>
+<area shape="rect" id="node13" href="$spec_2dds_2core_2_instance_handle_8hpp.html" title="dds/core/InstanceHandle.hpp" alt="" coords="160,392,352,421"/>
+<area shape="rect" id="node15" href="$spec_2dds_2sub_2_generation_count_8hpp.html" title="dds/sub/GenerationCount.hpp" alt="" coords="376,392,571,421"/>
+<area shape="rect" id="node17" href="$spec_2dds_2sub_2_rank_8hpp.html" title="dds/sub/Rank.hpp" alt="" coords="595,392,723,421"/>
+<area shape="rect" id="node19" href="$_data_state_8hpp.html" title="dds/sub/status/DataState.hpp" alt="" coords="747,392,941,421"/>
+</map>

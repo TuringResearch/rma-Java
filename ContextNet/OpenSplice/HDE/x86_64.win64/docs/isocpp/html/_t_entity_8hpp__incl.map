@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node5" href="$_reference_8hpp.html" title="dds/core/Reference.hpp" alt="" coords="190,160,350,189"/>
+<area shape="rect" id="node23" href="$spec_2dds_2core_2status_2_status_8hpp.html" title="dds/core/status/Status.hpp" alt="" coords="370,83,549,112"/>
+<area shape="rect" id="node7" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="384,237,517,267"/>
+<area shape="rect" id="node16" href="$refmacros_8hpp.html" title="dds/core/refmacros.hpp" alt="" coords="202,237,360,267"/>
+<area shape="rect" id="node19" href="$_exception_8hpp.html" title="dds/core/Exception.hpp" alt="" coords="21,237,178,267"/>
+<area shape="rect" id="node12" href="$inttypes_8hpp.html" title="dds/core/detail/inttypes.hpp" alt="" coords="492,315,673,344"/>
+<area shape="rect" id="node14" href="$spec_2dds_2core_2macros_8hpp.html" title="dds/core/macros.hpp" alt="" coords="220,315,364,344"/>
+<area shape="rect" id="node25" href="$dds_2core_2status_2detail_2_status_8hpp.html" title="dds/core/status/detail/Status.hpp" alt="" coords="569,160,782,189"/>
+<area shape="rect" id="node27" href="$_state_8hpp.html" title="dds/core/status/State.hpp" alt="" coords="374,160,545,189"/>
+</map>

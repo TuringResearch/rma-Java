@@ -1,0 +1,4 @@
+<map id="dds::domain::TDomainParticipant&lt; DELEGATE &gt;" name="dds::domain::TDomainParticipant&lt; DELEGATE &gt;">
+<area shape="rect" id="node2" href="$classdds_1_1core_1_1_t_entity.html" title="{dds::core::TEntity\l\&lt; DELEGATE \&gt;\n||+ ~TEntity()\l+ close()\l+ enable()\l+ instance_handle()\l+ retain()\l+ status_changes()\l}" alt="" coords="45,347,181,536"/>
+<area shape="rect" id="node4" href="$classdds_1_1core_1_1_reference.html" title="{dds::core::Reference\l\&lt; DELEGATE \&gt;\n|# impl_\l|+ Reference()\l+ Reference()\l+ Reference()\l+ Reference()\l+ Reference()\l+ ~Reference()\l+ delegate()\l+ delegate()\l+ is_nil()\l+ operator const DELEGATE\l_REF_T &amp;()\land 11 more...\l}" alt="" coords="17,5,209,299"/>
+</map>

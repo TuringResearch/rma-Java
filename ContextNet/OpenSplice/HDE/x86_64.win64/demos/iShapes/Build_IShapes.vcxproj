@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Build_IShapes</ProjectName>
+    <ProjectGuid>{ACAF0F4B-FECA-1BAD-6621-E63DF25AB4E4}</ProjectGuid>
+    <RootNamespace>Build_IShapes</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Release\Build_IShapes\AMD64\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">demo_ishapes</TargetName>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Debug\Build_IShapes\AMD64\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">demo_ishapes</TargetName>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TargetEnvironment>x64</TargetEnvironment>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(QTDIR)\include;..\..\include;..\..\include\sys;$(BOOST_ROOT)\.;..\..\include\dcps\C++\isocpp;..\..\include\dcps\C++\SACPP;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_CONSOLE;_CRT_NONSTDC_NO_WARNINGS;_AMD64_;_WIN64;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4355;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>1033</Culture>
+      <AdditionalIncludeDirectories>$(QTDIR)\include;..\..\include;..\..\include\sys;$(BOOST_ROOT)\.;..\..\include\dcps\C++\isocpp;..\..\include\dcps\C++\SACPP;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>dcpsisocpp.lib;QtCore4.lib;QtGui4.lib;ddskernel.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)demo_ishapes.exe</OutputFile>
+      <AdditionalLibraryDirectories>.;$(QTDIR)\lib;..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+<!--
+  Though we can set TargetMachine explicitly, VC++
+  can figure it out by project type. We don't need
+  to set it by ourselves.
+-->
+<!--      <TargetMachine>0</TargetMachine>-->
+      <AdditionalOptions>/machine:AMD64 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+<!-- "postclean" was made-up by MPC for use by vs_postclean.pl.
+     Check if msbuild has any support for a custom post-cleaning step
+ -->
+<!-- No known equivalent for DeploymentTool in vc10:
+-->
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TargetEnvironment>x64</TargetEnvironment>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(QTDIR)\include;..\..\include;..\..\include\sys;$(BOOST_ROOT)\.;..\..\include\dcps\C++\isocpp;..\..\include\dcps\C++\SACPP;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_CONSOLE;_CRT_NONSTDC_NO_WARNINGS;_AMD64_;_WIN64;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4355;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>1033</Culture>
+      <AdditionalIncludeDirectories>$(QTDIR)\include;..\..\include;..\..\include\sys;$(BOOST_ROOT)\.;..\..\include\dcps\C++\isocpp;..\..\include\dcps\C++\SACPP;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>dcpsisocpp.lib;QtCore4.lib;QtGui4.lib;ddskernel.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)demo_ishapes.exe</OutputFile>
+      <AdditionalLibraryDirectories>.;$(QTDIR)\lib;..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+<!--
+  Though we can set TargetMachine explicitly, VC++
+  can figure it out by project type. We don't need
+  to set it by ourselves.
+-->
+<!--      <TargetMachine>0</TargetMachine>-->
+      <AdditionalOptions>/machine:AMD64 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+<!-- "postclean" was made-up by MPC for use by vs_postclean.pl.
+     Check if msbuild has any support for a custom post-cleaning step
+ -->
+<!-- No known equivalent for DeploymentTool in vc10:
+-->
+  </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BouncingShapeDynamics.cpp">
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+    </ClCompile>
+    <ClCompile Include="DDSShapeDynamics.cpp">
+    </ClCompile>
+    <ClCompile Include="FilterDialog.cpp">
+    </ClCompile>
+    <ClCompile Include="FilterDialog_moc.cpp">
+    </ClCompile>
+    <ClCompile Include="ishape.cpp">
+    </ClCompile>
+    <ClCompile Include="ishape_qrc.cpp">
+    </ClCompile>
+    <ClCompile Include="ishapeDcps.cpp">
+    </ClCompile>
+    <ClCompile Include="ishapeDcps_impl.cpp">
+    </ClCompile>
+    <ClCompile Include="ishapeSplDcps.cpp">
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+    </ClCompile>
+    <ClCompile Include="ReaderQosDialog.cpp">
+    </ClCompile>
+    <ClCompile Include="ReaderQosDialog_moc.cpp">
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+    </ClCompile>
+    <ClCompile Include="ShapeDynamics.cpp">
+    </ClCompile>
+    <ClCompile Include="ShapesDialog.cpp">
+    </ClCompile>
+    <ClCompile Include="ShapesDialog_moc.cpp">
+    </ClCompile>
+    <ClCompile Include="ShapesWidget.cpp">
+    </ClCompile>
+    <ClCompile Include="ShapesWidget_moc.cpp">
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+    </ClCompile>
+    <ClCompile Include="WriterQosDialog.cpp">
+    </ClCompile>
+    <ClCompile Include="WriterQosDialog_moc.cpp">
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BouncingShapeDynamics.hpp" />
+    <ClInclude Include="Circle.hpp" />
+    <ClInclude Include="config.hpp" />
+    <ClInclude Include="DDSShapeDynamics.hpp" />
+    <ClInclude Include="FilterDialog.hpp" />
+    <ClInclude Include="ishape.h" />
+    <ClInclude Include="ishape_DCPS.hpp" />
+    <ClInclude Include="ishapeDcps.h" />
+    <ClInclude Include="ishapeDcps_impl.h" />
+    <ClInclude Include="ishapeSplDcps.h" />
+    <ClInclude Include="ReaderQosDialog.hpp" />
+    <ClInclude Include="Shape.hpp" />
+    <ClInclude Include="ShapeDynamics.hpp" />
+    <ClInclude Include="ShapesDialog.hpp" />
+    <ClInclude Include="ShapesWidget.hpp" />
+    <ClInclude Include="Square.hpp" />
+    <ClInclude Include="topic-traits.hpp" />
+    <ClInclude Include="Triangle.hpp" />
+    <ClInclude Include="ui_filterForm.h" />
+    <ClInclude Include="ui_iShapesForm-small.h" />
+    <ClInclude Include="ui_iShapesForm.h" />
+    <ClInclude Include="ui_qosForm.h" />
+    <ClInclude Include="ui_readerQosForm.h" />
+    <ClInclude Include="ui_writerQosForm.h" />
+    <ClInclude Include="WriterQosDialog.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="filterForm.ui">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic  &quot;filterForm.ui&quot; -o &quot;ui_filterForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\uic on filterForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_filterForm.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic  &quot;filterForm.ui&quot; -o &quot;ui_filterForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\uic on filterForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_filterForm.h</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="iShapesForm-small.ui">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic  &quot;iShapesForm-small.ui&quot; -o &quot;ui_iShapesForm-small.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\uic on iShapesForm-small.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_iShapesForm-small.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic  &quot;iShapesForm-small.ui&quot; -o &quot;ui_iShapesForm-small.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\uic on iShapesForm-small.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_iShapesForm-small.h</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="iShapesForm.ui">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic  &quot;iShapesForm.ui&quot; -o &quot;ui_iShapesForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\uic on iShapesForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_iShapesForm.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic  &quot;iShapesForm.ui&quot; -o &quot;ui_iShapesForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\uic on iShapesForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_iShapesForm.h</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qosForm.ui">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic  &quot;qosForm.ui&quot; -o &quot;ui_qosForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\uic on qosForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_qosForm.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic  &quot;qosForm.ui&quot; -o &quot;ui_qosForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\uic on qosForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_qosForm.h</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="readerQosForm.ui">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic  &quot;readerQosForm.ui&quot; -o &quot;ui_readerQosForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\uic on readerQosForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_readerQosForm.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic  &quot;readerQosForm.ui&quot; -o &quot;ui_readerQosForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\uic on readerQosForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_readerQosForm.h</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="writerQosForm.ui">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic  &quot;writerQosForm.ui&quot; -o &quot;ui_writerQosForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\uic on writerQosForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_writerQosForm.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic  &quot;writerQosForm.ui&quot; -o &quot;ui_writerQosForm.h&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\uic on writerQosForm.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_writerQosForm.h</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="FilterDialog.hpp">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc  &quot;FilterDialog.hpp&quot; -o &quot;FilterDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\moc on FilterDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">FilterDialog_moc.cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc  &quot;FilterDialog.hpp&quot; -o &quot;FilterDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\moc on FilterDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">FilterDialog_moc.cpp</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="ReaderQosDialog.hpp">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc  &quot;ReaderQosDialog.hpp&quot; -o &quot;ReaderQosDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\moc on ReaderQosDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ReaderQosDialog_moc.cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc  &quot;ReaderQosDialog.hpp&quot; -o &quot;ReaderQosDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\moc on ReaderQosDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ReaderQosDialog_moc.cpp</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="ShapesDialog.hpp">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc  &quot;ShapesDialog.hpp&quot; -o &quot;ShapesDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\moc on ShapesDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ShapesDialog_moc.cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc  &quot;ShapesDialog.hpp&quot; -o &quot;ShapesDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\moc on ShapesDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ShapesDialog_moc.cpp</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="ShapesWidget.hpp">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc  &quot;ShapesWidget.hpp&quot; -o &quot;ShapesWidget_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\moc on ShapesWidget.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ShapesWidget_moc.cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc  &quot;ShapesWidget.hpp&quot; -o &quot;ShapesWidget_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\moc on ShapesWidget.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ShapesWidget_moc.cpp</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="WriterQosDialog.hpp">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc  &quot;WriterQosDialog.hpp&quot; -o &quot;WriterQosDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\moc on WriterQosDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WriterQosDialog_moc.cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc  &quot;WriterQosDialog.hpp&quot; -o &quot;WriterQosDialog_moc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\moc on WriterQosDialog.hpp</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">WriterQosDialog_moc.cpp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ishape.qrc">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\rcc -name ishape &quot;ishape.qrc&quot; -o &quot;ishape_qrc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking $(QTDIR)\bin\rcc on ishape.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ishape_qrc.cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\rcc -name ishape &quot;ishape.qrc&quot; -o &quot;ishape_qrc.cpp&quot;</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking $(QTDIR)\bin\rcc on ishape.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ishape_qrc.cpp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ishape.idl">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal&#x0D;&#x0A;PATH=%PATH%;..\..\bin;..\..\lib&#x0D;&#x0A;&quot;..\..\bin\idlpp&quot; -I &quot;..\..\etc\idl&quot; -l isocpp &quot;ishape.idl&quot;&#x0D;&#x0A;endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Invoking &quot;..\..\bin\idlpp&quot; on ishape.idl</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ishape.cpp;ishape.h;ishape_DCPS.hpp;ishapeDcps.cpp;ishapeDcps.h;ishapeDcps_impl.cpp;ishapeDcps_impl.h;ishapeSplDcps.cpp;ishapeSplDcps.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal&#x0D;&#x0A;PATH=%PATH%;..\..\bin;..\..\lib&#x0D;&#x0A;&quot;..\..\bin\idlpp&quot; -I &quot;..\..\etc\idl&quot; -l isocpp &quot;ishape.idl&quot;&#x0D;&#x0A;endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Invoking &quot;..\..\bin\idlpp&quot; on ishape.idl</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ishape.cpp;ishape.h;ishape_DCPS.hpp;ishapeDcps.cpp;ishapeDcps.h;ishapeDcps_impl.cpp;ishapeDcps_impl.h;ishapeSplDcps.cpp;ishapeSplDcps.h</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

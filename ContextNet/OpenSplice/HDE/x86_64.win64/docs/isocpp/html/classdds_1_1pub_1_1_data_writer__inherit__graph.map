@@ -1,0 +1,4 @@
+<map id="dds::pub::DataWriter&lt; T, DELEGATE &gt;" name="dds::pub::DataWriter&lt; T, DELEGATE &gt;">
+<area shape="rect" id="node2" href="$classdds_1_1core_1_1_t_entity.html" title="{dds::core::TEntity\l\&lt; DELEGATE\&lt; T \&gt; \&gt;\n||+ ~TEntity()\l+ close()\l+ enable()\l+ instance_handle()\l+ retain()\l+ status_changes()\l}" alt="" coords="27,347,176,536"/>
+<area shape="rect" id="node4" href="$classdds_1_1core_1_1_reference.html" title="{dds::core::Reference\l\&lt; DELEGATE\&lt; T \&gt; \&gt;\n|# impl_\l|+ Reference()\l+ Reference()\l+ Reference()\l+ Reference()\l+ Reference()\l+ ~Reference()\l+ delegate()\l+ delegate()\l+ is_nil()\l+ operator const DELEGATE\l_REF_T &amp;()\land 11 more...\l}" alt="" coords="5,5,197,299"/>
+</map>

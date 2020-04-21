@@ -1,0 +1,11 @@
+
+module StockMarket
+{
+   struct Stock
+   {
+      string ticker;
+      float price;
+   };
+   #pragma keylist Stock ticker
+
+};

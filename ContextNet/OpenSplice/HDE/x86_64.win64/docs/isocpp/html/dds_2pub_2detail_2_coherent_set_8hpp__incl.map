@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_t_coherent_set_8hpp.html" title="dds/pub/TCoherentSet.hpp" alt="" coords="304,83,483,112"/>
+<area shape="rect" id="node24" href="$_coherent_set_impl_8hpp.html" title="org/opensplice/pub/CoherentSetImpl.hpp" alt="" coords="507,83,765,112"/>
+<area shape="rect" id="node5" href="$spec_2dds_2pub_2_publisher_8hpp.html" title="dds/pub/Publisher.hpp" alt="" coords="319,160,468,189"/>
+<area shape="rect" id="node7" href="$dds_2pub_2detail_2_publisher_8hpp.html" title="dds/pub/detail/Publisher.hpp" alt="" coords="300,237,487,267"/>
+<area shape="rect" id="node9" href="$_t_publisher_8hpp.html" title="dds/pub/TPublisher.hpp" alt="" coords="433,315,591,344"/>
+<area shape="rect" id="node19" href="$_publisher_delegate_8hpp.html" title="org/opensplice/pub/PublisherDelegate.hpp" alt="" coords="143,315,409,344"/>
+<area shape="rect" id="node11" href="$types_8hpp.html" title="dds/core/types.hpp" alt="" coords="5,392,139,421"/>
+<area shape="rect" id="node13" href="$_t_entity_8hpp.html" title="dds/core/TEntity.hpp" alt="" coords="645,392,787,421"/>
+<area shape="rect" id="node15" href="$spec_2dds_2core_2cond_2_status_condition_8hpp.html" title="dds/core/cond/StatusCondition.hpp" alt="" coords="163,392,389,421"/>
+<area shape="rect" id="node17" href="$spec_2dds_2pub_2qos_2_data_writer_qos_8hpp.html" title="dds/pub/qos/DataWriterQos.hpp" alt="" coords="413,392,621,421"/>
+</map>

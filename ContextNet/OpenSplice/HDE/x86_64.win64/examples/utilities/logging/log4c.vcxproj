@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>log4c</ProjectName>
+    <ProjectGuid>{10DEC2EA-FECA-1BAD-9421-8A095B33F164}</ProjectGuid>
+    <RootNamespace>log4c</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Release\log4c\AMD64\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">log4c</TargetName>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TargetEnvironment>x64</TargetEnvironment>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>.\log4c-1.2.1\src;.\log4c-1.2.1\src\log4c;.\log4c-1.2.1\src\sd;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOG4C_EXPORTS;NDEBUG;WIN32;_WINDOWS;_CRT_NONSTDC_NO_WARNINGS;_AMD64_;_WIN64;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;HAVE_CONFIG_H;YY_NO_INPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4355;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;HAVE_CONFIG_H;YY_NO_INPUT;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>1033</Culture>
+      <AdditionalIncludeDirectories>.\log4c-1.2.1\src;.\log4c-1.2.1\src\log4c;.\log4c-1.2.1\src\sd;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)log4c.dll</OutputFile>
+      <AdditionalLibraryDirectories>.;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>.\lib\log4c.lib</ImportLibrary>
+<!--
+  Though we can set TargetMachine explicitly, VC++
+  can figure it out by project type. We don't need
+  to set it by ourselves.
+-->
+<!--      <TargetMachine>0</TargetMachine>-->
+      <AdditionalOptions>/machine:AMD64 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+<!-- "postclean" was made-up by MPC for use by vs_postclean.pl.
+     Check if msbuild has any support for a custom post-cleaning step
+ -->
+<!-- No known equivalent for DeploymentTool in vc10:
+-->
+  </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="log4c-1.2.1\src\log4c\appender.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\appender_type_mmap.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\appender_type_rollingfile.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\appender_type_stream.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\appender_type_stream2.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\appender_type_syslog.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\category.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\init.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\layout.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\layout_type_basic.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\layout_type_basic_r.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\layout_type_dated.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\layout_type_dated_r.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\logging_event.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\priority.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\rc.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\rollingpolicy.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\rollingpolicy_type_sizewin.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\log4c\version.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\domnode-xml-parser.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\domnode-xml-scanner.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\domnode-xml.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\domnode.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\error.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\factory.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\hash.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\list.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\malloc.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\sd_xplatform.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\sprintf.c">
+    </ClCompile>
+    <ClCompile Include="log4c-1.2.1\src\sd\stack.c">
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="log4c-1.2.1\src\log4c\appender.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\appender_type_mmap.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\appender_type_rollingfile.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\appender_type_stream.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\appender_type_stream2.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\appender_type_syslog.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\category.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\init.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\layout.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\layout_type_basic.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\layout_type_basic_r.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\layout_type_dated.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\layout_type_dated_r.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\logging_event.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\priority.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\rc.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\rollingpolicy.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\rollingpolicy_type_sizewin.h" />
+    <ClInclude Include="log4c-1.2.1\src\log4c\version.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\domnode-xml-parser.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\domnode-xml-scanner.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\domnode-xml.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\domnode.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\error.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\factory.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\hash.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\list.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\malloc.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\sd_xplatform.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\sprintf.h" />
+    <ClInclude Include="log4c-1.2.1\src\sd\stack.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="log4c-1.2.1\examples\helloworld1\README">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="log4c-1.2.1\examples\helloworld\README">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="log4c-1.2.1\examples\README">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="log4c-1.2.1\README">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="log4cplugin\testdata.txt">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

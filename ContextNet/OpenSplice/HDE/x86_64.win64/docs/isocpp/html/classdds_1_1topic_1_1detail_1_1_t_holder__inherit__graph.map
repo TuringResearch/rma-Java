@@ -1,0 +1,4 @@
+<map id="dds::topic::detail::THolder&lt; T &gt;" name="dds::topic::detail::THolder&lt; T &gt;">
+<area shape="rect" id="node2" href="$classdds_1_1topic_1_1detail_1_1_t_holder_base.html" title="{dds::topic::detail\l::THolderBase\n||+ ~THolderBase()\l+ domain_participant()\l+ get_dds_topic()\l+ inconsistent_topic\l_status()\l+ qos()\l+ qos()\l}" alt="" coords="5,209,155,415"/>
+<area shape="rect" id="node4" href="$classdds_1_1topic_1_1detail_1_1_t_d_holder_base.html" title="{dds::topic::detail\l::TDHolderBase\n||+ ~TDHolderBase()\l+ domain_participant()\l+ name()\l+ type_name()\l}" alt="" coords="5,5,155,160"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="dds::topic::detail::TopicDescription&lt; T &gt;" name="dds::topic::detail::TopicDescription&lt; T &gt;">
+<area shape="rect" id="node5" href="$classdds_1_1topic_1_1detail_1_1_content_filtered_topic.html" title="{dds::topic::detail\l::ContentFilteredTopic\&lt; T \&gt;\n|+ idl_cftopic_\l|+ ContentFilteredTopic()\l+ ~ContentFilteredTopic()\l+ filter()\l+ filter_expression()\l+ filter_parameters()\l+ filter_parameters()\l+ topic()\l}" alt="" coords="5,567,187,774"/>
+<area shape="rect" id="node7" href="$classdds_1_1topic_1_1detail_1_1_topic.html" title="{dds::topic::detail\l::Topic\&lt; T \&gt;\n|+ t_\l|+ Topic()\l+ Topic()\l+ ~Topic()\l+ close()\l+ inconsistent_topic\l_status()\l+ listener()\l+ qos()\l+ qos()\l}" alt="" coords="211,550,349,791"/>
+<area shape="rect" id="node2" href="$classorg_1_1opensplice_1_1core_1_1_entity_delegate.html" title="{org::opensplice::core\l::EntityDelegate\n|# enabled_\l# entity_\l# entityID_\l|+ EntityDelegate()\l+ ~EntityDelegate()\l+ close()\l+ enable()\l+ get_dds_entity()\l+ instance_handle()\l+ retain()\l+ status_changes()\l}" alt="" coords="117,5,259,264"/>
+</map>
