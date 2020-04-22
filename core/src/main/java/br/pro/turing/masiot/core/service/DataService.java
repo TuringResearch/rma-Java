@@ -5,10 +5,10 @@ import br.pro.turing.masiot.core.repository.DataRepository;
 public class DataService {
     private static DataService instance;
 
-    private DataRepository actionRepository;
+    private DataRepository dataRepository;
 
     private DataService() {
-        this.actionRepository = DataRepository.getInstance();
+        this.dataRepository = DataRepository.getInstance();
     }
 
     /**

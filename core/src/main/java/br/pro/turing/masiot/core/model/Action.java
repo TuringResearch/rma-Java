@@ -15,12 +15,12 @@ public class Action implements Serializable {
 
     private LocalDateTime instant;
 
-    private String commandId;
+    private ObjectId commandId;
 
     private Action() {
     }
 
-    public Action(LocalDateTime instant, String commandId) {
+    public Action(LocalDateTime instant, ObjectId commandId) {
         this._id = new ObjectId();
         this.instant = instant;
         this.commandId = commandId;
@@ -64,14 +64,14 @@ public class Action implements Serializable {
     /**
      * @return {@link #commandId}
      */
-    public String getCommandId() {
+    public ObjectId getCommandId() {
         return this.commandId;
     }
 
     /**
      * @param commandId {@link #commandId}
      */
-    public void setCommandId(String commandId) {
+    public void setCommandId(ObjectId commandId) {
         this.commandId = commandId;
     }
 

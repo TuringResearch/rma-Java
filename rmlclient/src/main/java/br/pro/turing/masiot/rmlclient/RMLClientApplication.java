@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.rml.client;
+package br.pro.turing.masiot.rmlclient;
 
 import br.pro.turing.masiot.core.model.Command;
 import br.pro.turing.masiot.core.model.Device;

@@ -16,6 +16,8 @@ public class Device implements Serializable {
 
     private String UUID;
 
+    private String gatewayUUID;
+
     private String deviceName;
 
     private String name;
@@ -29,21 +31,24 @@ public class Device implements Serializable {
     private Device() {
     }
 
-    public Device(String UUID, String deviceName, String name, String description, List<Resource> resourceList,
+    public Device(String deviceName, String UUID, String gatewayUUID, String name, String description,
+                  List<Resource> resourceList,
                   ObjectId environmentId) {
         this._id = new ObjectId();
         this.deviceName = deviceName;
         this.UUID = UUID;
+        this.gatewayUUID = gatewayUUID;
         this.name = name;
         this.description = description;
         this.setResourceList(resourceList);
         this.environmentId = environmentId;
     }
 
-    public Device(String UUID, String deviceName, String name, String description, List<Resource> resourceList) {
+    public Device(String deviceName, String UUID, String gatewayUUID, String name, String description, List<Resource> resourceList) {
         this._id = new ObjectId();
         this.deviceName = deviceName;
         this.UUID = UUID;
+        this.gatewayUUID = gatewayUUID;
         this.name = name;
         this.description = description;
         this.setResourceList(resourceList);
@@ -90,6 +95,20 @@ public class Device implements Serializable {
      */
     public void setUUID(String UUID) {
         this.UUID = UUID;
+    }
+
+    /**
+     * @return {@link #gatewayUUID}
+     */
+    public String getGatewayUUID() {
+        return this.gatewayUUID;
+    }
+
+    /**
+     * @param gatewayUUID {@link #gatewayUUID}
+     */
+    public void setGatewayUUID(String gatewayUUID) {
+        this.gatewayUUID = gatewayUUID;
     }
 
     /**
@@ -175,21 +194,23 @@ public class Device implements Serializable {
         }
         Device device = (Device) o;
         return Objects.equals(this._id, device._id) && Objects.equals(this.UUID, device.UUID) && Objects.equals(
-                this.deviceName, device.deviceName) && Objects.equals(this.name, device.name) && Objects.equals(this.description,
-                device.description) && Objects.equals(this.resourceList, device.resourceList) && Objects.equals(
-                this.environmentId, device.environmentId);
+                this.gatewayUUID, device.gatewayUUID) && Objects.equals(this.deviceName, device.deviceName) && Objects
+                .equals(this.name, device.name) && Objects.equals(this.description, device.description) && Objects
+                .equals(this.resourceList, device.resourceList) && Objects.equals(this.environmentId,
+                device.environmentId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this._id, this.UUID, this.deviceName, this.name, this.description, this.resourceList,
-                this.environmentId);
+        return Objects.hash(this._id, this.UUID, this.gatewayUUID, this.deviceName, this.name, this.description,
+                this.resourceList, this.environmentId);
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Device.class.getSimpleName() + "[", "]").add("_id=" + this._id).add(
-                "UUID='" + this.UUID + "'").add("login='" + this.deviceName + "'").add("name='" + this.name + "'").add(
+                "UUID='" + this.UUID + "'").add("gatewayUUID='" + this.gatewayUUID + "'").add(
+                "deviceName='" + this.deviceName + "'").add("name='" + this.name + "'").add(
                 "description='" + this.description + "'").add("resourceList=" + this.resourceList).add(
                 "environmentId=" + this.environmentId).toString();
     }

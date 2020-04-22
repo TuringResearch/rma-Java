@@ -5,10 +5,10 @@ import br.pro.turing.masiot.core.repository.EnvironmentRepository;
 public class EnvironmentService {
     private static EnvironmentService instance;
 
-    private EnvironmentRepository actionRepository;
+    private EnvironmentRepository environmentRepository;
 
     private EnvironmentService() {
-        this.actionRepository = EnvironmentRepository.getInstance();
+        this.environmentRepository = EnvironmentRepository.getInstance();
     }
 
     /**

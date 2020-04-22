@@ -1,6 +1,9 @@
 package br.pro.turing.masiot.core.service;
 
+import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.repository.ActionRepository;
+import com.mongodb.WriteResult;
+import org.bson.types.ObjectId;
 
 public class ActionService {
     private static ActionService instance;
@@ -19,5 +22,9 @@ public class ActionService {
             ActionService.instance = new ActionService();
         }
         return instance;
+    }
+
+    public Action save(Action action) {
+        return this.actionRepository.save(action);
     }
 }

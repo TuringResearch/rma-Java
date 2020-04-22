@@ -2,14 +2,15 @@ package br.pro.turing.masiot.core.service;
 
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.repository.DeviceRepository;
+import org.bson.types.ObjectId;
 
 public class DeviceService {
     private static DeviceService instance;
 
-    private DeviceRepository actionRepository;
+    private DeviceRepository deviceRepository;
 
     private DeviceService() {
-        this.actionRepository = DeviceRepository.getInstance();
+        this.deviceRepository = DeviceRepository.getInstance();
     }
 
     /**
@@ -23,10 +24,14 @@ public class DeviceService {
     }
 
     public Device save(Device device) {
-        return this.actionRepository.save(device);
+        return this.deviceRepository.save(device);
     }
 
     public Device findByDeviceName(String deviceName) {
-        return this.actionRepository.findByDeviceName(deviceName);
+        return this.deviceRepository.findByDeviceName(deviceName);
+    }
+
+    public Device findByCommandId(ObjectId commandId) {
+        return this.deviceRepository.findByCommandId(commandId);
     }
 }

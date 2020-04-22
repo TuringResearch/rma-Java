@@ -91,4 +91,8 @@ public class DeviceRepository implements MongoRepository<Device, ObjectId> {
     public Device findByDeviceName(String deviceName) {
         return collection.findOne("{deviceName: '" + deviceName + "'}").as(Device.class);
     }
+
+    public Device findByCommandId(ObjectId commandId) {
+        return collection.findOne("{'resourceList.commandList': {$elemMatch: {_id: #}}}", commandId).as(Device.class);
+    }
 }
