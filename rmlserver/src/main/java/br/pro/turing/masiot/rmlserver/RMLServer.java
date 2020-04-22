@@ -1,8 +1,6 @@
 package br.pro.turing.masiot.rmlserver;
 
-import br.pro.turing.masiot.core.model.Action;
-import br.pro.turing.masiot.core.model.ConnectionState;
-import br.pro.turing.masiot.core.model.Device;
+import br.pro.turing.masiot.core.model.*;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.serialization.Serialization;
@@ -14,6 +12,7 @@ import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -59,6 +58,10 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         } else if (javaObject instanceof Action) {
             Action newAction = (Action) javaObject;
             delegateAction(newAction);
+        } else if (javaObject instanceof ArrayList) {
+            if (!((ArrayList) javaObject).isEmpty() && ((ArrayList<?>) javaObject).get(0) instanceof Data) {
+                ServiceManager.getInstance().dataService.saveAll((ArrayList<Data>) javaObject);
+            }
         }
     }
 
@@ -90,6 +93,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         // Discovering the device that must perform this action.
         final Device deviceByCommand = ServiceManager.getInstance().deviceService.findByCommandId(
                 newAction.getCommandId());
+        LOGGER.info("Delagating command to " + deviceByCommand.getDeviceName() + ".");
         UUID gatewayId = UUID.fromString(deviceByCommand.getGatewayUUID());
         UUID receiverId = UUID.fromString(deviceByCommand.getUUID());
         sendMessage(gatewayId, receiverId, newAction);

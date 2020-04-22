@@ -12,7 +12,11 @@ import lac.cnclib.sddl.serialization.Serialization;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class RMLClient implements NodeConnectionListener {
@@ -48,11 +52,35 @@ public class RMLClient implements NodeConnectionListener {
         }
     }
 
+    public ArrayList<Data> buildDataBuffer() {
+        ArrayList<Data> dataArrayList = new ArrayList<>();
+        this.device.getResourceList().forEach(resource -> {
+            Random random = new Random();
+            for (int i = 0; i < 10; i++) {
+                String value = String.valueOf(random.nextDouble());
+                dataArrayList.add(new Data(LocalDateTime.now(ZoneId.systemDefault()), resource.get_id(), value));
+            }
+        });
+
+        return dataArrayList;
+    }
+
     private void startCycle() {
         new Thread(() -> {
+            LOGGER.info("Starting RML client cycle.");
             while (true) {
                 if (this.connectionState.equals(ConnectionState.ONLINE)) {
-//                    LOGGER.info("Enviando dado...");
+                    final ArrayList<Data> dataList = buildDataBuffer();
+                    if (dataList != null && !dataList.isEmpty()) {
+                        LOGGER.fine("Sending data...");
+                        Message message = new ApplicationMessage();
+                        message.setContentObject(dataList);
+                        try {
+                            connection.sendMessage(message);
+                        } catch (IOException e) {
+                            LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
+                        }
+                    }
                 }
                 try {
                     Thread.sleep(1000);

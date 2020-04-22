@@ -15,14 +15,14 @@ public class Data implements Serializable {
 
     private LocalDateTime instant;
 
-    private String resourceId;
+    private ObjectId resourceId;
 
     private String value;
 
     private Data() {
     }
 
-    public Data(LocalDateTime instant, String resourceId, String value) {
+    public Data(LocalDateTime instant, ObjectId resourceId, String value) {
         this._id = new ObjectId();
         this.instant = instant;
         this.resourceId = resourceId;
@@ -67,14 +67,14 @@ public class Data implements Serializable {
     /**
      * @return {@link #resourceId}
      */
-    public String getResourceId() {
+    public ObjectId getResourceId() {
         return this.resourceId;
     }
 
     /**
      * @param resourceId {@link #resourceId}
      */
-    public void setResourceId(String resourceId) {
+    public void setResourceId(ObjectId resourceId) {
         this.resourceId = resourceId;
     }
 

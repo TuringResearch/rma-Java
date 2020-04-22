@@ -1,5 +1,6 @@
 package br.pro.turing.masiot.core.service;
 
+import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.repository.DataRepository;
 
 public class DataService {
@@ -19,5 +20,9 @@ public class DataService {
             DataService.instance = new DataService();
         }
         return instance;
+    }
+
+    public Iterable<Data> saveAll(Iterable<Data> dataIterable) {
+        return this.dataRepository.saveAll(dataIterable);
     }
 }
