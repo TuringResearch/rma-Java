@@ -22,26 +22,31 @@ public class Resource implements Serializable {
 
     private String port;
 
+    private Integer waitTimeInMillis;
+
     private List<Command> commandList = new ArrayList<>();
 
     private Resource() {
     }
 
-    public Resource(String resourceName, String name, String description, String port) {
+    public Resource(String resourceName, String name, String description, String port, Integer waitTimeInMillis) {
         this._id = new ObjectId();
         this.resourceName = resourceName;
         this.name = name;
         this.description = description;
         this.port = port;
+        this.waitTimeInMillis = waitTimeInMillis;
         this.setCommandList(null);
     }
 
-    public Resource(String resourceName, String name, String description, String port, List<Command> commandList) {
+    public Resource(String resourceName, String name, String description, String port, Integer waitTimeInMillis,
+                    List<Command> commandList) {
         this._id = new ObjectId();
         this.resourceName = resourceName;
         this.name = name;
         this.description = description;
         this.port = port;
+        this.waitTimeInMillis = waitTimeInMillis;
         this.setCommandList(commandList);
     }
 
@@ -123,6 +128,20 @@ public class Resource implements Serializable {
     }
 
     /**
+     * @return {@link #waitTimeInMillis}
+     */
+    public Integer getWaitTimeInMillis() {
+        return this.waitTimeInMillis;
+    }
+
+    /**
+     * @param waitTimeInMillis {@link #waitTimeInMillis}
+     */
+    public void setWaitTimeInMillis(Integer waitTimeInMillis) {
+        this.waitTimeInMillis = waitTimeInMillis;
+    }
+
+    /**
      * @return {@link #commandList}
      */
     public List<Command> getCommandList() {
@@ -150,12 +169,14 @@ public class Resource implements Serializable {
         Resource resource = (Resource) o;
         return Objects.equals(this._id, resource._id) && Objects.equals(this.resourceName, resource.resourceName)
                 && Objects.equals(this.name, resource.name) && Objects.equals(this.description, resource.description)
-                && Objects.equals(this.port, resource.port) && Objects.equals(this.commandList, resource.commandList);
+                && Objects.equals(this.port, resource.port) && Objects.equals(this.waitTimeInMillis,
+                resource.waitTimeInMillis) && Objects.equals(this.commandList, resource.commandList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this._id, this.resourceName, this.name, this.description, this.port, this.commandList);
+        return Objects.hash(this._id, this.resourceName, this.name, this.description, this.port, this.waitTimeInMillis,
+                this.commandList);
     }
 
     @Override
@@ -163,6 +184,6 @@ public class Resource implements Serializable {
         return new StringJoiner(", ", Resource.class.getSimpleName() + "[", "]").add("_id=" + this._id).add(
                 "resourceName='" + this.resourceName + "'").add("name='" + this.name + "'").add(
                 "description='" + this.description + "'").add("port='" + this.port + "'").add(
-                "commandList=" + this.commandList).toString();
+                "waitTimeInMillis='" + this.waitTimeInMillis + "'").add("commandList=" + this.commandList).toString();
     }
 }

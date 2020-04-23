@@ -55,13 +55,14 @@ public class RMLClientApplication {
     private static Device extractDevice() {
         List<Resource> resources = new ArrayList<>();
 
-        resources.add(new Resource("resource1", "Resource 1", "This is the resource 1 without commands", "COM3"));
+        resources.add(new Resource("resource1", "Resource 1", "This is the resource 1 without commands", "COM3", 1000));
 
         List<Command> commands = new ArrayList<>();
         commands.add(new Command("on", "Turns on the resource2"));
         commands.add(new Command("ff", "Turns off the resource2"));
         resources.add(
-                new Resource("resource2", "Resource 2", "This is the resource 2 with 2 commands", "COM3", commands));
+                new Resource("resource2", "Resource 2", "This is the resource 2 with 2 commands", "COM3",
+                        1000, commands));
 
         return new Device("device1", "Device 1", "This device simulates equipment that will interact with RML",
                 resources);
