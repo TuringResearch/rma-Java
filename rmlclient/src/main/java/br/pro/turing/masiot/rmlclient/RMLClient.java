@@ -27,8 +27,14 @@ public abstract class RMLClient implements NodeConnectionListener {
 
     private InetSocketAddress gatewayAddress;
 
+    private List<ResourceBufferManager> resourceBufferManagerList;
+
     public RMLClient(Device device) {
         this.device = device;
+        this.resourceBufferManagerList = new ArrayList<>();
+        this.device.getResourceList().stream().forEach(resource -> {
+            this.resourceBufferManagerList.add(new ResourceBufferManager(resource, RMLClient.this));
+        });
         this.startCycle();
     }
 
@@ -51,8 +57,7 @@ public abstract class RMLClient implements NodeConnectionListener {
 
     private ArrayList<Data> buildDataBuffer() {
         ArrayList<Data> dataArrayList = new ArrayList<>();
-        for (Resource resource : this.device.getResourceList()) {
-        }
+        this.resourceBufferManagerList.forEach(resourceBufferManager -> dataArrayList.addAll(resourceBufferManager.getBuffer()));
         return dataArrayList;
     }
 
@@ -60,6 +65,7 @@ public abstract class RMLClient implements NodeConnectionListener {
         new Thread(() -> {
             LOGGER.info("Starting RML client cycle.");
             while (true) {
+                final long t1 = System.currentTimeMillis();
                 if (this.connectionState.equals(ConnectionState.ONLINE)) {
                     final ArrayList<Data> dataList = buildDataBuffer();
                     if (dataList != null && !dataList.isEmpty()) {
@@ -74,10 +80,11 @@ public abstract class RMLClient implements NodeConnectionListener {
                         }
                     }
                 }
+                final long duration = System.currentTimeMillis() - t1;
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(duration < 1000 ? 1000 - duration : 0);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.severe(e.getMessage());
                 }
             }
         }).start();
