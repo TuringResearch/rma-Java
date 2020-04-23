@@ -1,7 +1,6 @@
 package br.pro.turing.masiot.rmlclient;
 
 import br.pro.turing.masiot.core.model.*;
-import javafx.beans.property.SimpleObjectProperty;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
@@ -12,14 +11,11 @@ import lac.cnclib.sddl.serialization.Serialization;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Logger;
 
-public class RMLClient implements NodeConnectionListener {
+public abstract class RMLClient implements NodeConnectionListener {
 
     private static final Logger LOGGER = Logger.getLogger(RMLClient.class.getName());
 
@@ -31,11 +27,8 @@ public class RMLClient implements NodeConnectionListener {
 
     private InetSocketAddress gatewayAddress;
 
-    private SimpleObjectProperty<Action> action;
-
     public RMLClient(Device device) {
         this.device = device;
-        this.action = new SimpleObjectProperty<>();
         this.startCycle();
     }
 
@@ -52,16 +45,14 @@ public class RMLClient implements NodeConnectionListener {
         }
     }
 
-    public ArrayList<Data> buildDataBuffer() {
-        ArrayList<Data> dataArrayList = new ArrayList<>();
-        this.device.getResourceList().forEach(resource -> {
-            Random random = new Random();
-            for (int i = 0; i < 10; i++) {
-                String value = String.valueOf(random.nextDouble());
-                dataArrayList.add(new Data(LocalDateTime.now(ZoneId.systemDefault()), resource.get_id(), value));
-            }
-        });
+    protected abstract String getValue(Resource resource);
 
+    protected abstract void onAction(Action action);
+
+    private ArrayList<Data> buildDataBuffer() {
+        ArrayList<Data> dataArrayList = new ArrayList<>();
+        for (Resource resource : this.device.getResourceList()) {
+        }
         return dataArrayList;
     }
 
@@ -78,7 +69,8 @@ public class RMLClient implements NodeConnectionListener {
                         try {
                             connection.sendMessage(message);
                         } catch (IOException e) {
-                            LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
+                            LOGGER.severe(
+                                    "I/O error while trying to send a message when this client connects with RML");
                         }
                     }
                 }
@@ -104,7 +96,7 @@ public class RMLClient implements NodeConnectionListener {
     }
 
     @Override
-    public void newMessageReceived(NodeConnection nodeConnection, Message message) {
+    public final void newMessageReceived(NodeConnection nodeConnection, Message message) {
         Object messageReceived = Serialization.fromJavaByteStream(message.getContent());
         if (messageReceived instanceof ConnectionState) {
             ConnectionState connectionState = (ConnectionState) messageReceived;
@@ -115,27 +107,28 @@ public class RMLClient implements NodeConnectionListener {
         } else if (messageReceived instanceof Action && this.connectionState.equals(ConnectionState.ONLINE)) {
             Action action = (Action) messageReceived;
             LOGGER.info("A new action was request: " + action.toString());
-            this.action.set(action);
+            this.onAction(action);
         }
     }
 
     @Override
-    public void reconnected(NodeConnection nodeConnection, SocketAddress socketAddress, boolean b, boolean b1) {
+    public final void reconnected(NodeConnection nodeConnection, SocketAddress socketAddress, boolean b, boolean b1) {
         this.connectionState = ConnectionState.ONLINE;
         LOGGER.warning("This device (" + this.device.getDeviceName() + ") was reconnected");
     }
 
     @Override
-    public void disconnected(NodeConnection nodeConnection) {
+    public final void disconnected(NodeConnection nodeConnection) {
         this.connectionState = ConnectionState.OFFLINE;
         LOGGER.severe("This device (" + this.device.getDeviceName() + ") was disconnected.");
     }
 
     @Override
-    public void unsentMessages(NodeConnection nodeConnection, List<Message> list) {
+    public final void unsentMessages(NodeConnection nodeConnection, List<Message> list) {
         StringBuilder errorMessageLog = new StringBuilder();
         errorMessageLog.append("Unsent mesage(s):");
-        list.forEach(message -> errorMessageLog.append("\n").append(Serialization.fromJavaByteStream(message.getContent()).toString()));
+        list.forEach(message -> errorMessageLog.append("\n")
+                .append(Serialization.fromJavaByteStream(message.getContent()).toString()));
         LOGGER.severe(errorMessageLog.toString());
         LOGGER.info("Resending messages");
         for (Message message : list) {
@@ -149,7 +142,7 @@ public class RMLClient implements NodeConnectionListener {
     }
 
     @Override
-    public void internalException(NodeConnection nodeConnection, Exception e) {
+    public final void internalException(NodeConnection nodeConnection, Exception e) {
 
     }
 }

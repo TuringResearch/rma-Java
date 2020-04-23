@@ -1,11 +1,10 @@
 package br.pro.turing.masiot.rmlclient;
 
-import br.pro.turing.masiot.core.model.Command;
-import br.pro.turing.masiot.core.model.Device;
-import br.pro.turing.masiot.core.model.Resource;
+import br.pro.turing.masiot.core.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class RMLClientApplication {
@@ -31,7 +30,19 @@ public class RMLClientApplication {
             System.exit(SYSTEM_EXIT_INVALID_ARG_ERROR);
         }
 
-        final RMLClient rmlClient = new RMLClient(extractDevice());
+        final RMLClient rmlClient = new RMLClient(extractDevice()) {
+
+            Random random = new Random();
+
+            @Override
+            protected String getValue(Resource resource) {
+                return String.valueOf(this.random.nextDouble());
+            }
+
+            @Override
+            protected void onAction(Action action) {
+            }
+        };
         rmlClient.connect(gatewayIP, gatewayPort);
     }
 
