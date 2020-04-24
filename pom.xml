@@ -22,14 +22,6 @@
         <module>ui</module>
         <module>rmlclient</module>
     </modules>
-    <dependencies>
-        <dependency>
-            <groupId>br.pucrio.inf.lac</groupId>
-            <artifactId>contextnet</artifactId>
-            <version>2.7</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 
     <groupId>br.pro.turing</groupId>
     <artifactId>masiot</artifactId>

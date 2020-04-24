@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class HelloCoreServer implements UDIDataReaderListener<ApplicationObject> {
 
-    private static final Logger LOGGER = Logger.getLogger(hellocore.HelloCoreClient.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(hellocore.HelloCoreClient.class.getSimpleName());
 
     /** Scalable Data Distribution Layer. */
     SddlLayer core;

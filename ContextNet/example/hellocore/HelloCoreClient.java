@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class HelloCoreClient implements NodeConnectionListener {
 
-    private static final Logger LOGGER = Logger.getLogger(HelloCoreClient.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HelloCoreClient.class.getSimpleName());
     private static String gatewayIP = "127.0.0.1";
     private static int gatewayPort = 5500;
     private MrUdpNodeConnection connection;

@@ -1,6 +1,7 @@
 package br.pro.turing.masiot.rmlclient;
 
 import br.pro.turing.masiot.core.model.*;
+import br.pro.turing.masiot.core.utils.LoggerUtils;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
@@ -17,7 +18,9 @@ import java.util.logging.Logger;
 
 public abstract class RMLClient implements NodeConnectionListener {
 
-    private static final Logger LOGGER = Logger.getLogger(RMLClient.class.getName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(RMLClient.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
+            RMLClient.class.getSimpleName());
 
     private MrUdpNodeConnection connection;
 
@@ -32,9 +35,9 @@ public abstract class RMLClient implements NodeConnectionListener {
     public RMLClient(Device device) {
         this.device = device;
         this.resourceBufferManagerList = new ArrayList<>();
-        this.device.getResourceList().stream().forEach(resource -> {
+        for (Resource resource : this.device.getResourceList()) {
             this.resourceBufferManagerList.add(new ResourceBufferManager(resource, RMLClient.this));
-        });
+        }
         this.startCycle();
     }
 
@@ -57,7 +60,8 @@ public abstract class RMLClient implements NodeConnectionListener {
 
     private ArrayList<Data> buildDataBuffer() {
         ArrayList<Data> dataArrayList = new ArrayList<>();
-        this.resourceBufferManagerList.forEach(resourceBufferManager -> dataArrayList.addAll(resourceBufferManager.getBuffer()));
+        this.resourceBufferManagerList.forEach(
+                resourceBufferManager -> dataArrayList.addAll(resourceBufferManager.getBuffer()));
         return dataArrayList;
     }
 
@@ -68,7 +72,7 @@ public abstract class RMLClient implements NodeConnectionListener {
                 final long t1 = System.currentTimeMillis();
                 if (this.connectionState.equals(ConnectionState.ONLINE)) {
                     final ArrayList<Data> dataList = buildDataBuffer();
-                    if (dataList != null && !dataList.isEmpty()) {
+                    if (!dataList.isEmpty()) {
                         LOGGER.fine("Sending data...");
                         Message message = new ApplicationMessage();
                         message.setContentObject(dataList);

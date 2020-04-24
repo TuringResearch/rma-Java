@@ -1,7 +1,11 @@
 package br.pro.turing.masiot.rmlserver;
 
-import br.pro.turing.masiot.core.model.*;
+import br.pro.turing.masiot.core.model.Action;
+import br.pro.turing.masiot.core.model.ConnectionState;
+import br.pro.turing.masiot.core.model.Data;
+import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.service.ServiceManager;
+import br.pro.turing.masiot.core.utils.LoggerUtils;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.serialization.Serialization;
 import lac.cnet.sddl.objects.ApplicationObject;
@@ -18,12 +22,17 @@ import java.util.logging.Logger;
 
 public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
 
-    private static final Logger LOGGER = Logger.getLogger(RMLServer.class.getName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(RMLServer.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/rmlserver/rmlserver.logging.properties"),
+            RMLServer.class.getSimpleName());
 
     private SddlLayer core;
 
     public RMLServer() {
-        LOGGER.info("Starting RML data reader...");
+    }
+
+    public void start() {
+        LOGGER.info("Starting RML server...");
         this.core = UniversalDDSLayerFactory.getInstance();
         this.core.createParticipant(UniversalDDSLayerFactory.CNET_DOMAIN);
 
@@ -35,7 +44,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
 
         Object toMobileNodeTopic = this.core.createTopic(PrivateMessage.class, PrivateMessage.class.getSimpleName());
         this.core.createDataWriter(toMobileNodeTopic);
-        LOGGER.info("RML data reader started.");
+        LOGGER.info("RML server running.");
 
         synchronized (this) {
             try {

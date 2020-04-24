@@ -4,6 +4,7 @@ import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.service.ServiceManager;
+import br.pro.turing.masiot.core.utils.LoggerUtils;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
@@ -20,7 +21,9 @@ import java.util.logging.Logger;
 
 public class RMLActionClientApplication implements NodeConnectionListener {
 
-    private static final Logger LOGGER = Logger.getLogger(RMLActionClientApplication.class.getName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(RMLActionClientApplication.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
+            RMLActionClientApplication.class.getSimpleName());
 
     private static String gatewayIP = "127.0.0.1";
 

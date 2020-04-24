@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class HelloMobileSender implements NodeConnectionListener {
 
-    private static final Logger LOGGER = Logger.getLogger(HelloMobileSender.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HelloMobileSender.class.getSimpleName());
 
     private static String       gatewayIP    = "127.0.0.1";
     private static int          gatewayPort  = 5500;

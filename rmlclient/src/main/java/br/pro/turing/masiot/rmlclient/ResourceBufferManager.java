@@ -2,15 +2,17 @@ package br.pro.turing.masiot.rmlclient;
 
 import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.model.Resource;
+import br.pro.turing.masiot.core.utils.LoggerUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.logging.Logger;
 
 public class ResourceBufferManager {
 
-    private static final Logger LOGGER = Logger.getLogger(ResourceBufferManager.class.getName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(ResourceBufferManager.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
+            ResourceBufferManager.class.getSimpleName());
 
     private Resource resource;
 
@@ -21,8 +23,7 @@ public class ResourceBufferManager {
     public ResourceBufferManager(Resource resource, RMLClient rmlClient) {
         this.resource = resource;
         this.rmlClient = rmlClient;
-        this.buffer = (ArrayList<Data>) Collections.synchronizedList(
-                new ArrayList<Data>(1000 / resource.getWaitTimeInMillis()));
+        this.buffer = new ArrayList<Data>(1000 / resource.getWaitTimeInMillis());
         startReading();
     }
 
@@ -50,8 +51,7 @@ public class ResourceBufferManager {
      */
     public ArrayList<Data> getBuffer() {
         ArrayList<Data> temp = this.buffer;
-        this.buffer = (ArrayList<Data>) Collections.synchronizedList(
-                new ArrayList<Data>(1000 / resource.getWaitTimeInMillis()));
+        this.buffer = new ArrayList<Data>(1000 / resource.getWaitTimeInMillis());
         return temp;
     }
 }

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class HelloGroupPeer implements NodeConnectionListener, GroupMembershipListener {
 
-    private static final Logger LOGGER = Logger.getLogger(HelloGroupPeer.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HelloGroupPeer.class.getSimpleName());
 
     private static String gatewayIP = "127.0.0.1";
 

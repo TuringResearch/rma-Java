@@ -1,6 +1,10 @@
 package br.pro.turing.masiot.rmlclient;
 
-import br.pro.turing.masiot.core.model.*;
+import br.pro.turing.masiot.core.model.Action;
+import br.pro.turing.masiot.core.model.Command;
+import br.pro.turing.masiot.core.model.Device;
+import br.pro.turing.masiot.core.model.Resource;
+import br.pro.turing.masiot.core.utils.LoggerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +50,9 @@ public class RMLClientApplication {
         rmlClient.connect(gatewayIP, gatewayPort);
     }
 
-    private static final Logger LOGGER = Logger.getLogger(RMLClientApplication.class.getName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(RMLClientApplication.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
+            RMLClientApplication.class.getSimpleName());
 
     private static final int SYSTEM_EXIT_NUMBER_FORMAT_ARG_ERROR = 1;
 
@@ -60,9 +66,8 @@ public class RMLClientApplication {
         List<Command> commands = new ArrayList<>();
         commands.add(new Command("on", "Turns on the resource2"));
         commands.add(new Command("ff", "Turns off the resource2"));
-        resources.add(
-                new Resource("resource2", "Resource 2", "This is the resource 2 with 2 commands", "COM3",
-                        1000, commands));
+        resources.add(new Resource("resource2", "Resource 2", "This is the resource 2 with 2 commands", "COM3", 1000,
+                commands));
 
         return new Device("device1", "Device 1", "This device simulates equipment that will interact with RML",
                 resources);
