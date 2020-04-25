@@ -12,11 +12,21 @@ import lac.cnclib.sddl.serialization.Serialization;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class RMLClient implements NodeConnectionListener {
+
+    protected static final String SPLIT_TIME = "    ";
+
+    protected static final String SPLIT_VALUE = ";";
+
+    protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+            "yyyy-MM-dd HH:mm:ss.SSS");
 
     private static final Logger LOGGER = LoggerUtils.initLogger(RMLClient.class.getClassLoader()
                     .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
@@ -26,18 +36,15 @@ public abstract class RMLClient implements NodeConnectionListener {
 
     private Device device;
 
+    private int cycleDelay;
+
     private ConnectionState connectionState = ConnectionState.OFFLINE;
 
     private InetSocketAddress gatewayAddress;
 
-    private List<ResourceBufferManager> resourceBufferManagerList;
-
-    public RMLClient(Device device) {
+    public RMLClient(Device device, int cycleDelay) {
         this.device = device;
-        this.resourceBufferManagerList = new ArrayList<>();
-        for (Resource resource : this.device.getResourceList()) {
-            this.resourceBufferManagerList.add(new ResourceBufferManager(resource, RMLClient.this));
-        }
+        this.cycleDelay = cycleDelay;
         this.startCycle();
     }
 
@@ -54,16 +61,9 @@ public abstract class RMLClient implements NodeConnectionListener {
         }
     }
 
-    protected abstract String getValue(Resource resource);
-
     protected abstract void onAction(Action action);
 
-    private ArrayList<Data> buildDataBuffer() {
-        ArrayList<Data> dataArrayList = new ArrayList<>();
-        this.resourceBufferManagerList.forEach(
-                resourceBufferManager -> dataArrayList.addAll(resourceBufferManager.getBuffer()));
-        return dataArrayList;
-    }
+    protected abstract ArrayList<Data> buildDataBuffer();
 
     private void startCycle() {
         new Thread(() -> {
@@ -86,7 +86,7 @@ public abstract class RMLClient implements NodeConnectionListener {
                 }
                 final long duration = System.currentTimeMillis() - t1;
                 try {
-                    Thread.sleep(duration < 1000 ? 1000 - duration : 0);
+                    Thread.sleep(duration < this.cycleDelay ? this.cycleDelay - duration : 0);
                 } catch (InterruptedException e) {
                     LOGGER.severe(e.getMessage());
                 }
@@ -155,5 +155,31 @@ public abstract class RMLClient implements NodeConnectionListener {
     @Override
     public final void internalException(NodeConnection nodeConnection, Exception e) {
 
+    }
+
+    /**
+     * @return {@link #device}
+     */
+    public Device getDevice() {
+        return this.device;
+    }
+
+    /**
+     * @return {@link #cycleDelay}
+     */
+    public int getCycleDelay() {
+        return this.cycleDelay;
+    }
+
+    protected ArrayList<Data> extractValue(Resource resource, String buffer) {
+        ArrayList<Data> dataList = new ArrayList<>();
+        String[] bufferArray = buffer.split(SPLIT_TIME);
+        LocalDateTime time = LocalDateTime.parse(bufferArray[0], DATE_TIME_FORMATTER);
+        String[] valuesArray = bufferArray[1].split(SPLIT_VALUE);
+        for (String value : valuesArray) {
+            dataList.add(new Data(time, resource.get_id(), value));
+            time = time.plus(resource.getWaitTimeInMillis(), ChronoUnit.MILLIS);
+        }
+        return dataList;
     }
 }
