@@ -18,9 +18,9 @@
     </build>
     <modules>
         <module>core</module>
-        <module>rmlserver</module>
+        <module>iostobject</module>
         <module>ui</module>
-        <module>rmlclient</module>
+        <module>rml</module>
     </modules>
 
     <groupId>br.pro.turing</groupId>
