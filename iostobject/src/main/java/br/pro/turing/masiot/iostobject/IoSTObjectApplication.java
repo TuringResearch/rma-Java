@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.rmlclient;
+package br.pro.turing.masiot.iostobject;
 
 import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.model.Data;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public class RMLClientApplication {
+public class IoSTObjectApplication {
 
     public static void main(String[] args) {
         String gatewayIP = "127.0.0.1";
@@ -48,29 +48,29 @@ public class RMLClientApplication {
             System.exit(SYSTEM_EXIT_INVALID_ARG_ERROR);
         }
 
-        final RMLClient rmlClient = createRMLClient(deviceName, resourceWaitTimeMillis, resourceNames);
-        rmlClient.connect(gatewayIP, gatewayPort);
+        final IoSTObject ioSTObject = createRMLClient(deviceName, resourceWaitTimeMillis, resourceNames);
+        ioSTObject.connect(gatewayIP, gatewayPort);
     }
 
-    private static final Logger LOGGER = LoggerUtils.initLogger(RMLClientApplication.class.getClassLoader()
-                    .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
-            RMLClientApplication.class.getSimpleName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(IoSTObjectApplication.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/iostobject/iostobject.logging.properties"),
+            IoSTObjectApplication.class.getSimpleName());
 
     private static final int SYSTEM_EXIT_NUMBER_FORMAT_ARG_ERROR = 1;
 
     private static final int SYSTEM_EXIT_INVALID_ARG_ERROR = 2;
 
-    private static RMLClient createRMLClient(String deviceName, int resourceWaitTimeMillis, String... resourceNames) {
-        return new RMLClient(extractDevice(deviceName, resourceWaitTimeMillis, resourceNames), 5000) {
+    private static IoSTObject createRMLClient(String deviceName, int resourceWaitTimeMillis, String... resourceNames) {
+        return new IoSTObject(extractDevice(deviceName, resourceWaitTimeMillis, resourceNames), 5000) {
             @Override
             protected ArrayList<Data> buildDataBuffer() {
                 ArrayList<Data> dataArrayList = new ArrayList<>();
                 Random random = new Random();
                 for (Resource resource : this.getDevice().getResourceList()) {
                     final LocalDateTime now = LocalDateTime.now();
-                    String value = RMLClient.DATE_TIME_FORMATTER.format(now) + RMLClient.SPLIT_TIME;
+                    String value = IoSTObject.DATE_TIME_FORMATTER.format(now) + IoSTObject.SPLIT_TIME;
                     for (int i = 0; i < this.getCycleDelay(); i += resource.getWaitTimeInMillis()) {
-                        value += random.nextDouble() + RMLClient.SPLIT_VALUE;
+                        value += random.nextDouble() + IoSTObject.SPLIT_VALUE;
                     }
                     value = value.substring(0, value.length() - 1);
 

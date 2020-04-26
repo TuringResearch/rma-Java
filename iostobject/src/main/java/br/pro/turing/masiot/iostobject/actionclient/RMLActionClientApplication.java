@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.rmlclient.actionclient;
+package br.pro.turing.masiot.iostobject.actionclient;
 
 import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.model.Device;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class RMLActionClientApplication implements NodeConnectionListener {
 
     private static final Logger LOGGER = LoggerUtils.initLogger(RMLActionClientApplication.class.getClassLoader()
-                    .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
+                    .getResourceAsStream("br/pro/turing/masiot/iostobject/iostobject.logging.properties"),
             RMLActionClientApplication.class.getSimpleName());
 
     private static String gatewayIP = "127.0.0.1";

@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.rmlclient;
+package br.pro.turing.masiot.iostobject;
 
 import br.pro.turing.masiot.core.model.*;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public abstract class RMLClient implements NodeConnectionListener {
+public abstract class IoSTObject implements NodeConnectionListener {
 
     protected static final String SPLIT_TIME = "    ";
 
@@ -28,9 +28,9 @@ public abstract class RMLClient implements NodeConnectionListener {
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm:ss.SSS");
 
-    private static final Logger LOGGER = LoggerUtils.initLogger(RMLClient.class.getClassLoader()
-                    .getResourceAsStream("br/pro/turing/masiot/rmlclient/rmlclient.logging.properties"),
-            RMLClient.class.getSimpleName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(IoSTObject.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/iostobject/iostobject.logging.properties"),
+            IoSTObject.class.getSimpleName());
 
     private MrUdpNodeConnection connection;
 
@@ -42,7 +42,7 @@ public abstract class RMLClient implements NodeConnectionListener {
 
     private InetSocketAddress gatewayAddress;
 
-    public RMLClient(Device device, int cycleDelay) {
+    public IoSTObject(Device device, int cycleDelay) {
         this.device = device;
         this.cycleDelay = cycleDelay;
         this.startCycle();
