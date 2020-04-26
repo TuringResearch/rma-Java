@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.rmlserver;
+package br.pro.turing.masiot.rml;
 
 import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.model.ConnectionState;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
 
     private static final Logger LOGGER = LoggerUtils.initLogger(RMLServer.class.getClassLoader()
-                    .getResourceAsStream("br/pro/turing/masiot/rmlserver/rmlserver.logging.properties"),
+                    .getResourceAsStream("br/pro/turing/masiot/rml/rml.logging.properties"),
             RMLServer.class.getSimpleName());
 
     private SddlLayer core;

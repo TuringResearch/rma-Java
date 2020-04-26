@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.rmlserver;
+package br.pro.turing.masiot.rml;
 
 import br.pro.turing.masiot.core.utils.LoggerUtils;
 import lac.cnet.gateway.components.Gateway;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class RMLGatewayStarter {
 
     private static final Logger LOGGER = LoggerUtils.initLogger(RMLGatewayStarter.class.getClassLoader()
-                    .getResourceAsStream("br/pro/turing/masiot/rmlserver/rmlserver.logging.properties"),
+                    .getResourceAsStream("br/pro/turing/masiot/rml/rml.logging.properties"),
             RMLGatewayStarter.class.getSimpleName());
 
     private static final int GATEWAY_INVALID_ARGS = 2;
