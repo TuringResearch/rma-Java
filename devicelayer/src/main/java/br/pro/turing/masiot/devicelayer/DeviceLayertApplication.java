@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.iostobject;
+package br.pro.turing.masiot.devicelayer;
 
 import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.model.Data;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public class IoSTObjectApplication {
+public class DeviceLayertApplication {
 
     public static void main(String[] args) {
         String gatewayIP = "127.0.0.1";
@@ -52,9 +52,9 @@ public class IoSTObjectApplication {
         ioSTObject.connect(gatewayIP, gatewayPort);
     }
 
-    private static final Logger LOGGER = LoggerUtils.initLogger(IoSTObjectApplication.class.getClassLoader()
-                    .getResourceAsStream("br/pro/turing/masiot/iostobject/iostobject.logging.properties"),
-            IoSTObjectApplication.class.getSimpleName());
+    private static final Logger LOGGER = LoggerUtils.initLogger(DeviceLayertApplication.class.getClassLoader()
+                    .getResourceAsStream("br/pro/turing/masiot/devicelayer/devicelayer.logging.properties"),
+            DeviceLayertApplication.class.getSimpleName());
 
     private static final int SYSTEM_EXIT_NUMBER_FORMAT_ARG_ERROR = 1;
 

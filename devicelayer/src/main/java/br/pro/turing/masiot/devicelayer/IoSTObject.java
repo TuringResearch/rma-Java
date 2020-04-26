@@ -1,4 +1,4 @@
-package br.pro.turing.masiot.iostobject;
+package br.pro.turing.masiot.devicelayer;
 
 import br.pro.turing.masiot.core.model.*;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
@@ -29,7 +29,7 @@ public abstract class IoSTObject implements NodeConnectionListener {
             "yyyy-MM-dd HH:mm:ss.SSS");
 
     private static final Logger LOGGER = LoggerUtils.initLogger(IoSTObject.class.getClassLoader()
-                    .getResourceAsStream("br/pro/turing/masiot/iostobject/iostobject.logging.properties"),
+                    .getResourceAsStream("br/pro/turing/masiot/devicelayer/devicelayer.logging.properties"),
             IoSTObject.class.getSimpleName());
 
     private MrUdpNodeConnection connection;
