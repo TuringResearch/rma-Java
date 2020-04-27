@@ -55,7 +55,6 @@ public abstract class IoSTObject implements NodeConnectionListener {
             connection = new MrUdpNodeConnection();
             connection.addNodeConnectionListener(this);
             connection.connect(gatewayAddress);
-            LOGGER.info("Device (" + device.getDeviceName() + ") connected.");
         } catch (IOException e) {
             LOGGER.severe("I/O exception error while try to connect this device to RML.");
         }
@@ -94,8 +93,21 @@ public abstract class IoSTObject implements NodeConnectionListener {
         }).start();
     }
 
+    protected ArrayList<Data> extractValue(Resource resource, String buffer) {
+        ArrayList<Data> dataList = new ArrayList<>();
+        String[] bufferArray = buffer.split(SPLIT_TIME);
+        LocalDateTime time = LocalDateTime.parse(bufferArray[0], DATE_TIME_FORMATTER);
+        String[] valuesArray = bufferArray[1].split(SPLIT_VALUE);
+        for (String value : valuesArray) {
+            dataList.add(new Data(time, resource.get_id(), value));
+            time = time.plus(resource.getWaitTimeInMillis(), ChronoUnit.MILLIS);
+        }
+        return dataList;
+    }
+
     @Override
     public void connected(NodeConnection nodeConnection) {
+        LOGGER.info("Device (" + device.getDeviceName() + ") connected.");
         LOGGER.info("Logging in or registering this device (" + device.getDeviceName() + ") in RML.");
         Message message = new ApplicationMessage();
         message.setContentObject(this.device);
@@ -141,13 +153,15 @@ public abstract class IoSTObject implements NodeConnectionListener {
         list.forEach(message -> errorMessageLog.append("\n")
                 .append(Serialization.fromJavaByteStream(message.getContent()).toString()));
         LOGGER.severe(errorMessageLog.toString());
-        LOGGER.info("Resending messages");
-        for (Message message : list) {
-            try {
-                connection.sendMessage(message);
-            } catch (IOException e) {
-                LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
-                return;
+        if (this.connectionState.equals(ConnectionState.ONLINE)) {
+            LOGGER.info("Resending messages");
+            for (Message message : list) {
+                try {
+                    connection.sendMessage(message);
+                } catch (IOException e) {
+                    LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
+                    return;
+                }
             }
         }
     }
@@ -169,17 +183,5 @@ public abstract class IoSTObject implements NodeConnectionListener {
      */
     public int getCycleDelay() {
         return this.cycleDelay;
-    }
-
-    protected ArrayList<Data> extractValue(Resource resource, String buffer) {
-        ArrayList<Data> dataList = new ArrayList<>();
-        String[] bufferArray = buffer.split(SPLIT_TIME);
-        LocalDateTime time = LocalDateTime.parse(bufferArray[0], DATE_TIME_FORMATTER);
-        String[] valuesArray = bufferArray[1].split(SPLIT_VALUE);
-        for (String value : valuesArray) {
-            dataList.add(new Data(time, resource.get_id(), value));
-            time = time.plus(resource.getWaitTimeInMillis(), ChronoUnit.MILLIS);
-        }
-        return dataList;
     }
 }

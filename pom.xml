@@ -18,9 +18,10 @@
     </build>
     <modules>
         <module>core</module>
-        <module>iostobject</module>
+        <module>devicelayer</module>
         <module>ui</module>
         <module>rml</module>
+        <module>applicationlayer</module>
     </modules>
 
     <groupId>br.pro.turing</groupId>
