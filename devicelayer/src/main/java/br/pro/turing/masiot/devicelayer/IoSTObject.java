@@ -19,35 +19,62 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * IoST Object is a device able of (i) connecting and registering in the RML when it starts. It is initially configured
+ * to be part of a specific environment, and it informs all of its available resources; (ii) it gathers data from all
+ * its resources, and it sends them to the RML and; (iii) it receives from the RML actions that must be executed by
+ * the device's actuators.
+ */
 public abstract class IoSTObject implements NodeConnectionListener {
 
+    /** Splitter value for microcontrollers buffer to separate timestamp and measures. */
     protected static final String SPLIT_TIME = "    ";
 
+    /** Splitter value for microcontrollers buffer to separate the measures. */
     protected static final String SPLIT_VALUE = ";";
 
+    /** Timestamp format for miclocontroller buffer. */
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm:ss.SSS");
 
+    /** Logger. */
     private static final Logger LOGGER = LoggerUtils.initLogger(IoSTObject.class.getClassLoader()
                     .getResourceAsStream("br/pro/turing/masiot/devicelayer/devicelayer.logging.properties"),
             IoSTObject.class.getSimpleName());
 
+    /** IoT by ContextNet connection instance. */
     private MrUdpNodeConnection connection;
 
+    /** Model of IoST objects. */
     private Device device;
 
+    /** Delay in millisecond time between IoST Object cycles. */
     private int cycleDelay;
 
+    /** IoST Object connection state. If Object is logged in to RML, it is online. */
     private ConnectionState connectionState = ConnectionState.OFFLINE;
 
+    /** IP socket address of the ContextNet gateway. */
     private InetSocketAddress gatewayAddress;
 
+    /**
+     * Constructor.
+     *
+     * @param device     {@link #device}
+     * @param cycleDelay {@link #cycleDelay}
+     */
     public IoSTObject(Device device, int cycleDelay) {
         this.device = device;
         this.cycleDelay = cycleDelay;
         this.startCycle();
     }
 
+    /**
+     * Connects to the RML.
+     *
+     * @param gatewayIP   Gateway IP.
+     * @param gatewayPort Gateway port.
+     */
     public void connect(String gatewayIP, int gatewayPort) {
         LOGGER.info("Connecting this device (" + device.getDeviceName() + ") to RML.");
         this.gatewayAddress = new InetSocketAddress(gatewayIP, gatewayPort);
@@ -60,10 +87,24 @@ public abstract class IoSTObject implements NodeConnectionListener {
         }
     }
 
+    /**
+     * Forwards the action to the microcontroller to make.
+     *
+     * @param action Action to be performed.
+     */
     protected abstract void onAction(Action action);
 
+    /**
+     * Builds the data buffer from the microcontroller to be persisted in the RML.
+     *
+     * @return Data list.
+     */
     protected abstract ArrayList<Data> buildDataBuffer();
 
+    /**
+     * Starts the IoST Object cycle. This cycle is responsible for synchronizing the IoT Object's activities of sending
+     * data and executing actions.
+     */
     private void startCycle() {
         new Thread(() -> {
             LOGGER.info("Starting RML client cycle.");
@@ -93,6 +134,14 @@ public abstract class IoSTObject implements NodeConnectionListener {
         }).start();
     }
 
+    /**
+     * Transform a String data buffet into a Data List. The format of the buffer must be:
+     * yyyy-MM-dd HH:mm:ss.SSS    V1;V2;V3;...;VN
+     *
+     * @param resource Owner resource of the message.
+     * @param buffer   Data buffer.
+     * @return Data list.
+     */
     protected ArrayList<Data> extractValue(Resource resource, String buffer) {
         ArrayList<Data> dataList = new ArrayList<>();
         String[] bufferArray = buffer.split(SPLIT_TIME);
@@ -105,6 +154,12 @@ public abstract class IoSTObject implements NodeConnectionListener {
         return dataList;
     }
 
+    /**
+     * Informs that this IoST Object is connected to RML server. Once connected, this Object will send a Device
+     * instance to be registered (if not exists on RML) or logged in (if this device is already registered).
+     *
+     * @param nodeConnection Node connection.
+     */
     @Override
     public void connected(NodeConnection nodeConnection) {
         LOGGER.info("Device (" + device.getDeviceName() + ") connected.");
@@ -118,6 +173,14 @@ public abstract class IoSTObject implements NodeConnectionListener {
         }
     }
 
+    /**
+     * Menage incoming messages from RML. If the message is about connection state, it means that the Device was
+     * registered or logged in RML. If message is about Action, a new action will be performed in some resource of
+     * this device.
+     *
+     * @param nodeConnection Node cnnection
+     * @param message        Message.
+     */
     @Override
     public final void newMessageReceived(NodeConnection nodeConnection, Message message) {
         Object messageReceived = Serialization.fromJavaByteStream(message.getContent());
@@ -134,18 +197,38 @@ public abstract class IoSTObject implements NodeConnectionListener {
         }
     }
 
+    /**
+     * Informs that this IoST Object is reconnected to TML server.
+     *
+     * @param nodeConnection Node connection.
+     * @param socketAddress  Socket address.
+     * @param b              B
+     * @param b1             B1
+     */
     @Override
     public final void reconnected(NodeConnection nodeConnection, SocketAddress socketAddress, boolean b, boolean b1) {
         this.connectionState = ConnectionState.ONLINE;
         LOGGER.warning("This device (" + this.device.getDeviceName() + ") was reconnected");
     }
 
+    /**
+     * Informs that this IoST Object is disconnected from RML server.
+     *
+     * @param nodeConnection Node connection.
+     */
     @Override
     public final void disconnected(NodeConnection nodeConnection) {
         this.connectionState = ConnectionState.OFFLINE;
         LOGGER.severe("This device (" + this.device.getDeviceName() + ") was disconnected.");
     }
 
+    /**
+     * Informs that some messages was not sent. If this Application layer is connected to RML server, the unsert
+     * messages will be resent.
+     *
+     * @param nodeConnection Node connection.
+     * @param list           Unsent messages list.
+     */
     @Override
     public final void unsentMessages(NodeConnection nodeConnection, List<Message> list) {
         StringBuilder errorMessageLog = new StringBuilder();
