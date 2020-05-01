@@ -2,14 +2,21 @@ package br.pro.turing.masiot.core.service;
 
 import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.repository.ActionRepository;
-import com.mongodb.WriteResult;
-import org.bson.types.ObjectId;
 
+/**
+ * Singleton Action service.
+ */
 public class ActionService {
+
+    /** Singleton instance. */
     private static ActionService instance;
 
+    /** Action repository. */
     private ActionRepository actionRepository;
 
+    /**
+     * Constructor.
+     */
     private ActionService() {
         this.actionRepository = ActionRepository.getInstance();
     }
@@ -24,6 +31,12 @@ public class ActionService {
         return instance;
     }
 
+    /**
+     * Save action.
+     *
+     * @param action Action.
+     * @return Action saved.
+     */
     public Action save(Action action) {
         return this.actionRepository.save(action);
     }

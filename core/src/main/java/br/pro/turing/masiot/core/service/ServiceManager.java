@@ -1,16 +1,29 @@
 package br.pro.turing.masiot.core.service;
 
+/**
+ * Service Manager singleton. The unique instance of this class must be called to get access of all services of the
+ * core.
+ */
 public class ServiceManager {
+
+    /** Intance of this singleton. */
     private static ServiceManager instance;
 
+    /** {@link ActionService} object. */
     public ActionService actionService;
 
+    /** {@link DataService} object. */
     public DataService dataService;
 
+    /** {@link DeviceService} object. */
     public DeviceService deviceService;
 
+    /** {@link EnvironmentService} object. */
     public EnvironmentService environmentService;
 
+    /**
+     * Constructor.
+     */
     private ServiceManager() {
         this.actionService = ActionService.getInstance();
         this.dataService = DataService.getInstance();
@@ -18,6 +31,9 @@ public class ServiceManager {
         this.environmentService = EnvironmentService.getInstance();
     }
 
+    /**
+     * @return {@link #instance}
+     */
     public static ServiceManager getInstance() {
         if (ServiceManager.instance == null) {
             ServiceManager.instance = new ServiceManager();

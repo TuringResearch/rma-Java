@@ -1,30 +1,33 @@
 package br.pro.turing.masiot.core.utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+/**
+ * Logger utility.
+ */
 public class LoggerUtils {
-    public LoggerUtils() {
-    }
 
+    /**
+     * Starts the logger.
+     *
+     * @param stream     Input steam of the configuration file.
+     * @param simpleName Name of the class that contain the logger.
+     * @return Logger.
+     */
     public static Logger initLogger(InputStream stream, String simpleName) {
-        initLoggingPropertiesFile(stream);
+        readLoggingPropertiesFile(stream);
         return Logger.getLogger(simpleName);
     }
 
-    private static void initLoggingPropertiesFile(String filePath) {
-        try {
-            FileInputStream loggingConfigFile = new FileInputStream(filePath);
-            LogManager.getLogManager().readConfiguration(loggingConfigFile);
-        } catch (IOException var2) {
-            var2.printStackTrace();
-        }
-    }
-
-    private static void initLoggingPropertiesFile(InputStream stream) {
+    /**
+     * Read configuration from the file to build the logger.
+     *
+     * @param stream Input steam of the configuration file.
+     */
+    private static void readLoggingPropertiesFile(InputStream stream) {
         try {
             LogManager.getLogManager().readConfiguration(stream);
         } catch (IOException e) {
