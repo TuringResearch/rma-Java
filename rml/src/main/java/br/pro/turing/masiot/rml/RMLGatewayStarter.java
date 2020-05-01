@@ -11,20 +11,36 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+/**
+ * Resource Management Layer gateway starter. This classe is responsible to rise up all gateways passed as argument.
+ */
 public class RMLGatewayStarter {
 
+    /** Logger. */
     private static final Logger LOGGER = LoggerUtils.initLogger(RMLGatewayStarter.class.getClassLoader()
                     .getResourceAsStream("br/pro/turing/masiot/rml/rml.logging.properties"),
             RMLGatewayStarter.class.getSimpleName());
 
+    /** Error code that is returned when a invalid gateway is passed. */
     private static final int GATEWAY_INVALID_ARGS = 2;
 
+    /** All gateway address found in the argument. */
     public final List<InetSocketAddress> gatewayAddress;
 
+    /**
+     * Constructor.
+     *
+     * @param gateways Gateway addresses.
+     */
     public RMLGatewayStarter(String[] gateways) {
         this.gatewayAddress = getGatewayAddress(gateways);
     }
 
+    /**
+     * Returns the gateway addresses list by a gateway addresses array.
+     * @param gateways The gateway array.
+     * @return The gateway addresses list.
+     */
     public List<InetSocketAddress> getGatewayAddress(String[] gateways) {
         List<InetSocketAddress> gatewayAddress = new ArrayList<>();
         if (gateways.length % 2 == 0) {
@@ -45,6 +61,9 @@ public class RMLGatewayStarter {
         return gatewayAddress;
     }
 
+    /**
+     * Starts all gateways detected.
+     */
     public void start() {
         LOGGER.info("Starting " + this.gatewayAddress.size() + " gateways...");
         String newLibPath = System.getProperty("user.dir");
