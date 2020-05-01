@@ -7,19 +7,35 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * An Action is a model that represents command request made by a client to be executed by a resource.
+ */
 public class Action implements Serializable {
 
+    /** Serial version ID for serialization. */
     private static final long serialVersionUID = 1L;
 
+    /** ID. */
     private ObjectId _id;
 
+    /** Instant time of the action request. */
     private LocalDateTime instant;
 
+    /** Command ID of this action. */
     private ObjectId commandId;
 
+    /**
+     * MongoDB constructor.
+     */
     private Action() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param instant   {@link #instant}
+     * @param commandId {@link #commandId}
+     */
     public Action(LocalDateTime instant, ObjectId commandId) {
         this._id = new ObjectId();
         this.instant = instant;

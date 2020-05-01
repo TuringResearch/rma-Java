@@ -6,21 +6,40 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Environment is a space where devices can interach with, collecting data through its resources when they working as
+ * sensors, and change the environment through its resources when they working as actuators.
+ */
 public class Environment implements Serializable {
 
+    /** Serial version ID for serialization. */
     private static final long serialVersionUID = 1L;
 
+    /** ID. */
     private ObjectId _id;
 
+    /** The environment name. */
     private String name;
 
+    /** The environment description. */
     private String description;
 
+    /** The device quantity capacity in this environment. */
     private Integer capacity;
 
+    /**
+     * MongoDB Constructor.
+     */
     private Environment() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param name        {@link #name}
+     * @param description {@link #description}
+     * @param capacity    {@link #capacity}
+     */
     public Environment(String name, String description, Integer capacity) {
         this._id = new ObjectId();
         this.name = name;

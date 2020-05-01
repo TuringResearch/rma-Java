@@ -7,21 +7,39 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Data is a model that encapsulates a value of a resource in an instant of time.
+ */
 public class Data implements Serializable {
 
+    /** Serial version ID for serialization. */
     private static final long serialVersionUID = 1L;
 
+    /** ID. */
     private ObjectId _id;
 
+    /** Instant of time when the data is created. */
     private LocalDateTime instant;
 
+    /** Resource ID of this data. */
     private ObjectId resourceId;
 
+    /** Value of this data. */
     private String value;
 
+    /**
+     * MongoDB constructor.
+     */
     private Data() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param instant    {@link #instant}
+     * @param resourceId {@link #resourceId}
+     * @param value      {@link #value}
+     */
     public Data(LocalDateTime instant, ObjectId resourceId, String value) {
         this._id = new ObjectId();
         this.instant = instant;

@@ -8,27 +8,58 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Resource is a Device element able to represent sensors and actuators. When resources works as a sensor, there cannot
+ * be commands, but when resources works as actuators, they can have commands. The Resource data are collected by a
+ * microcontroller through a port.
+ */
 public class Resource implements Serializable {
 
+    /** Serial version ID for serialization. */
     private static final long serialVersionUID = 1L;
 
+    /** ID. */
     private ObjectId _id;
 
+    /**
+     * Unique resource name. This name works as a user name and therefore there cannot be spaces on its content.
+     * Besides, this name can be used by RML application to idetify a resource.
+     */
     private String resourceName;
 
+    /** Resource name. This name can have spaces and can have repetitions. */
     private String name;
 
+    /** Description of this resource. */
     private String description;
 
+    /** Port to access microcontroller. */
     private String port;
 
+    /**
+     * The wait time in millisecond between a value and another. This attribute defines the frequency of
+     * collecting data indirectly.
+     */
     private Integer waitTimeInMillis;
 
+    /** Command list for the case that this resource is representing a actuator. */
     private List<Command> commandList = new ArrayList<>();
 
+    /**
+     * MongoDB constructor.
+     */
     private Resource() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param resourceName     {@link #resourceName}
+     * @param name             {@link #name}
+     * @param description      {@link #description}
+     * @param port             {@link #port}
+     * @param waitTimeInMillis {@link #waitTimeInMillis}
+     */
     public Resource(String resourceName, String name, String description, String port, Integer waitTimeInMillis) {
         this._id = new ObjectId();
         this.resourceName = resourceName;
@@ -39,6 +70,16 @@ public class Resource implements Serializable {
         this.setCommandList(null);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param resourceName     {@link #resourceName}
+     * @param name             {@link #name}
+     * @param description      {@link #description}
+     * @param port             {@link #port}
+     * @param waitTimeInMillis {@link #waitTimeInMillis}
+     * @param commandList      {@link #commandList}
+     */
     public Resource(String resourceName, String name, String description, String port, Integer waitTimeInMillis,
                     List<Command> commandList) {
         this._id = new ObjectId();

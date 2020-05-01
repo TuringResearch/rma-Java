@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * IoST Object is a device able of (i) connecting and registering in the RML when it starts. It is initially configured
+ * IoT Object is a device able of (i) connecting and registering in the RML when it starts. It is initially configured
  * to be part of a specific environment, and it informs all of its available resources; (ii) it gathers data from all
  * its resources, and it sends them to the RML and; (iii) it receives from the RML actions that must be executed by
  * the device's actuators.
  */
-public abstract class IoSTObject implements NodeConnectionListener {
+public abstract class IoTObject implements NodeConnectionListener {
 
     /** Splitter value for microcontrollers buffer to separate timestamp and measures. */
     protected static final String SPLIT_TIME = "    ";
@@ -38,20 +38,20 @@ public abstract class IoSTObject implements NodeConnectionListener {
             "yyyy-MM-dd HH:mm:ss.SSS");
 
     /** Logger. */
-    private static final Logger LOGGER = LoggerUtils.initLogger(IoSTObject.class.getClassLoader()
+    private static final Logger LOGGER = LoggerUtils.initLogger(IoTObject.class.getClassLoader()
                     .getResourceAsStream("br/pro/turing/masiot/devicelayer/devicelayer.logging.properties"),
-            IoSTObject.class.getSimpleName());
+            IoTObject.class.getSimpleName());
 
     /** IoT by ContextNet connection instance. */
     private MrUdpNodeConnection connection;
 
-    /** Model of IoST objects. */
+    /** Model of IoT objects. */
     private Device device;
 
-    /** Delay in millisecond time between IoST Object cycles. */
+    /** Delay in millisecond time between IoT Object cycles. */
     private int cycleDelay;
 
-    /** IoST Object connection state. If Object is logged in to RML, it is online. */
+    /** IoT Object connection state. If Object is logged in to RML, it is online. */
     private ConnectionState connectionState = ConnectionState.OFFLINE;
 
     /** IP socket address of the ContextNet gateway. */
@@ -63,7 +63,7 @@ public abstract class IoSTObject implements NodeConnectionListener {
      * @param device     {@link #device}
      * @param cycleDelay {@link #cycleDelay}
      */
-    public IoSTObject(Device device, int cycleDelay) {
+    public IoTObject(Device device, int cycleDelay) {
         this.device = device;
         this.cycleDelay = cycleDelay;
         this.startCycle();
@@ -102,7 +102,7 @@ public abstract class IoSTObject implements NodeConnectionListener {
     protected abstract ArrayList<Data> buildDataBuffer();
 
     /**
-     * Starts the IoST Object cycle. This cycle is responsible for synchronizing the IoT Object's activities of sending
+     * Starts the IoT Object cycle. This cycle is responsible for synchronizing the IoT Object's activities of sending
      * data and executing actions.
      */
     private void startCycle() {
@@ -155,7 +155,7 @@ public abstract class IoSTObject implements NodeConnectionListener {
     }
 
     /**
-     * Informs that this IoST Object is connected to RML server. Once connected, this Object will send a Device
+     * Informs that this IoT Object is connected to RML server. Once connected, this Object will send a Device
      * instance to be registered (if not exists on RML) or logged in (if this device is already registered).
      *
      * @param nodeConnection Node connection.
@@ -198,7 +198,7 @@ public abstract class IoSTObject implements NodeConnectionListener {
     }
 
     /**
-     * Informs that this IoST Object is reconnected to TML server.
+     * Informs that this IoT Object is reconnected to TML server.
      *
      * @param nodeConnection Node connection.
      * @param socketAddress  Socket address.
@@ -212,7 +212,7 @@ public abstract class IoSTObject implements NodeConnectionListener {
     }
 
     /**
-     * Informs that this IoST Object is disconnected from RML server.
+     * Informs that this IoT Object is disconnected from RML server.
      *
      * @param nodeConnection Node connection.
      */

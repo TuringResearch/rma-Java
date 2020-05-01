@@ -6,19 +6,35 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Command is the model that represents a execution that a resource can do.
+ */
 public class Command implements Serializable {
 
+    /** Serial version ID for serialization. */
     private static final long serialVersionUID = 1L;
 
+    /** ID. */
     private ObjectId _id;
 
+    /** Content of the command. */
     private String command;
 
+    /** Description of the command. */
     private String description;
 
+    /**
+     * MongoDB constructor.
+     */
     private Command() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param command     {@link #command}
+     * @param description {@link #description}
+     */
     public Command(String command, String description) {
         this._id = new ObjectId();
         this.command = command;

@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 /**
- * A main class to simulate a device working as a IoST Object in the Device Layer of the Resource Management
+ * A main class to simulate a device working as a IoT Object in the Device Layer of the Resource Management
  * Architecture (RMA).
  */
 public class DeviceLayertApplication {
@@ -62,7 +62,7 @@ public class DeviceLayertApplication {
             System.exit(SYSTEM_EXIT_INVALID_ARG_ERROR);
         }
 
-        final IoSTObject ioSTObject = createIoSTObject(deviceName, resourceWaitTimeMillis, resourceNames);
+        final IoTObject ioSTObject = createIoTObject(deviceName, resourceWaitTimeMillis, resourceNames);
         ioSTObject.connect(gatewayIP, gatewayPort);
     }
 
@@ -78,24 +78,24 @@ public class DeviceLayertApplication {
     private static final int SYSTEM_EXIT_INVALID_ARG_ERROR = 2;
 
     /**
-     * Create an IoST Object to communicate with RML.
+     * Create an IoT Object to communicate with RML.
      *
      * @param deviceName             Device name without spaces.
      * @param resourceWaitTimeMillis Wait time that each resource takes between a value writing and another.
      * @param resourceNames          Resource names without spaces.
-     * @return The IoSTObject.
+     * @return The IoTObject.
      */
-    private static IoSTObject createIoSTObject(String deviceName, int resourceWaitTimeMillis, String... resourceNames) {
-        return new IoSTObject(extractDevice(deviceName, resourceWaitTimeMillis, resourceNames), 5000) {
+    private static IoTObject createIoTObject(String deviceName, int resourceWaitTimeMillis, String... resourceNames) {
+        return new IoTObject(extractDevice(deviceName, resourceWaitTimeMillis, resourceNames), 5000) {
             @Override
             protected ArrayList<Data> buildDataBuffer() {
                 ArrayList<Data> dataArrayList = new ArrayList<>();
                 Random random = new Random();
                 for (Resource resource : this.getDevice().getResourceList()) {
                     final LocalDateTime now = LocalDateTime.now();
-                    String value = IoSTObject.DATE_TIME_FORMATTER.format(now) + IoSTObject.SPLIT_TIME;
+                    String value = IoTObject.DATE_TIME_FORMATTER.format(now) + IoTObject.SPLIT_TIME;
                     for (int i = 0; i < this.getCycleDelay(); i += resource.getWaitTimeInMillis()) {
-                        value += random.nextDouble() + IoSTObject.SPLIT_VALUE;
+                        value += random.nextDouble() + IoTObject.SPLIT_VALUE;
                     }
                     value = value.substring(0, value.length() - 1);
 

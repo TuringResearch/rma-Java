@@ -1,18 +1,19 @@
 package br.pro.turing.masiot.ui;
 
+import br.pro.turing.masiot.core.model.Resource;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class DashboardBox extends VBox {
+public class ResourceBox extends VBox {
     private Label titleLabel;
     private Label valueLabel;
     private Label unitLabel;
 
-    public DashboardBox(String title) {
+    public ResourceBox(Resource resource) {
         getStyleClass().add("dashboard-box");
-        titleLabel = new Label(title);
+        titleLabel = new Label(resource.getName());
         titleLabel.setId("dashboard-title-label");
         getChildren().add(titleLabel);
 
