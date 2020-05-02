@@ -36,6 +36,9 @@ public class Resource implements Serializable {
     /** Port to access microcontroller. */
     private String port;
 
+    /** Data unit of this resource. */
+    private String dataUnit;
+
     /**
      * The wait time in millisecond between a value and another. This attribute defines the frequency of
      * collecting data indirectly.
@@ -58,14 +61,17 @@ public class Resource implements Serializable {
      * @param name             {@link #name}
      * @param description      {@link #description}
      * @param port             {@link #port}
+     * @param dataUnit         {@link #dataUnit}
      * @param waitTimeInMillis {@link #waitTimeInMillis}
      */
-    public Resource(String resourceName, String name, String description, String port, Integer waitTimeInMillis) {
+    public Resource(String resourceName, String name, String description, String port, String dataUnit,
+                    Integer waitTimeInMillis) {
         this._id = new ObjectId();
         this.resourceName = resourceName;
         this.name = name;
         this.description = description;
         this.port = port;
+        this.dataUnit = dataUnit;
         this.waitTimeInMillis = waitTimeInMillis;
         this.setCommandList(null);
     }
@@ -77,16 +83,18 @@ public class Resource implements Serializable {
      * @param name             {@link #name}
      * @param description      {@link #description}
      * @param port             {@link #port}
+     * @param dataUnit         {@link #dataUnit}
      * @param waitTimeInMillis {@link #waitTimeInMillis}
      * @param commandList      {@link #commandList}
      */
-    public Resource(String resourceName, String name, String description, String port, Integer waitTimeInMillis,
-                    List<Command> commandList) {
+    public Resource(String resourceName, String name, String description, String port, String dataUnit,
+                    Integer waitTimeInMillis, List<Command> commandList) {
         this._id = new ObjectId();
         this.resourceName = resourceName;
         this.name = name;
         this.description = description;
         this.port = port;
+        this.dataUnit = dataUnit;
         this.waitTimeInMillis = waitTimeInMillis;
         this.setCommandList(commandList);
     }
@@ -166,6 +174,20 @@ public class Resource implements Serializable {
      */
     public void setPort(String port) {
         this.port = port;
+    }
+
+    /**
+     * @return {@link #dataUnit}
+     */
+    public String getDataUnit() {
+        return this.dataUnit;
+    }
+
+    /**
+     * @param dataUnit {@link #dataUnit}
+     */
+    public void setDataUnit(String dataUnit) {
+        this.dataUnit = dataUnit;
     }
 
     /**

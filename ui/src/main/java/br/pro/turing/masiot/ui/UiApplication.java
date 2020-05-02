@@ -1,6 +1,5 @@
 package br.pro.turing.masiot.ui;
 
-import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.service.ServiceManager;
@@ -8,7 +7,6 @@ import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class UiApplication extends Application {
@@ -46,7 +44,6 @@ public class UiApplication extends Application {
         };
         new Thread(() -> {
             while (true) {
-//                ServiceManager.getInstance().dataService.
             }
         }).start();
     }

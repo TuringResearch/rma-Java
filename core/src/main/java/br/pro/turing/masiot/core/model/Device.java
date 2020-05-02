@@ -40,6 +40,12 @@ public class Device implements Serializable {
     /** Description of this device. */
     private String description;
 
+    /**
+     * Delay between a cycle and another. Consequently, this cycle represents the time between a RML communication
+     * and another.
+     */
+    private Long cycleDelayInMillis;
+
     /** Resources list of this device. */
     private List<Resource> resourceList = new ArrayList<>();
 
@@ -55,22 +61,24 @@ public class Device implements Serializable {
     /**
      * Constructor.
      *
-     * @param deviceName    {@link #deviceName}
-     * @param UUID          {@link #UUID}
-     * @param gatewayUUID   {@link #gatewayUUID}
-     * @param name          {@link #name}
-     * @param description   {@link #description}
-     * @param resourceList  {@link #resourceList}
-     * @param environmentId {@link #environmentId}
+     * @param deviceName         {@link #deviceName}
+     * @param UUID               {@link #UUID}
+     * @param gatewayUUID        {@link #gatewayUUID}
+     * @param name               {@link #name}
+     * @param description        {@link #description}
+     * @param resourceList       {@link #resourceList}
+     * @param cycleDelayInMillis {@link #cycleDelayInMillis}
+     * @param environmentId      {@link #environmentId}
      */
     public Device(String deviceName, String UUID, String gatewayUUID, String name, String description,
-                  List<Resource> resourceList, ObjectId environmentId) {
+                  Long cycleDelayInMillis, List<Resource> resourceList, ObjectId environmentId) {
         this._id = new ObjectId();
         this.deviceName = deviceName;
         this.UUID = UUID;
         this.gatewayUUID = gatewayUUID;
         this.name = name;
         this.description = description;
+        this.cycleDelayInMillis = cycleDelayInMillis;
         this.setResourceList(resourceList);
         this.environmentId = environmentId;
     }
@@ -78,37 +86,42 @@ public class Device implements Serializable {
     /**
      * Constructor.
      *
-     * @param deviceName   {@link #deviceName}
-     * @param UUID         {@link #UUID}
-     * @param gatewayUUID  {@link #gatewayUUID}
-     * @param name         {@link #name}
-     * @param description  {@link #description}
-     * @param resourceList {@link #resourceList}
+     * @param deviceName         {@link #deviceName}
+     * @param UUID               {@link #UUID}
+     * @param gatewayUUID        {@link #gatewayUUID}
+     * @param name               {@link #name}
+     * @param description        {@link #description}
+     * @param cycleDelayInMillis {@link #cycleDelayInMillis}
+     * @param resourceList       {@link #resourceList}
      */
     public Device(String deviceName, String UUID, String gatewayUUID, String name, String description,
-                  List<Resource> resourceList) {
+                  Long cycleDelayInMillis, List<Resource> resourceList) {
         this._id = new ObjectId();
         this.deviceName = deviceName;
         this.UUID = UUID;
         this.gatewayUUID = gatewayUUID;
         this.name = name;
         this.description = description;
+        this.cycleDelayInMillis = cycleDelayInMillis;
         this.setResourceList(resourceList);
     }
 
     /**
      * Constructor.
      *
-     * @param deviceName   {@link #deviceName}
-     * @param name         {@link #name}
-     * @param description  {@link #description}
-     * @param resourceList {@link #resourceList}
+     * @param deviceName         {@link #deviceName}
+     * @param name               {@link #name}
+     * @param description        {@link #description}
+     * @param cycleDelayInMillis {@link #cycleDelayInMillis}
+     * @param resourceList       {@link #resourceList}
      */
-    public Device(String deviceName, String name, String description, List<Resource> resourceList) {
+    public Device(String deviceName, String name, String description, Long cycleDelayInMillis,
+                  List<Resource> resourceList) {
         this._id = new ObjectId();
         this.deviceName = deviceName;
         this.name = name;
         this.description = description;
+        this.cycleDelayInMillis = cycleDelayInMillis;
         this.setResourceList(resourceList);
     }
 
@@ -201,6 +214,20 @@ public class Device implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return {@link #cycleDelayInMillis}
+     */
+    public Long getCycleDelayInMillis() {
+        return this.cycleDelayInMillis;
+    }
+
+    /**
+     * @param cycleDelayInMillis {@link #cycleDelayInMillis}
+     */
+    public void setCycleDelayInMillis(Long cycleDelayInMillis) {
+        this.cycleDelayInMillis = cycleDelayInMillis;
     }
 
     /**

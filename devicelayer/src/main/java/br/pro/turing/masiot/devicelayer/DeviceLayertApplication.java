@@ -8,8 +8,6 @@ import br.pro.turing.masiot.core.utils.LoggerUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -32,11 +30,9 @@ public class DeviceLayertApplication {
     public static void main(String[] args) {
         String gatewayIP = "127.0.0.1";
         int gatewayPort = 5500;
-        String deviceName = "device1";
-        int resourceWaitTimeMillis = 1000;
-        String[] resourceNames = {"resource1", "resource2", "resource3"};
+        String deviceConfigurationFilePath = "deviceConfiguration.json";
 
-        if (args.length >= 5) {
+        if (args.length == 3) {
             gatewayIP = args[0];
             try {
                 gatewayPort = Integer.parseInt(args[1]);
@@ -45,24 +41,16 @@ public class DeviceLayertApplication {
                         + "format.");
                 System.exit(SYSTEM_EXIT_NUMBER_FORMAT_ARG_ERROR);
             }
-            deviceName = args[2];
-            try {
-                resourceWaitTimeMillis = Integer.parseInt(args[3]);
-            } catch (NumberFormatException e) {
-                LOGGER.severe(
-                        "Was not possible to start the RML client because the \"resourceWaitTimeMillis\" argument is "
-                                + "out of number format.");
-                System.exit(SYSTEM_EXIT_NUMBER_FORMAT_ARG_ERROR);
-            }
-            resourceNames = Arrays.copyOfRange(args, 4, args.length);
+            deviceConfigurationFilePath = args[2];
         } else {
             LOGGER.severe("Invalid arguments for the RML client.");
-            LOGGER.info("For start this program, put the follow arguments: gatewayIP gatewayPort deviceName "
-                    + "resourceWaitTimeMillis resourceName1 resourceName2 resourceName3...");
+            LOGGER.info("For start this program, put the follow arguments: gatewayIP gatewayPort "
+                    + "deviceConfigurationFilePath");
             System.exit(SYSTEM_EXIT_INVALID_ARG_ERROR);
         }
 
-        final IoTObject ioSTObject = createIoTObject(deviceName, resourceWaitTimeMillis, resourceNames);
+        Device newDevice = IoTObject.buildDeviceByConfigFile(deviceConfigurationFilePath);
+        final IoTObject ioSTObject = createIoTObject(newDevice);
         ioSTObject.connect(gatewayIP, gatewayPort);
     }
 
@@ -80,13 +68,11 @@ public class DeviceLayertApplication {
     /**
      * Create an IoT Object to communicate with RML.
      *
-     * @param deviceName             Device name without spaces.
-     * @param resourceWaitTimeMillis Wait time that each resource takes between a value writing and another.
-     * @param resourceNames          Resource names without spaces.
+     * @param device Device.
      * @return The IoTObject.
      */
-    private static IoTObject createIoTObject(String deviceName, int resourceWaitTimeMillis, String... resourceNames) {
-        return new IoTObject(extractDevice(deviceName, resourceWaitTimeMillis, resourceNames), 5000) {
+    private static IoTObject createIoTObject(Device device) {
+        return new IoTObject(device) {
             @Override
             protected ArrayList<Data> buildDataBuffer() {
                 ArrayList<Data> dataArrayList = new ArrayList<>();
@@ -94,7 +80,7 @@ public class DeviceLayertApplication {
                 for (Resource resource : this.getDevice().getResourceList()) {
                     final LocalDateTime now = LocalDateTime.now();
                     String value = IoTObject.DATE_TIME_FORMATTER.format(now) + IoTObject.SPLIT_TIME;
-                    for (int i = 0; i < this.getCycleDelay(); i += resource.getWaitTimeInMillis()) {
+                    for (int i = 0; i < this.getDevice().getCycleDelayInMillis(); i += resource.getWaitTimeInMillis()) {
                         value += random.nextDouble() + IoTObject.SPLIT_VALUE;
                     }
                     value = value.substring(0, value.length() - 1);
@@ -108,24 +94,5 @@ public class DeviceLayertApplication {
             protected void onAction(Action action) {
             }
         };
-    }
-
-    /**
-     * Extract a simulated device.
-     *
-     * @param deviceName             Device name without spaces.
-     * @param resourceWaitTimeMillis Wait time that each resource takes between a value writing and another.
-     * @param resourceNames          Resource names without spaces.
-     * @return A simulated device.
-     */
-    private static Device extractDevice(String deviceName, int resourceWaitTimeMillis, String... resourceNames) {
-        List<Resource> resources = new ArrayList<>();
-        for (String resourceName : resourceNames) {
-            resources.add(new Resource(resourceName, resourceName,
-                    "This is the resource " + resourceName + " from " + "device " + deviceName, "COM3",
-                    resourceWaitTimeMillis));
-        }
-
-        return new Device(deviceName, deviceName, "This the device " + deviceName, resources);
     }
 }

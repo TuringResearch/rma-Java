@@ -1,0 +1,44 @@
+{
+  "deviceName": "device1",
+  "name": "Device 1",
+  "description": "This is the Device 1",
+  "cycleDelayInMillis": 5000,
+  "resourceList": [
+    {
+      "resourceName": "resource1",
+      "name": "Resource 1",
+      "description": "This is the Resource 1",
+      "port": "COM3",
+      "dataUnit": "°C",
+      "waitTimeInMillis": 1000,
+      "commandList": [
+        {
+          "command": "turnOn",
+          "description": "The command to turns on this resource"
+        },
+        {
+          "command": "turnOff",
+          "description": "The command to turns off this resource"
+        }
+      ]
+    },
+    {
+      "resourceName": "resource2",
+      "name": "Resource 2",
+      "description": "This is the Resource 2",
+      "port": "COM3",
+      "dataUnit": "°C",
+      "waitTimeInMillis": 1000,
+      "commandList": [
+        {
+          "command": "turnOn",
+          "description": "The command to turns on this resource"
+        },
+        {
+          "command": "turnOff",
+          "description": "The command to turns off this resource"
+        }
+      ]
+    }
+  ]
+}

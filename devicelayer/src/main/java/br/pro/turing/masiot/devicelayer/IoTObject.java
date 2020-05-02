@@ -2,14 +2,18 @@ package br.pro.turing.masiot.devicelayer;
 
 import br.pro.turing.masiot.core.model.*;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
+import com.google.gson.Gson;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.message.Message;
 import lac.cnclib.sddl.serialization.Serialization;
+import org.bson.types.ObjectId;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.time.LocalDateTime;
@@ -48,9 +52,6 @@ public abstract class IoTObject implements NodeConnectionListener {
     /** Model of IoT objects. */
     private Device device;
 
-    /** Delay in millisecond time between IoT Object cycles. */
-    private int cycleDelay;
-
     /** IoT Object connection state. If Object is logged in to RML, it is online. */
     private ConnectionState connectionState = ConnectionState.OFFLINE;
 
@@ -60,13 +61,32 @@ public abstract class IoTObject implements NodeConnectionListener {
     /**
      * Constructor.
      *
-     * @param device     {@link #device}
-     * @param cycleDelay {@link #cycleDelay}
+     * @param device {@link #device}
      */
-    public IoTObject(Device device, int cycleDelay) {
+    public IoTObject(Device device) {
         this.device = device;
-        this.cycleDelay = cycleDelay;
         this.startCycle();
+    }
+
+    /**
+     * Builds a device given a device configuration file.
+     *
+     * @param deviceConfigurationFilePath Device configuration file.
+     * @return Device.
+     */
+    public static Device buildDeviceByConfigFile(String deviceConfigurationFilePath) {
+        Device newDevice = null;
+        try (Reader jsonFile = new FileReader(deviceConfigurationFilePath)) {
+            newDevice = new Gson().fromJson(jsonFile, Device.class);
+            newDevice.set_id(new ObjectId());
+            newDevice.getResourceList().forEach(resource -> {
+                resource.set_id(new ObjectId());
+                resource.getCommandList().forEach(command -> command.set_id(new ObjectId()));
+            });
+        } catch (IOException e) {
+            LOGGER.severe(e.getMessage());
+        }
+        return newDevice;
     }
 
     /**
@@ -126,7 +146,8 @@ public abstract class IoTObject implements NodeConnectionListener {
                 }
                 final long duration = System.currentTimeMillis() - t1;
                 try {
-                    Thread.sleep(duration < this.cycleDelay ? this.cycleDelay - duration : 0);
+                    Thread.sleep(duration < this.device.getCycleDelayInMillis() ?
+                                 this.device.getCycleDelayInMillis() - duration : 0);
                 } catch (InterruptedException e) {
                     LOGGER.severe(e.getMessage());
                 }
@@ -259,12 +280,5 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     public Device getDevice() {
         return this.device;
-    }
-
-    /**
-     * @return {@link #cycleDelay}
-     */
-    public int getCycleDelay() {
-        return this.cycleDelay;
     }
 }

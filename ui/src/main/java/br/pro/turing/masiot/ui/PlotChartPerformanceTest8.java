@@ -17,16 +17,11 @@ import javafx.util.converter.TimeStringConverter;
 import java.util.*;
 
 /**
- * Interface gráfica para teste de plotagem de um gráfico genérico considerando a velocidade e
- * quantidade de series.
- * Este teste pode ser útil para verificar a performance de um gráfico de linha ao trabalhar em
- * condições que
- * combinam a velocidade de plotagem com a quantidade de series. Este teste também mostra a forma
- * correta de se
- * trabalhar com um gráfico que realiza plotagem ao vivo. Foi verificado que a forma correta de
- * executar uma plotagem
- * sem erros é adicionando o bloco de código responsável pela adição e remoção de pontos dentro
- * da Thread do JavaFx.
+ * Interface gráfica para teste de plotagem de um gráfico genérico considerando a velocidade e quantidade de series.
+ * Este teste pode ser útil para verificar a performance de um gráfico de linha ao trabalhar em condições que
+ * combinam a velocidade de plotagem com a quantidade de series. Este teste também mostra a forma correta de se
+ * trabalhar com um gráfico que realiza plotagem ao vivo. Foi verificado que a forma correta de executar uma plotagem
+ * sem erros é adicionando o bloco de código responsável pela adição e remoção de pontos dentro da Thread do JavaFx.
  */
 public class PlotChartPerformanceTest8 extends Application {
 
