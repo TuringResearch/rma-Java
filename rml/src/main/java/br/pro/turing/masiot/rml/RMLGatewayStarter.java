@@ -24,6 +24,9 @@ public class RMLGatewayStarter {
     /** Error code that is returned when a invalid gateway is passed. */
     private static final int GATEWAY_INVALID_ARGS = 2;
 
+    /** Error code that is returned when a native code load problem occurs. */
+    private static final int SYSTEM_EXIT_NATIVE_CODE_LIBRARY_FAILED = 4;
+
     /** All gateway address found in the argument. */
     public final List<InetSocketAddress> gatewayAddress;
 
@@ -75,7 +78,7 @@ public class RMLGatewayStarter {
             System.load(newLibPath + "\\" + "sigar-amd64-winnt.dll");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load.\n" + e);
-            System.exit(1);
+            System.exit(SYSTEM_EXIT_NATIVE_CODE_LIBRARY_FAILED);
         }
 
         for (InetSocketAddress address : this.gatewayAddress) {

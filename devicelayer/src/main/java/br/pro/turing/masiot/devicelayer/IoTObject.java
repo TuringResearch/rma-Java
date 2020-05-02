@@ -76,9 +76,8 @@ public abstract class IoTObject implements NodeConnectionListener {
      * @return Device.
      */
     public static Device buildDeviceByConfigFile(String deviceConfigurationFilePath) throws FileNotFoundException {
-        Device newDevice = null;
         Reader jsonFile = new FileReader(deviceConfigurationFilePath);
-        newDevice = new Gson().fromJson(jsonFile, Device.class);
+        Device newDevice = new Gson().fromJson(jsonFile, Device.class);
         newDevice.set_id(new ObjectId());
         newDevice.getResourceList().forEach(resource -> {
             resource.set_id(new ObjectId());
