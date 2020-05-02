@@ -6,6 +6,7 @@ import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
@@ -49,9 +50,14 @@ public class DeviceLayertApplication {
             System.exit(SYSTEM_EXIT_INVALID_ARG_ERROR);
         }
 
-        Device newDevice = IoTObject.buildDeviceByConfigFile(deviceConfigurationFilePath);
-        final IoTObject ioSTObject = createIoTObject(newDevice);
-        ioSTObject.connect(gatewayIP, gatewayPort);
+        try {
+            Device newDevice = IoTObject.buildDeviceByConfigFile(deviceConfigurationFilePath);
+            final IoTObject ioSTObject = createIoTObject(newDevice);
+            ioSTObject.connect(gatewayIP, gatewayPort);
+        } catch (FileNotFoundException e) {
+            LOGGER.severe(e.getMessage());
+            System.exit(SYSTEM_EXIT_DEVICE_CONFIG_FILE_NOT_FOUND);
+        }
     }
 
     /** Logger. */
@@ -64,6 +70,9 @@ public class DeviceLayertApplication {
 
     /** Error code when the program closes due a invalid argument exception. */
     private static final int SYSTEM_EXIT_INVALID_ARG_ERROR = 2;
+
+    /** Error code when the program closes because the device configuration file was not found. */
+    private static final int SYSTEM_EXIT_DEVICE_CONFIG_FILE_NOT_FOUND = 3;
 
     /**
      * Create an IoT Object to communicate with RML.

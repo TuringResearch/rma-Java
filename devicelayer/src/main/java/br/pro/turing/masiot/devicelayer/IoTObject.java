@@ -11,6 +11,7 @@ import lac.cnclib.sddl.message.Message;
 import lac.cnclib.sddl.serialization.Serialization;
 import org.bson.types.ObjectId;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -74,18 +75,15 @@ public abstract class IoTObject implements NodeConnectionListener {
      * @param deviceConfigurationFilePath Device configuration file.
      * @return Device.
      */
-    public static Device buildDeviceByConfigFile(String deviceConfigurationFilePath) {
+    public static Device buildDeviceByConfigFile(String deviceConfigurationFilePath) throws FileNotFoundException {
         Device newDevice = null;
-        try (Reader jsonFile = new FileReader(deviceConfigurationFilePath)) {
-            newDevice = new Gson().fromJson(jsonFile, Device.class);
-            newDevice.set_id(new ObjectId());
-            newDevice.getResourceList().forEach(resource -> {
-                resource.set_id(new ObjectId());
-                resource.getCommandList().forEach(command -> command.set_id(new ObjectId()));
-            });
-        } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
-        }
+        Reader jsonFile = new FileReader(deviceConfigurationFilePath);
+        newDevice = new Gson().fromJson(jsonFile, Device.class);
+        newDevice.set_id(new ObjectId());
+        newDevice.getResourceList().forEach(resource -> {
+            resource.set_id(new ObjectId());
+            resource.getCommandList().forEach(command -> command.set_id(new ObjectId()));
+        });
         return newDevice;
     }
 
