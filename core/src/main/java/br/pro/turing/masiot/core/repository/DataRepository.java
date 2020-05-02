@@ -1,6 +1,7 @@
 package br.pro.turing.masiot.core.repository;
 
 import br.pro.turing.masiot.core.model.Data;
+import br.pro.turing.masiot.core.model.Resource;
 import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
@@ -86,5 +87,9 @@ public class DataRepository implements MongoRepository<Data, ObjectId> {
 
     }
 
+    public Data findLastByResource(Resource resource) {
+        final MongoCursor<Data> commandCursor = collection.find("").as(Data.class);
+        return null;
+    }
 }
 

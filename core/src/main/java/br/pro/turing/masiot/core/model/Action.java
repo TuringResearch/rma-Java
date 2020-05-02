@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -19,7 +21,7 @@ public class Action implements Serializable {
     private ObjectId _id;
 
     /** Instant time of the action request. */
-    private LocalDateTime instant;
+    private Date instant;
 
     /** Command ID of this action. */
     private ObjectId commandId;
@@ -38,7 +40,7 @@ public class Action implements Serializable {
      */
     public Action(LocalDateTime instant, ObjectId commandId) {
         this._id = new ObjectId();
-        this.instant = instant;
+        this.setInstant(instant);
         this.commandId = commandId;
     }
 
@@ -67,14 +69,14 @@ public class Action implements Serializable {
      * @return {@link #instant}
      */
     public LocalDateTime getInstant() {
-        return this.instant;
+        return LocalDateTime.ofInstant(this.instant.toInstant(), ZoneId.systemDefault());
     }
 
     /**
      * @param instant {@link #instant}
      */
     public void setInstant(LocalDateTime instant) {
-        this.instant = instant;
+        this.instant = Date.from(instant.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     /**

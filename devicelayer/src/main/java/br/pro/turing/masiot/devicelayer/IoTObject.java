@@ -1,6 +1,7 @@
 package br.pro.turing.masiot.devicelayer;
 
 import br.pro.turing.masiot.core.model.*;
+import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
 import com.google.gson.Gson;
 import lac.cnclib.net.NodeConnection;
@@ -77,7 +78,7 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     public static Device buildDeviceByConfigFile(String deviceConfigurationFilePath) throws FileNotFoundException {
         Reader jsonFile = new FileReader(deviceConfigurationFilePath);
-        Device newDevice = new Gson().fromJson(jsonFile, Device.class);
+        Device newDevice = ServiceManager.getInstance().jsonService.fromJson(jsonFile, Device.class);
         newDevice.set_id(new ObjectId());
         newDevice.getResourceList().forEach(resource -> {
             resource.set_id(new ObjectId());
@@ -132,7 +133,7 @@ public abstract class IoTObject implements NodeConnectionListener {
                     if (!dataList.isEmpty()) {
                         LOGGER.fine("Sending data...");
                         Message message = new ApplicationMessage();
-                        message.setContentObject(dataList);
+                        message.setContentObject(ServiceManager.getInstance().jsonService.toJson(dataList));
                         try {
                             connection.sendMessage(message);
                         } catch (IOException e) {
@@ -183,7 +184,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         LOGGER.info("Device (" + device.getDeviceName() + ") connected.");
         LOGGER.info("Logging in or registering this device (" + device.getDeviceName() + ") in RML.");
         Message message = new ApplicationMessage();
-        message.setContentObject(this.device);
+        message.setContentObject(ServiceManager.getInstance().jsonService.toJson(this.device));
         try {
             connection.sendMessage(message);
         } catch (IOException e) {
@@ -201,15 +202,17 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     @Override
     public final void newMessageReceived(NodeConnection nodeConnection, Message message) {
-        Object messageReceived = Serialization.fromJavaByteStream(message.getContent());
-        if (messageReceived instanceof ConnectionState) {
-            ConnectionState connectionState = (ConnectionState) messageReceived;
+        String messageReceived = (String) Serialization.fromJavaByteStream(message.getContent());
+        if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, ConnectionState.class)) {
+            ConnectionState connectionState = ServiceManager.getInstance().jsonService.fromJson(messageReceived,
+                    ConnectionState.class);
             if (connectionState.equals(ConnectionState.ONLINE)) {
                 LOGGER.info("This device (" + this.device.getDeviceName() + ") is online on RML.");
                 this.connectionState = connectionState;
             }
-        } else if (messageReceived instanceof Action && this.connectionState.equals(ConnectionState.ONLINE)) {
-            Action action = (Action) messageReceived;
+        } else if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Action.class)
+                && this.connectionState.equals(ConnectionState.ONLINE)) {
+            Action action = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Action.class);
             LOGGER.info("A new action was request: " + action.toString());
             this.onAction(action);
         }

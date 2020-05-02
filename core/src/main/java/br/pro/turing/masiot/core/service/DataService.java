@@ -1,6 +1,7 @@
 package br.pro.turing.masiot.core.service;
 
 import br.pro.turing.masiot.core.model.Data;
+import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.repository.DataRepository;
 
 /**
@@ -39,5 +40,9 @@ public class DataService {
      */
     public Iterable<Data> saveAll(Iterable<Data> dataIterable) {
         return this.dataRepository.saveAll(dataIterable);
+    }
+
+    public Data findLastByResource(Resource resource) {
+        return this.dataRepository.findLastByResource(resource);
     }
 }

@@ -1,8 +1,11 @@
 package br.pro.turing.masiot.core.service;
 
+import br.pro.turing.masiot.core.model.ConnectionState;
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.repository.DeviceRepository;
 import org.bson.types.ObjectId;
+
+import java.util.List;
 
 /**
  * Singleton Device service.
@@ -32,6 +35,10 @@ public class DeviceService {
         return instance;
     }
 
+    public ConnectionState findCurrentConnectionState(Device device) {
+        return ConnectionState.ONLINE;
+    }
+
     /**
      * Save a device.
      *
@@ -40,6 +47,10 @@ public class DeviceService {
      */
     public Device save(Device device) {
         return this.deviceRepository.save(device);
+    }
+
+    public List<Device> findAll() {
+        return this.deviceRepository.findAll();
     }
 
     /**

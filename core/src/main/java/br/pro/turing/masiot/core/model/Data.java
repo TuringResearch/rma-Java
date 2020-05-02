@@ -4,6 +4,9 @@ import org.bson.types.ObjectId;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -19,7 +22,7 @@ public class Data implements Serializable {
     private ObjectId _id;
 
     /** Instant of time when the data is created. */
-    private LocalDateTime instant;
+    private Date instant;
 
     /** Resource ID of this data. */
     private ObjectId resourceId;
@@ -42,7 +45,7 @@ public class Data implements Serializable {
      */
     public Data(LocalDateTime instant, ObjectId resourceId, String value) {
         this._id = new ObjectId();
-        this.instant = instant;
+        this.setInstant(instant);
         this.resourceId = resourceId;
         this.value = value;
     }
@@ -72,14 +75,14 @@ public class Data implements Serializable {
      * @return {@link #instant}
      */
     public LocalDateTime getInstant() {
-        return this.instant;
+        return LocalDateTime.ofInstant(this.instant.toInstant(), ZoneId.systemDefault());
     }
 
     /**
      * @param instant {@link #instant}
      */
     public void setInstant(LocalDateTime instant) {
-        this.instant = instant;
+        this.instant = Date.from(instant.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     /**

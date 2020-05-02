@@ -2,7 +2,7 @@ package br.pro.turing.masiot.ui;
 
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
-import br.pro.turing.masiot.core.service.ServiceManager;
+import br.pro.turing.masiot.ui.view.DevicePane;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -12,9 +12,13 @@ import javafx.stage.Stage;
 public class UiApplication extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        final Device device = ServiceManager.getInstance().deviceService.findByDeviceName("casaFabian");
-        testResourceBox(primaryStage, device);
+    public void start(Stage primaryStage) {
+        DevicePane devicePane = new DevicePane();
+        Scene scene = new Scene(devicePane);
+        scene.getStylesheets().add(this.getClass().getResource("/style.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
+        primaryStage.show();
     }
 
     private void testResourceBox(Stage primaryStage, Device device) {

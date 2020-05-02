@@ -3,7 +3,9 @@ package br.pro.turing.masiot.applicationlayer;
 import br.pro.turing.masiot.core.model.Action;
 import br.pro.turing.masiot.core.model.Command;
 import br.pro.turing.masiot.core.model.ConnectionState;
+import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
+import com.google.gson.Gson;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
@@ -64,7 +66,7 @@ public class RMLBridge implements NodeConnectionListener {
     private void createAction(LocalDateTime localDateTime, Command command) {
         Action action = new Action(localDateTime, command.get_id());
         ApplicationMessage message = new ApplicationMessage();
-        message.setContentObject(action);
+        message.setContentObject(ServiceManager.getInstance().jsonService.toJson(action));
 
         try {
             connection.sendMessage(message);

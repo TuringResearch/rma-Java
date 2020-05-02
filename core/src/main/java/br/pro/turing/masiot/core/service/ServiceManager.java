@@ -21,6 +21,9 @@ public class ServiceManager {
     /** {@link EnvironmentService} object. */
     public EnvironmentService environmentService;
 
+    /** {@link JsonService} object. */
+    public JsonService jsonService;
+
     /**
      * Constructor.
      */
@@ -29,6 +32,7 @@ public class ServiceManager {
         this.dataService = DataService.getInstance();
         this.deviceService = DeviceService.getInstance();
         this.environmentService = EnvironmentService.getInstance();
+        this.jsonService = JsonService.getInstance();
     }
 
     /**

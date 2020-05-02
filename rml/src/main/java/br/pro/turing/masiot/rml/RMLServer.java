@@ -6,6 +6,7 @@ import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
+import com.google.gson.reflect.TypeToken;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.serialization.Serialization;
 import lac.cnet.sddl.objects.ApplicationObject;
@@ -16,6 +17,7 @@ import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -84,16 +86,21 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         LOGGER.fine("New message received");
 
         Message message = (Message) topicSample;
-        Object javaObject = Serialization.fromJavaByteStream(message.getContent());
-        if (javaObject instanceof Device) {
-            Device newDevice = (Device) javaObject;
+        String javaObject = (String) Serialization.fromJavaByteStream(message.getContent());
+
+        if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Device.class)) {
+            Device newDevice = ServiceManager.getInstance().jsonService.fromJson(javaObject, Device.class);
             startDevice(message, newDevice);
-        } else if (javaObject instanceof Action) {
-            Action newAction = (Action) javaObject;
+        } else if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Action.class)) {
+            Action newAction = ServiceManager.getInstance().jsonService.fromJson(javaObject, Action.class);
             delegateAction(newAction);
-        } else if (javaObject instanceof ArrayList) {
-            if (!((ArrayList) javaObject).isEmpty() && ((ArrayList<?>) javaObject).get(0) instanceof Data) {
-                ServiceManager.getInstance().dataService.saveAll((ArrayList<Data>) javaObject);
+        } else {
+            final Type dataListType = new TypeToken<ArrayList<Data>>() {
+            }.getType();
+            if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, dataListType)) {
+                ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject,
+                        dataListType);
+                ServiceManager.getInstance().dataService.saveAll(dataArrayList);
             }
         }
     }
@@ -123,7 +130,8 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
 
         // Responding that device registration was successful.
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");
-        sendMessage(message.getGatewayId(), message.getSenderId(), ConnectionState.ONLINE);
+        sendMessage(message.getGatewayId(), message.getSenderId(),
+                ServiceManager.getInstance().jsonService.toJson(ConnectionState.ONLINE));
     }
 
     /**
@@ -140,7 +148,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         LOGGER.info("Delagating command to " + deviceByCommand.getDeviceName() + ".");
         UUID gatewayId = UUID.fromString(deviceByCommand.getGatewayUUID());
         UUID receiverId = UUID.fromString(deviceByCommand.getUUID());
-        sendMessage(gatewayId, receiverId, newAction);
+        sendMessage(gatewayId, receiverId, ServiceManager.getInstance().jsonService.toJson(newAction));
     }
 
     /**

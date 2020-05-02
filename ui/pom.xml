@@ -42,7 +42,7 @@
     <dependencies>
         <dependency>
             <groupId>br.pro.turing</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>applicationlayer</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
