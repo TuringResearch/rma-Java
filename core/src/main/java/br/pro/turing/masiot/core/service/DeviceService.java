@@ -1,10 +1,14 @@
 package br.pro.turing.masiot.core.service;
 
 import br.pro.turing.masiot.core.model.ConnectionState;
+import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.model.Device;
+import br.pro.turing.masiot.core.model.Resource;
+import br.pro.turing.masiot.core.repository.DataRepository;
 import br.pro.turing.masiot.core.repository.DeviceRepository;
 import org.bson.types.ObjectId;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,11 +22,15 @@ public class DeviceService {
     /** Device repository. */
     private DeviceRepository deviceRepository;
 
+    /** Data repository. */
+    private DataRepository dataRepository;
+
     /**
      * Constructor.
      */
     private DeviceService() {
         this.deviceRepository = DeviceRepository.getInstance();
+        this.dataRepository = DataRepository.getInstance();
     }
 
     /**
@@ -35,8 +43,21 @@ public class DeviceService {
         return instance;
     }
 
+    /**
+     * Find connection state by device.
+     *
+     * @param device Device.
+     * @return Connection state.
+     */
     public ConnectionState findCurrentConnectionState(Device device) {
-        return ConnectionState.ONLINE;
+        for (Resource resource : device.getResourceList()) {
+            final List<Data> byResourceAndGte = this.dataRepository.findByResourceAndGte(resource,
+                    LocalDateTime.now().plusSeconds(-10));
+            if (byResourceAndGte != null & !byResourceAndGte.isEmpty()) {
+                return ConnectionState.ONLINE;
+            }
+        }
+        return ConnectionState.OFFLINE;
     }
 
     /**

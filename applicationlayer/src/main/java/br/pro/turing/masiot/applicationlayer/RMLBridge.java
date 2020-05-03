@@ -63,7 +63,7 @@ public class RMLBridge implements NodeConnectionListener {
      * @param localDateTime Instant time.
      * @param command       Command to be performed.
      */
-    private void createAction(LocalDateTime localDateTime, Command command) {
+    public void createAction(LocalDateTime localDateTime, Command command) {
         Action action = new Action(localDateTime, command.get_id());
         ApplicationMessage message = new ApplicationMessage();
         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(action));

@@ -7,7 +7,10 @@ import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,9 +90,13 @@ public class DataRepository implements MongoRepository<Data, ObjectId> {
 
     }
 
-    public Data findLastByResource(Resource resource) {
-        final MongoCursor<Data> commandCursor = collection.find("").as(Data.class);
-        return null;
+    public List<Data> findByResourceAndGte(Resource resource, LocalDateTime localDateTime) {
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        final MongoCursor<Data> dataCursor =
+                collection.find("{'resourceId': #, 'instant': {'$gte': #}}", resource.get_id(), date).as(Data.class);
+        List<Data> dataList = new ArrayList<>();
+        dataCursor.forEach(dataList::add);
+        return dataList;
     }
 }
 

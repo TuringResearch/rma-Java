@@ -7,6 +7,7 @@ import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
 
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
@@ -82,15 +83,17 @@ public class DeviceLayertApplication {
      */
     private static IoTObject createIoTObject(Device device) {
         return new IoTObject(device) {
+            DecimalFormat df = new DecimalFormat("0.00");
+            Random random = new Random();
+
             @Override
             protected ArrayList<Data> buildDataBuffer() {
                 ArrayList<Data> dataArrayList = new ArrayList<>();
-                Random random = new Random();
                 for (Resource resource : this.getDevice().getResourceList()) {
                     final LocalDateTime now = LocalDateTime.now();
                     String value = IoTObject.DATE_TIME_FORMATTER.format(now) + IoTObject.SPLIT_TIME;
                     for (int i = 0; i < this.getDevice().getCycleDelayInMillis(); i += resource.getWaitTimeInMillis()) {
-                        value += random.nextDouble() + IoTObject.SPLIT_VALUE;
+                        value += df.format(random.nextDouble()) + IoTObject.SPLIT_VALUE;
                     }
                     value = value.substring(0, value.length() - 1);
 

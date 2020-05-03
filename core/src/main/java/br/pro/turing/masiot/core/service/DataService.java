@@ -4,6 +4,9 @@ import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.repository.DataRepository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * Singleton Data service.
  */
@@ -42,7 +45,14 @@ public class DataService {
         return this.dataRepository.saveAll(dataIterable);
     }
 
-    public Data findLastByResource(Resource resource) {
-        return this.dataRepository.findLastByResource(resource);
+    /**
+     * Find a data list by resource and time.
+     *
+     * @param resource      Resource
+     * @param localDateTime Local date and time.
+     * @return Data list.
+     */
+    public List<Data> findByResourceAndGte(Resource resource, LocalDateTime localDateTime) {
+        return this.dataRepository.findByResourceAndGte(resource, localDateTime);
     }
 }

@@ -15,7 +15,7 @@ public class ConnectionStateBox extends Circle {
         this.device = device;
 
         this.setRadius(5);
-        this.setState(ConnectionState.ONLINE);
+        this.setState(ConnectionState.OFFLINE);
         this.startTask();
     }
 

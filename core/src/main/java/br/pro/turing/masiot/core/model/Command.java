@@ -70,6 +70,13 @@ public class Command implements Serializable {
     }
 
     /**
+     * @return {@link #command}
+     */
+    public String getCommand() {
+        return this.command;
+    }
+
+    /**
      * @return {@link #description}
      */
     public String getDescription() {

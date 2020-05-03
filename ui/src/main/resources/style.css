@@ -1,6 +1,10 @@
 .root {
     -fx-base: white;
+    -fx-base-2: #d7d7d7;
     -fx-secundary: #087558;
+    -fx-tertiary: #064C37;
+    -fx-text-color: #073F2F;
+    -fx-separator-color: linear-gradient(to right, transparent, #073F2F, transparent);
 }
 
 .device-pane {
@@ -13,6 +17,79 @@
     -fx-padding: 10;
 }
 
-.dashboard-box:hover {
+.device-box:hover {
     -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 0);
+}
+
+.device-box .label {
+    -fx-text-fill: -fx-text-color;
+}
+
+.resource-box {
+    -fx-background-color: -fx-base-2;
+    -fx-padding: 5;
+}
+
+.resource-box {
+    -fx-text-fill: -fx-text-color;
+}
+
+.command-button {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-border-color: -fx-secundary;
+    -fx-background-color: -fx-secundary;
+}
+
+.command-button:hover {
+    -fx-background-color: -fx-tertiary;
+    -fx-border-color: -fx-tertiary;
+}
+
+/******************************************************************************
+ *
+ * Label
+ *
+ *****************************************************************************/
+.h6-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 15px;
+}
+
+.h5-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 20px;
+}
+
+.h4-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 25px;
+}
+
+.h3-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 30px;
+}
+
+.h2-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 30px;
+}
+
+.h1-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 35px;
+}
+
+/******************************************************************************
+ *
+ * Separator
+ *
+ *****************************************************************************/
+.separator:horizontal .line{
+    -fx-border-color: -fx-separator-color transparent transparent transparent, -fx-shadow-highlight-color transparent transparent transparent;
+    -fx-border-insets: 0, 1 0 0 0;
 }
