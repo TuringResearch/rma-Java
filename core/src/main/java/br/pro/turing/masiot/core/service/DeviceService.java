@@ -70,6 +70,10 @@ public class DeviceService {
         return this.deviceRepository.save(device);
     }
 
+    public Iterable<Device> saveAll(List<Device> deviceList) {
+        return this.deviceRepository.saveAll(deviceList);
+    }
+
     public List<Device> findAll() {
         return this.deviceRepository.findAll();
     }

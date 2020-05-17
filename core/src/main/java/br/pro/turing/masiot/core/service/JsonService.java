@@ -1,10 +1,11 @@
 package br.pro.turing.masiot.core.service;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class provide some common methods to use involving Json language.
@@ -39,32 +40,31 @@ public class JsonService {
     /**
      * Check if Json is a specific object.
      *
-     * @param jsonMessage  Json message.
-     * @param desiredClass Desired class to check.
+     * @param jsonMessage      Json message.
+     * @param desiredClassName Desired class name to check.
      * @return true, if Json message represents the desired Object.
      */
-    public boolean jasonIsObject(String jsonMessage, Class<?> desiredClass) {
+    public boolean jasonIsObject(String jsonMessage, String desiredClassName) {
+        JsonParser parser = new JsonParser();
         try {
-            return this.gson.fromJson(jsonMessage, desiredClass) != null;
-        } catch (JsonSyntaxException e) {
-            return false;
+            JsonObject jsonObject = parser.parse(jsonMessage).getAsJsonObject();
+            return validateJsonObject(jsonObject, desiredClassName);
+        } catch (IllegalStateException e) {
+            JsonArray jsonArray = parser.parse(jsonMessage).getAsJsonArray();
+            for (JsonElement jsonElement : jsonArray) {
+                if (!validateJsonObject(jsonElement.getAsJsonObject(), desiredClassName)) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
-    /**
-     * Check if Json is a specific object. This method must be used when you want to check if the Json message is a
-     * specific list.
-     *
-     * @param jsonMessage  Json message.
-     * @param desiredClass Desired class type to check.
-     * @return true, if Json message represents the desired Object.
-     */
-    public boolean jasonIsObject(String jsonMessage, Type desiredClass) {
-        try {
-            return this.gson.fromJson(jsonMessage, desiredClass) != null;
-        } catch (JsonSyntaxException e) {
-            return false;
-        }
+    private boolean validateJsonObject(JsonObject jsonObject, String desiredClassName) {
+        final Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+        return entries.stream().anyMatch(
+                stringJsonElementEntry -> stringJsonElementEntry.getKey().equals("className") && stringJsonElementEntry
+                        .getValue().getAsString().equals(desiredClassName));
     }
 
     /**

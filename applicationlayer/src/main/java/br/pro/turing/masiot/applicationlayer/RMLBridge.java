@@ -65,13 +65,15 @@ public class RMLBridge implements NodeConnectionListener {
      */
     public void createAction(LocalDateTime localDateTime, Command command) {
         Action action = new Action(localDateTime, command.get_id());
-        ApplicationMessage message = new ApplicationMessage();
-        message.setContentObject(ServiceManager.getInstance().jsonService.toJson(action));
+        Message message = new ApplicationMessage();
+        final String jason = ServiceManager.getInstance().jsonService.toJson(action);
+        message.setContentObject(jason);
 
         try {
             connection.sendMessage(message);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.severe(
+                    "I/O error while trying to send a message when this client connects with RML");
         }
     }
 

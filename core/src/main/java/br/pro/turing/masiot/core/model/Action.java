@@ -1,7 +1,9 @@
 package br.pro.turing.masiot.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -16,6 +18,10 @@ public class Action implements Serializable {
 
     /** Serial version ID for serialization. */
     private static final long serialVersionUID = 1L;
+
+    /** Class name to be used by JSON strings. */
+    @JsonIgnore
+    private final String className = getClass().getName();
 
     /** ID. */
     private ObjectId _id;

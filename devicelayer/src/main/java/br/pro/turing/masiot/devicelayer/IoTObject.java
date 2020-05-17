@@ -3,7 +3,6 @@ package br.pro.turing.masiot.devicelayer;
 import br.pro.turing.masiot.core.model.*;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
-import com.google.gson.Gson;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
@@ -53,9 +52,6 @@ public abstract class IoTObject implements NodeConnectionListener {
 
     /** Model of IoT objects. */
     private Device device;
-
-    /** IoT Object connection state. If Object is logged in to RML, it is online. */
-    private ConnectionState connectionState = ConnectionState.OFFLINE;
 
     /** IP socket address of the ContextNet gateway. */
     private InetSocketAddress gatewayAddress;
@@ -128,7 +124,7 @@ public abstract class IoTObject implements NodeConnectionListener {
             LOGGER.info("Starting RML client cycle.");
             while (true) {
                 final long t1 = System.currentTimeMillis();
-                if (this.connectionState.equals(ConnectionState.ONLINE)) {
+                if (this.device.getConnectionState().equals(ConnectionState.ONLINE.getState())) {
                     final ArrayList<Data> dataList = buildDataBuffer();
                     if (!dataList.isEmpty()) {
                         LOGGER.fine("Sending data...");
@@ -203,15 +199,10 @@ public abstract class IoTObject implements NodeConnectionListener {
     @Override
     public final void newMessageReceived(NodeConnection nodeConnection, Message message) {
         String messageReceived = (String) Serialization.fromJavaByteStream(message.getContent());
-        if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, ConnectionState.class)) {
-            ConnectionState connectionState = ServiceManager.getInstance().jsonService.fromJson(messageReceived,
-                    ConnectionState.class);
-            if (connectionState.equals(ConnectionState.ONLINE)) {
-                LOGGER.info("This device (" + this.device.getDeviceName() + ") is online on RML.");
-                this.connectionState = connectionState;
-            }
-        } else if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Action.class)
-                && this.connectionState.equals(ConnectionState.ONLINE)) {
+        if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Device.class.getName())) {
+            this.device = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Device.class);
+            LOGGER.info("This device (" + this.device.getDeviceName() + ") is online on RML.");
+        } else if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Action.class.getName())) {
             Action action = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Action.class);
             LOGGER.info("A new action was request: " + action.toString());
             this.onAction(action);
@@ -228,7 +219,7 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     @Override
     public final void reconnected(NodeConnection nodeConnection, SocketAddress socketAddress, boolean b, boolean b1) {
-        this.connectionState = ConnectionState.ONLINE;
+        this.device.setConnectionState(ConnectionState.ONLINE.getState());
         LOGGER.warning("This device (" + this.device.getDeviceName() + ") was reconnected");
     }
 
@@ -239,7 +230,7 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     @Override
     public final void disconnected(NodeConnection nodeConnection) {
-        this.connectionState = ConnectionState.OFFLINE;
+        this.device.setConnectionState(ConnectionState.OFFLINE.getState());
         LOGGER.severe("This device (" + this.device.getDeviceName() + ") was disconnected.");
     }
 
@@ -257,7 +248,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         list.forEach(message -> errorMessageLog.append("\n")
                 .append(Serialization.fromJavaByteStream(message.getContent()).toString()));
         LOGGER.severe(errorMessageLog.toString());
-        if (this.connectionState.equals(ConnectionState.ONLINE)) {
+        if (this.device.getConnectionState().equals(ConnectionState.ONLINE.getState())) {
             LOGGER.info("Resending messages");
             for (Message message : list) {
                 try {

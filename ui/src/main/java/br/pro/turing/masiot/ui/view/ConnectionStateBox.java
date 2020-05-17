@@ -24,13 +24,15 @@ public class ConnectionStateBox extends Circle {
             while (true) {
                 long t1 = System.currentTimeMillis();
 
-                ConnectionState currentConnectionState = ServiceManager.getInstance().deviceService
-                        .findCurrentConnectionState(this.device);
-                Platform.runLater(() -> ConnectionStateBox.this.setState(currentConnectionState));
+                this.device = ServiceManager.getInstance().deviceService.findByDeviceName(this.device.getDeviceName());
+                final ConnectionState state = ConnectionState.get(this.device.getConnectionState());
+                if (state != null) {
+                    Platform.runLater(() -> ConnectionStateBox.this.setState(state));
+                }
 
                 long duration = System.currentTimeMillis() - t1;
                 try {
-                    Thread.sleep(duration < 1000 ? 1000 - duration : 0);
+                    Thread.sleep(duration < 5000 ? 5000 - duration : 0);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

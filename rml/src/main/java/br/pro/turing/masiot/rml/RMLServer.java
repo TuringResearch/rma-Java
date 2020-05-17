@@ -15,6 +15,7 @@ import lac.cnet.sddl.objects.PrivateMessage;
 import lac.cnet.sddl.udi.core.SddlLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
+import org.bson.types.ObjectId;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -39,10 +40,13 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
     /** Security Descriptor Definition Language layer. */
     private SddlLayer core;
 
+    private DeviceConnectionStateUpdater deviceConnectionStateUpdater;
+
     /**
      * Constructor.
      */
     public RMLServer() {
+        deviceConnectionStateUpdater = new DeviceConnectionStateUpdater();
     }
 
     /**
@@ -62,6 +66,8 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         Object toMobileNodeTopic = this.core.createTopic(PrivateMessage.class, PrivateMessage.class.getSimpleName());
         this.core.createDataWriter(toMobileNodeTopic);
         LOGGER.info("RML server running.");
+
+        new Thread(this.deviceConnectionStateUpdater).start();
 
         synchronized (this) {
             try {
@@ -88,18 +94,19 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         Message message = (Message) topicSample;
         String javaObject = (String) Serialization.fromJavaByteStream(message.getContent());
 
-        if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Device.class)) {
+        if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Device.class.getName())) {
             Device newDevice = ServiceManager.getInstance().jsonService.fromJson(javaObject, Device.class);
             startDevice(message, newDevice);
-        } else if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Action.class)) {
+        } else if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Action.class.getName())) {
             Action newAction = ServiceManager.getInstance().jsonService.fromJson(javaObject, Action.class);
             delegateAction(newAction);
-        } else {
+        } else if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Data.class.getName())) {
             final Type dataListType = new TypeToken<ArrayList<Data>>() {
             }.getType();
-            if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, dataListType)) {
-                ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject,
-                        dataListType);
+            ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject, dataListType);
+            if (dataArrayList != null && !dataArrayList.isEmpty()) {
+                final ObjectId resourceId = dataArrayList.get(0).getResourceId();
+                this.deviceConnectionStateUpdater.pingDeviceByResourceId(resourceId);
                 ServiceManager.getInstance().dataService.saveAll(dataArrayList);
             }
         }
@@ -114,9 +121,8 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
     private void startDevice(Message message, Device newDevice) {
         LOGGER.info("Registering and logged in the device " + newDevice.getDeviceName() + ".");
 
-        // If already exists a old device with the same deviceName the new device, the _id will be copied from
-        // old to new device. This will ensure that the new device will be update instead of created in the
-        // database.
+        // If already exists a old device with the same deviceName the new device, the _id will be copied from old to
+        // new device. This will ensure that the new device will be update instead of created in the database.
         final Device oldDevice = ServiceManager.getInstance().deviceService.findByDeviceName(newDevice.getDeviceName());
         if (oldDevice != null) {
             newDevice.set_id(oldDevice.get_id());
@@ -126,12 +132,15 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
 
         newDevice.setGatewayUUID(message.getGatewayId().toString());
         newDevice.setUUID(message.getSenderId().toString());
-        ServiceManager.getInstance().deviceService.save(newDevice);
+        newDevice.setConnectionState(ConnectionState.ONLINE.getState());
+
+        newDevice = ServiceManager.getInstance().deviceService.save(newDevice);
+        this.deviceConnectionStateUpdater.pingDevice(newDevice);
 
         // Responding that device registration was successful.
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");
         sendMessage(message.getGatewayId(), message.getSenderId(),
-                ServiceManager.getInstance().jsonService.toJson(ConnectionState.ONLINE));
+                ServiceManager.getInstance().jsonService.toJson(newDevice));
     }
 
     /**

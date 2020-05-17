@@ -1,5 +1,6 @@
 package br.pro.turing.masiot.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
 
 import java.io.Serializable;
@@ -18,6 +19,10 @@ public class Device implements Serializable {
 
     /** Serial version ID for serialization. */
     private static final long serialVersionUID = 1L;
+
+    /** Class name to be used by JSON strings. */
+    @JsonIgnore
+    private final String className = getClass().getName();
 
     /** ID. */
     private ObjectId _id;
@@ -52,58 +57,13 @@ public class Device implements Serializable {
     /** Environment ID of this device. */
     private ObjectId environmentId;
 
+    /** State of connection. */
+    private String connectionState = ConnectionState.OFFLINE.getState();
+
     /**
      * MongoDB constructor.
      */
     private Device() {
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param deviceName         {@link #deviceName}
-     * @param UUID               {@link #UUID}
-     * @param gatewayUUID        {@link #gatewayUUID}
-     * @param name               {@link #name}
-     * @param description        {@link #description}
-     * @param resourceList       {@link #resourceList}
-     * @param cycleDelayInMillis {@link #cycleDelayInMillis}
-     * @param environmentId      {@link #environmentId}
-     */
-    public Device(String deviceName, String UUID, String gatewayUUID, String name, String description,
-                  Long cycleDelayInMillis, List<Resource> resourceList, ObjectId environmentId) {
-        this._id = new ObjectId();
-        this.deviceName = deviceName;
-        this.UUID = UUID;
-        this.gatewayUUID = gatewayUUID;
-        this.name = name;
-        this.description = description;
-        this.cycleDelayInMillis = cycleDelayInMillis;
-        this.setResourceList(resourceList);
-        this.environmentId = environmentId;
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param deviceName         {@link #deviceName}
-     * @param UUID               {@link #UUID}
-     * @param gatewayUUID        {@link #gatewayUUID}
-     * @param name               {@link #name}
-     * @param description        {@link #description}
-     * @param cycleDelayInMillis {@link #cycleDelayInMillis}
-     * @param resourceList       {@link #resourceList}
-     */
-    public Device(String deviceName, String UUID, String gatewayUUID, String name, String description,
-                  Long cycleDelayInMillis, List<Resource> resourceList) {
-        this._id = new ObjectId();
-        this.deviceName = deviceName;
-        this.UUID = UUID;
-        this.gatewayUUID = gatewayUUID;
-        this.name = name;
-        this.description = description;
-        this.cycleDelayInMillis = cycleDelayInMillis;
-        this.setResourceList(resourceList);
     }
 
     /**
@@ -259,6 +219,20 @@ public class Device implements Serializable {
      */
     public void setEnvironmentId(ObjectId environmentId) {
         this.environmentId = environmentId;
+    }
+
+    /**
+     * @return {@link #connectionState}
+     */
+    public String getConnectionState() {
+        return this.connectionState;
+    }
+
+    /**
+     * @param connectionState {@link #connectionState}
+     */
+    public void setConnectionState(String connectionState) {
+        this.connectionState = connectionState;
     }
 
     @Override

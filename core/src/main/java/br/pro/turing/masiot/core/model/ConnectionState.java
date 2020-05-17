@@ -8,8 +8,36 @@ import java.io.Serializable;
 public enum ConnectionState implements Serializable {
 
     /** Online state. */
-    ONLINE,
+    ONLINE("ONLINE"),
 
     /** Offline state. */
-    OFFLINE
+    OFFLINE("OFFLINE");
+
+    /** State of connection. */
+    String state;
+
+    /**
+     * Constructor.
+     *
+     * @param state State of connection.
+     */
+    ConnectionState(String state) {
+        this.state = state;
+    }
+
+    public static ConnectionState get(String connectionState) {
+        for (ConnectionState value : values()) {
+            if (value.getState().equals(connectionState)) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return {@link #state}
+     */
+    public String getState() {
+        return this.state;
+    }
 }
