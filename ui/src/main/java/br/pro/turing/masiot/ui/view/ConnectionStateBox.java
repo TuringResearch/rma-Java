@@ -24,7 +24,7 @@ public class ConnectionStateBox extends Circle {
             while (true) {
                 long t1 = System.currentTimeMillis();
 
-                this.device = ServiceManager.getInstance().deviceService.findByDeviceName(this.device.getDeviceName());
+                this.device = ServiceManager.getInstance().deviceService.findById(this.device.getDeviceName());
                 final ConnectionState state = ConnectionState.get(this.device.getConnectionState());
                 if (state != null) {
                     Platform.runLater(() -> ConnectionStateBox.this.setState(state));

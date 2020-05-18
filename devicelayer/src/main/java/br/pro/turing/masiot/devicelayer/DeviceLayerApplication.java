@@ -9,7 +9,9 @@ import br.pro.turing.masiot.core.utils.LoggerUtils;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  * A main class to simulate a device working as a IoT Object in the Device Layer of the Resource Management
  * Architecture (RMA).
  */
-public class DeviceLayertApplication {
+public class DeviceLayerApplication {
 
     /**
      * Main method with the follow argument model:
@@ -62,9 +64,9 @@ public class DeviceLayertApplication {
     }
 
     /** Logger. */
-    private static final Logger LOGGER = LoggerUtils.initLogger(DeviceLayertApplication.class.getClassLoader()
+    private static final Logger LOGGER = LoggerUtils.initLogger(DeviceLayerApplication.class.getClassLoader()
                     .getResourceAsStream("br/pro/turing/masiot/devicelayer/devicelayer.logging.properties"),
-            DeviceLayertApplication.class.getSimpleName());
+            DeviceLayerApplication.class.getSimpleName());
 
     /** Error code when the program closes due a number format exception. */
     private static final int SYSTEM_EXIT_NUMBER_FORMAT_ARG_ERROR = 1;

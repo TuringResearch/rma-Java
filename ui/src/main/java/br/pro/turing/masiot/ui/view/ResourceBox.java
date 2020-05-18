@@ -1,8 +1,8 @@
 package br.pro.turing.masiot.ui.view;
 
-import br.pro.turing.masiot.applicationlayer.RMLBridge;
 import br.pro.turing.masiot.core.model.Command;
 import br.pro.turing.masiot.core.model.Data;
+import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.ui.UiApplication;
@@ -27,10 +27,13 @@ public class ResourceBox extends VBox {
 
     private Label unitLabel;
 
+    private Device device;
+
     private Resource resource;
 
-    public ResourceBox(Resource resource) {
+    public ResourceBox(Device device, Resource resource) {
         super();
+        this.device = device;
         this.resource = resource;
 
         this.getStyleClass().addAll("resource-box");
@@ -81,7 +84,7 @@ public class ResourceBox extends VBox {
             commandButton.getStyleClass().add("command-button");
             commandButtonPane.getChildren().add(commandButton);
             commandButton.setOnAction(event -> {
-                UiApplication.RML_BRIDGE.createAction(LocalDateTime.now(), command);
+                UiApplication.RML_BRIDGE.createAction(LocalDateTime.now(), this.device, this.resource, command);
             });
         }
         return commandButtonPane;
@@ -92,21 +95,20 @@ public class ResourceBox extends VBox {
             while (true) {
                 long t1 = System.currentTimeMillis();
 
-                final List<Data> dataList = ServiceManager.getInstance().dataService.findByResourceAndGte(this.resource,
-                        LocalDateTime.now().plusSeconds(-5));
+                final List<Data> dataList = ServiceManager.getInstance().dataService.findByResourceAndGte(this.device,
+                        this.resource, LocalDateTime.now().plusSeconds(-5));
 
                 if (!dataList.isEmpty()) {
                     dataList.sort((o1, o2) -> o1.getInstant().compareTo(o2.getInstant()));
                     Data data = dataList.get(dataList.size() - 1);
 
                     Platform.runLater(() -> this.valueLabel.setText(data.getValue()));
-
-                    long duration = System.currentTimeMillis() - t1;
-                    try {
-                        Thread.sleep(duration < 1000 ? 1000 - duration : 0);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                }
+                long duration = System.currentTimeMillis() - t1;
+                try {
+                    Thread.sleep(duration < 1000 ? 1000 - duration : 0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }).start();

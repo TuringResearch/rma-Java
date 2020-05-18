@@ -34,8 +34,7 @@ public class DeviceRepository implements MongoRepository<Device, ObjectId> {
 
     @Override
     public <S extends Device> S save(S var1) {
-        final WriteResult save = this.collection.save(var1);
-        var1.set_id((ObjectId) save.getUpsertedId());
+        this.collection.save(var1);
         return var1;
     }
 
@@ -75,7 +74,7 @@ public class DeviceRepository implements MongoRepository<Device, ObjectId> {
 
     @Override
     public void delete(Device var1) {
-        this.collection.remove(var1.get_id());
+
     }
 
     @Override
@@ -88,11 +87,11 @@ public class DeviceRepository implements MongoRepository<Device, ObjectId> {
 
     }
 
-    public Device findByDeviceName(String deviceName) {
-        return collection.findOne("{deviceName: '" + deviceName + "'}").as(Device.class);
+    public Device findById(String deviceName) {
+        return collection.findOne("{_id: '" + deviceName + "'}").as(Device.class);
     }
 
-    public Device findByCommandId(ObjectId commandId) {
-        return collection.findOne("{'resourceList.commandList': {$elemMatch: {_id: #}}}", commandId).as(Device.class);
+    public Device findByCommand(String command) {
+        return collection.findOne("{'resourceList.commandList': {$elemMatch: {_id: #}}}", command).as(Device.class);
     }
 }

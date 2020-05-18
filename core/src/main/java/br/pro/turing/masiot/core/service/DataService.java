@@ -1,6 +1,7 @@
 package br.pro.turing.masiot.core.service;
 
 import br.pro.turing.masiot.core.model.Data;
+import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.repository.DataRepository;
 
@@ -52,7 +53,7 @@ public class DataService {
      * @param localDateTime Local date and time.
      * @return Data list.
      */
-    public List<Data> findByResourceAndGte(Resource resource, LocalDateTime localDateTime) {
-        return this.dataRepository.findByResourceAndGte(resource, localDateTime);
+    public List<Data> findByResourceAndGte(Device device, Resource resource, LocalDateTime localDateTime) {
+        return this.dataRepository.findByResourceAndGte(device, resource, localDateTime);
     }
 }

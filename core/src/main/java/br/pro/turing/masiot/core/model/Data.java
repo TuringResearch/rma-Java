@@ -6,7 +6,6 @@ import org.bson.types.ObjectId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -29,8 +28,11 @@ public class Data implements Serializable {
     /** Instant of time when the data is created. */
     private Date instant;
 
-    /** Resource ID of this data. */
-    private ObjectId resourceId;
+    /** Device Name. */
+    private String deviceName;
+
+    /** Resource name of this data. */
+    private String resourceName;
 
     /** Value of this data. */
     private String value;
@@ -44,14 +46,16 @@ public class Data implements Serializable {
     /**
      * Constructor.
      *
-     * @param instant    {@link #instant}
-     * @param resourceId {@link #resourceId}
-     * @param value      {@link #value}
+     * @param instant      {@link #instant}
+     * @param deviceName   {@link #deviceName}
+     * @param resourceName {@link #resourceName}
+     * @param value        {@link #value}
      */
-    public Data(LocalDateTime instant, ObjectId resourceId, String value) {
+    public Data(LocalDateTime instant, String deviceName, String resourceName, String value) {
         this._id = new ObjectId();
         this.setInstant(instant);
-        this.resourceId = resourceId;
+        this.deviceName = deviceName;
+        this.resourceName = resourceName;
         this.value = value;
     }
 
@@ -91,17 +95,31 @@ public class Data implements Serializable {
     }
 
     /**
-     * @return {@link #resourceId}
+     * @return {@link #deviceName}
      */
-    public ObjectId getResourceId() {
-        return this.resourceId;
+    public String getDeviceName() {
+        return this.deviceName;
     }
 
     /**
-     * @param resourceId {@link #resourceId}
+     * @param deviceName {@link #deviceName}
      */
-    public void setResourceId(ObjectId resourceId) {
-        this.resourceId = resourceId;
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    /**
+     * @return {@link #resourceName}
+     */
+    public String getResourceName() {
+        return this.resourceName;
+    }
+
+    /**
+     * @param resourceName {@link #resourceName}
+     */
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
 
     /**
@@ -127,19 +145,20 @@ public class Data implements Serializable {
             return false;
         }
         Data data = (Data) o;
-        return Objects.equals(this._id, data._id) && Objects.equals(this.instant, data.instant) && Objects.equals(
-                this.resourceId, data.resourceId) && Objects.equals(this.value, data.value);
+        return Objects.equals(this.className, data.className) && Objects.equals(this._id, data._id) && Objects.equals(
+                this.instant, data.instant) && Objects.equals(this.deviceName, data.deviceName) && Objects.equals(
+                this.resourceName, data.resourceName) && Objects.equals(this.value, data.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this._id, this.instant, this.resourceId, this.value);
+        return Objects.hash(this.className, this._id, this.instant, this.deviceName, this.resourceName, this.value);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Data.class.getSimpleName() + "[", "]").add("id='" + this._id + "'").add(
-                "instant=" + this.instant).add("resourceId='" + this.resourceId + "'").add("value='" + this.value + "'")
-                .toString();
+        return new StringJoiner(", ", Data.class.getSimpleName() + "[", "]").add("className='" + this.className + "'")
+                .add("_id=" + this._id).add("instant=" + this.instant).add("deviceName='" + this.deviceName + "'").add(
+                        "resourceName='" + this.resourceName + "'").add("value='" + this.value + "'").toString();
     }
 }

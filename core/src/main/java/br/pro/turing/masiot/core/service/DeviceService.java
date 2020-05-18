@@ -51,7 +51,7 @@ public class DeviceService {
      */
     public ConnectionState findCurrentConnectionState(Device device) {
         for (Resource resource : device.getResourceList()) {
-            final List<Data> byResourceAndGte = this.dataRepository.findByResourceAndGte(resource,
+            final List<Data> byResourceAndGte = this.dataRepository.findByResourceAndGte(device, resource,
                     LocalDateTime.now().plusSeconds(-10));
             if (byResourceAndGte != null & !byResourceAndGte.isEmpty()) {
                 return ConnectionState.ONLINE;
@@ -84,17 +84,17 @@ public class DeviceService {
      * @param deviceName Device name.
      * @return Device found.
      */
-    public Device findByDeviceName(String deviceName) {
-        return this.deviceRepository.findByDeviceName(deviceName);
+    public Device findById(String deviceName) {
+        return this.deviceRepository.findById(deviceName);
     }
 
     /**
      * Find device by command ID.
      *
-     * @param commandId Command ID.
+     * @param command Command ID.
      * @return Device found.
      */
-    public Device findByCommandId(ObjectId commandId) {
-        return this.deviceRepository.findByCommandId(commandId);
+    public Device findByCommand(String command) {
+        return this.deviceRepository.findByCommand(command);
     }
 }

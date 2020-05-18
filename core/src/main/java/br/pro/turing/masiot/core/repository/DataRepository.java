@@ -1,6 +1,7 @@
 package br.pro.turing.masiot.core.repository;
 
 import br.pro.turing.masiot.core.model.Data;
+import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
@@ -90,10 +91,11 @@ public class DataRepository implements MongoRepository<Data, ObjectId> {
 
     }
 
-    public List<Data> findByResourceAndGte(Resource resource, LocalDateTime localDateTime) {
+    public List<Data> findByResourceAndGte(Device device, Resource resource, LocalDateTime localDateTime) {
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         final MongoCursor<Data> dataCursor =
-                collection.find("{'resourceId': #, 'instant': {'$gte': #}}", resource.get_id(), date).as(Data.class);
+                collection.find("{'deviceName': #, 'resourceName': #, 'instant': {'$gte': #}}",
+                        device.getDeviceName(), resource.getResourceName(), date).as(Data.class);
         List<Data> dataList = new ArrayList<>();
         dataCursor.forEach(dataList::add);
         return dataList;

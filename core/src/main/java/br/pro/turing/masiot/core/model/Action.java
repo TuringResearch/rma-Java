@@ -3,7 +3,6 @@ package br.pro.turing.masiot.core.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -29,8 +28,14 @@ public class Action implements Serializable {
     /** Instant time of the action request. */
     private Date instant;
 
+    /** Device name. */
+    private String deviceName;
+
+    /** Resource name. */
+    private String resourceName;
+
     /** Command ID of this action. */
-    private ObjectId commandId;
+    private String command;
 
     /**
      * MongoDB constructor.
@@ -41,13 +46,17 @@ public class Action implements Serializable {
     /**
      * Constructor.
      *
-     * @param instant   {@link #instant}
-     * @param commandId {@link #commandId}
+     * @param instant      {@link #instant}
+     * @param deviceName   {@link #deviceName}
+     * @param resourceName {@link #resourceName}
+     * @param command      {@link #command}
      */
-    public Action(LocalDateTime instant, ObjectId commandId) {
+    public Action(LocalDateTime instant, String deviceName, String resourceName, String command) {
         this._id = new ObjectId();
         this.setInstant(instant);
-        this.commandId = commandId;
+        this.deviceName = deviceName;
+        this.resourceName = resourceName;
+        this.command = command;
     }
 
     /**
@@ -86,17 +95,45 @@ public class Action implements Serializable {
     }
 
     /**
-     * @return {@link #commandId}
+     * @return {@link #deviceName}
      */
-    public ObjectId getCommandId() {
-        return this.commandId;
+    public String getDeviceName() {
+        return this.deviceName;
     }
 
     /**
-     * @param commandId {@link #commandId}
+     * @param deviceName {@link #deviceName}
      */
-    public void setCommandId(ObjectId commandId) {
-        this.commandId = commandId;
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    /**
+     * @return {@link #resourceName}
+     */
+    public String getResourceName() {
+        return this.resourceName;
+    }
+
+    /**
+     * @param resourceName {@link #resourceName}
+     */
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    /**
+     * @return {@link #command}
+     */
+    public String getCommand() {
+        return this.command;
+    }
+
+    /**
+     * @param command {@link #command}
+     */
+    public void setCommand(String command) {
+        this.command = command;
     }
 
     @Override
@@ -108,18 +145,20 @@ public class Action implements Serializable {
             return false;
         }
         Action action = (Action) o;
-        return Objects.equals(this._id, action._id) && Objects.equals(this.instant, action.instant) && Objects.equals(
-                this.commandId, action.commandId);
+        return Objects.equals(this.className, action.className) && Objects.equals(this._id, action._id) && Objects
+                .equals(this.instant, action.instant) && Objects.equals(this.deviceName, action.deviceName) && Objects
+                .equals(this.resourceName, action.resourceName) && Objects.equals(this.command, action.command);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this._id, this.instant, this.commandId);
+        return Objects.hash(this.className, this._id, this.instant, this.deviceName, this.resourceName, this.command);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Action.class.getSimpleName() + "[", "]").add("id='" + this._id + "'").add(
-                "instant=" + this.instant).add("commandId='" + this.commandId + "'").toString();
+        return new StringJoiner(", ", Action.class.getSimpleName() + "[", "]").add("className='" + this.className + "'")
+                .add("_id=" + this._id).add("instant=" + this.instant).add("deviceName='" + this.deviceName + "'").add(
+                        "resourceName='" + this.resourceName + "'").add("command='" + this.command + "'").toString();
     }
 }

@@ -2,6 +2,7 @@ package br.pro.turing.masiot.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
+import org.jongo.marshall.jackson.oid.MongoId;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,13 +24,11 @@ public class Resource implements Serializable {
     @JsonIgnore
     private final String className = getClass().getName();
 
-    /** ID. */
-    private ObjectId _id;
-
     /**
      * Unique resource name. This name works as a user name and therefore there cannot be spaces on its content.
      * Besides, this name can be used by RML application to idetify a resource.
      */
+    @MongoId
     private String resourceName;
 
     /** Resource name. This name can have spaces and can have repetitions. */
@@ -71,7 +70,6 @@ public class Resource implements Serializable {
      */
     public Resource(String resourceName, String name, String description, String port, String dataUnit,
                     Integer waitTimeInMillis) {
-        this._id = new ObjectId();
         this.resourceName = resourceName;
         this.name = name;
         this.description = description;
@@ -94,7 +92,6 @@ public class Resource implements Serializable {
      */
     public Resource(String resourceName, String name, String description, String port, String dataUnit,
                     Integer waitTimeInMillis, List<Command> commandList) {
-        this._id = new ObjectId();
         this.resourceName = resourceName;
         this.name = name;
         this.description = description;
@@ -109,20 +106,6 @@ public class Resource implements Serializable {
      */
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    /**
-     * @return {@link #_id}
-     */
-    public ObjectId get_id() {
-        return this._id;
-    }
-
-    /**
-     * @param _id {@link #_id}
-     */
-    public void set_id(ObjectId _id) {
-        this._id = _id;
     }
 
     /**
@@ -235,7 +218,7 @@ public class Resource implements Serializable {
             return false;
         }
         Resource resource = (Resource) o;
-        return Objects.equals(this._id, resource._id) && Objects.equals(this.resourceName, resource.resourceName)
+        return Objects.equals(this.resourceName, resource.resourceName)
                 && Objects.equals(this.name, resource.name) && Objects.equals(this.description, resource.description)
                 && Objects.equals(this.port, resource.port) && Objects.equals(this.waitTimeInMillis,
                 resource.waitTimeInMillis) && Objects.equals(this.commandList, resource.commandList);
@@ -243,13 +226,13 @@ public class Resource implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this._id, this.resourceName, this.name, this.description, this.port, this.waitTimeInMillis,
+        return Objects.hash(this.resourceName, this.name, this.description, this.port, this.waitTimeInMillis,
                 this.commandList);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Resource.class.getSimpleName() + "[", "]").add("_id=" + this._id).add(
+        return new StringJoiner(", ", Resource.class.getSimpleName() + "[", "]").add(
                 "resourceName='" + this.resourceName + "'").add("name='" + this.name + "'").add(
                 "description='" + this.description + "'").add("port='" + this.port + "'").add(
                 "waitTimeInMillis='" + this.waitTimeInMillis + "'").add("commandList=" + this.commandList).toString();

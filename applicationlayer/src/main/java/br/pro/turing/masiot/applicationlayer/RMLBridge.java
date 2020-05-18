@@ -1,11 +1,8 @@
 package br.pro.turing.masiot.applicationlayer;
 
-import br.pro.turing.masiot.core.model.Action;
-import br.pro.turing.masiot.core.model.Command;
-import br.pro.turing.masiot.core.model.ConnectionState;
+import br.pro.turing.masiot.core.model.*;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
-import com.google.gson.Gson;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
@@ -61,10 +58,13 @@ public class RMLBridge implements NodeConnectionListener {
      * Create an action in a instant of time to perform a command.
      *
      * @param localDateTime Instant time.
+     * @param device
+     * @param resource
      * @param command       Command to be performed.
      */
-    public void createAction(LocalDateTime localDateTime, Command command) {
-        Action action = new Action(localDateTime, command.get_id());
+    public void createAction(LocalDateTime localDateTime, Device device, Resource resource, Command command) {
+        Action action = new Action(localDateTime, device.getDeviceName(), resource.getResourceName(),
+                command.getCommand());
         Message message = new ApplicationMessage();
         final String jason = ServiceManager.getInstance().jsonService.toJson(action);
         message.setContentObject(jason);
@@ -72,8 +72,7 @@ public class RMLBridge implements NodeConnectionListener {
         try {
             connection.sendMessage(message);
         } catch (IOException e) {
-            LOGGER.severe(
-                    "I/O error while trying to send a message when this client connects with RML");
+            LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
         }
     }
 

@@ -15,7 +15,6 @@ import lac.cnet.sddl.objects.PrivateMessage;
 import lac.cnet.sddl.udi.core.SddlLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
-import org.bson.types.ObjectId;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -67,6 +66,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         this.core.createDataWriter(toMobileNodeTopic);
         LOGGER.info("RML server running.");
 
+        this.deviceConnectionStateUpdater.init();
         new Thread(this.deviceConnectionStateUpdater).start();
 
         synchronized (this) {
@@ -105,8 +105,8 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
             }.getType();
             ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject, dataListType);
             if (dataArrayList != null && !dataArrayList.isEmpty()) {
-                final ObjectId resourceId = dataArrayList.get(0).getResourceId();
-                this.deviceConnectionStateUpdater.pingDeviceByResourceId(resourceId);
+                final Data data = dataArrayList.get(0);
+                this.deviceConnectionStateUpdater.pingDeviceByDeviceName(data.getDeviceName());
                 ServiceManager.getInstance().dataService.saveAll(dataArrayList);
             }
         }
@@ -123,22 +123,21 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
 
         // If already exists a old device with the same deviceName the new device, the _id will be copied from old to
         // new device. This will ensure that the new device will be update instead of created in the database.
-        final Device oldDevice = ServiceManager.getInstance().deviceService.findByDeviceName(newDevice.getDeviceName());
+        final Device oldDevice = ServiceManager.getInstance().deviceService.findById(newDevice.getDeviceName());
         if (oldDevice != null) {
-            newDevice.set_id(oldDevice.get_id());
             LOGGER.info(
                     "Device " + newDevice.getDeviceName() + " was already registered. This Device will be logged in.");
         }
-
         newDevice.setGatewayUUID(message.getGatewayId().toString());
-        newDevice.setUUID(message.getSenderId().toString());
+//        newDevice.setUUID(message.getSenderId().toString());
         newDevice.setConnectionState(ConnectionState.ONLINE.getState());
+        ServiceManager.getInstance().deviceService.save(newDevice);
 
-        newDevice = ServiceManager.getInstance().deviceService.save(newDevice);
         this.deviceConnectionStateUpdater.pingDevice(newDevice);
 
         // Responding that device registration was successful.
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");
+        System.out.println("Chegou na RML: UUID: " + newDevice.getUUID() + "    GUUID: " + newDevice.getGatewayUUID());
         sendMessage(message.getGatewayId(), message.getSenderId(),
                 ServiceManager.getInstance().jsonService.toJson(newDevice));
     }
@@ -152,11 +151,12 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         ServiceManager.getInstance().actionService.save(newAction);
 
         // Discovering the device that must perform this action.
-        final Device deviceByCommand = ServiceManager.getInstance().deviceService.findByCommandId(
-                newAction.getCommandId());
+        final Device deviceByCommand = ServiceManager.getInstance().deviceService.findById(newAction.getDeviceName());
         LOGGER.info("Delagating command to " + deviceByCommand.getDeviceName() + ".");
         UUID gatewayId = UUID.fromString(deviceByCommand.getGatewayUUID());
         UUID receiverId = UUID.fromString(deviceByCommand.getUUID());
+        System.out.println("Criando ação: UUID: " + deviceByCommand.getUUID() + "    GUUID: " + deviceByCommand.getGatewayUUID());
+
         sendMessage(gatewayId, receiverId, ServiceManager.getInstance().jsonService.toJson(newAction));
     }
 

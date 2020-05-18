@@ -9,7 +9,6 @@ import lac.cnclib.net.mrudp.MrUdpNodeConnection;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.message.Message;
 import lac.cnclib.sddl.serialization.Serialization;
-import org.bson.types.ObjectId;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -22,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 /**
@@ -74,13 +74,7 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     public static Device buildDeviceByConfigFile(String deviceConfigurationFilePath) throws FileNotFoundException {
         Reader jsonFile = new FileReader(deviceConfigurationFilePath);
-        Device newDevice = ServiceManager.getInstance().jsonService.fromJson(jsonFile, Device.class);
-        newDevice.set_id(new ObjectId());
-        newDevice.getResourceList().forEach(resource -> {
-            resource.set_id(new ObjectId());
-            resource.getCommandList().forEach(command -> command.set_id(new ObjectId()));
-        });
-        return newDevice;
+        return ServiceManager.getInstance().jsonService.fromJson(jsonFile, Device.class);
     }
 
     /**
@@ -93,9 +87,10 @@ public abstract class IoTObject implements NodeConnectionListener {
         LOGGER.info("Connecting this device (" + device.getDeviceName() + ") to RML.");
         this.gatewayAddress = new InetSocketAddress(gatewayIP, gatewayPort);
         try {
-            connection = new MrUdpNodeConnection();
+            connection = new MrUdpNodeConnection(UUID.fromString(this.device.getUUID()));
             connection.addNodeConnectionListener(this);
             connection.connect(gatewayAddress);
+
         } catch (IOException e) {
             LOGGER.severe("I/O exception error while try to connect this device to RML.");
         }
@@ -163,7 +158,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         LocalDateTime time = LocalDateTime.parse(bufferArray[0], DATE_TIME_FORMATTER);
         String[] valuesArray = bufferArray[1].split(SPLIT_VALUE);
         for (String value : valuesArray) {
-            dataList.add(new Data(time, resource.get_id(), value));
+            dataList.add(new Data(time, this.device.getDeviceName(), resource.getResourceName(), value));
             time = time.plus(resource.getWaitTimeInMillis(), ChronoUnit.MILLIS);
         }
         return dataList;
@@ -181,6 +176,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         LOGGER.info("Logging in or registering this device (" + device.getDeviceName() + ") in RML.");
         Message message = new ApplicationMessage();
         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(this.device));
+        System.out.println("Depois de conectar. Registrando: UUID: " + device.getUUID() + "    GUUID: " + device.getGatewayUUID());
         try {
             connection.sendMessage(message);
         } catch (IOException e) {
@@ -202,6 +198,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Device.class.getName())) {
             this.device = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Device.class);
             LOGGER.info("This device (" + this.device.getDeviceName() + ") is online on RML.");
+            System.out.println("Registrado: UUID: " + device.getUUID() + "    GUUID: " + device.getGatewayUUID());
         } else if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Action.class.getName())) {
             Action action = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Action.class);
             LOGGER.info("A new action was request: " + action.toString());

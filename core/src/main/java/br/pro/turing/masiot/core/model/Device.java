@@ -2,6 +2,7 @@ package br.pro.turing.masiot.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
+import org.jongo.marshall.jackson.oid.MongoId;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,20 +25,18 @@ public class Device implements Serializable {
     @JsonIgnore
     private final String className = getClass().getName();
 
-    /** ID. */
-    private ObjectId _id;
+    /**
+     * Unique device name. This name works as a user name and therefore there cannot be spaces on its content.
+     * Besides, this name can be used by RML application to idetify a devide.
+     */
+    @MongoId
+    private String deviceName;
 
     /** UUID of this device in RML. */
     private String UUID;
 
     /** UUID of the gateway used by this device to access the RML. */
     private String gatewayUUID;
-
-    /**
-     * Unique device name. This name works as a user name and therefore there cannot be spaces on its content.
-     * Besides, this name can be used by RML application to idetify a devide.
-     */
-    private String deviceName;
 
     /** Device name. This name can have spaces and can have repetitions. */
     private String name;
@@ -77,7 +76,6 @@ public class Device implements Serializable {
      */
     public Device(String deviceName, String name, String description, Long cycleDelayInMillis,
                   List<Resource> resourceList) {
-        this._id = new ObjectId();
         this.deviceName = deviceName;
         this.name = name;
         this.description = description;
@@ -90,20 +88,6 @@ public class Device implements Serializable {
      */
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    /**
-     * @return {@link #_id}
-     */
-    public ObjectId get_id() {
-        return this._id;
-    }
-
-    /**
-     * @param _id {@link #_id}
-     */
-    public void set_id(ObjectId _id) {
-        this._id = _id;
     }
 
     /**
@@ -244,7 +228,7 @@ public class Device implements Serializable {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(this._id, device._id) && Objects.equals(this.UUID, device.UUID) && Objects.equals(
+        return Objects.equals(this.UUID, device.UUID) && Objects.equals(
                 this.gatewayUUID, device.gatewayUUID) && Objects.equals(this.deviceName, device.deviceName) && Objects
                 .equals(this.name, device.name) && Objects.equals(this.description, device.description) && Objects
                 .equals(this.resourceList, device.resourceList) && Objects.equals(this.environmentId,
@@ -253,13 +237,13 @@ public class Device implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this._id, this.UUID, this.gatewayUUID, this.deviceName, this.name, this.description,
+        return Objects.hash(this.UUID, this.gatewayUUID, this.deviceName, this.name, this.description,
                 this.resourceList, this.environmentId);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Device.class.getSimpleName() + "[", "]").add("_id=" + this._id).add(
+        return new StringJoiner(", ", Device.class.getSimpleName() + "[", "]").add(
                 "UUID='" + this.UUID + "'").add("gatewayUUID='" + this.gatewayUUID + "'").add(
                 "deviceName='" + this.deviceName + "'").add("name='" + this.name + "'").add(
                 "description='" + this.description + "'").add("resourceList=" + this.resourceList).add(

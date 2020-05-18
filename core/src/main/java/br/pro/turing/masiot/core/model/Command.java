@@ -2,6 +2,7 @@ package br.pro.turing.masiot.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
+import org.jongo.marshall.jackson.oid.MongoId;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,10 +20,8 @@ public class Command implements Serializable {
     @JsonIgnore
     private final String className = getClass().getName();
 
-    /** ID. */
-    private ObjectId _id;
-
     /** Content of the command. */
+    @MongoId
     private String command;
 
     /** Description of the command. */
@@ -41,7 +40,6 @@ public class Command implements Serializable {
      * @param description {@link #description}
      */
     public Command(String command, String description) {
-        this._id = new ObjectId();
         this.command = command;
         this.description = description;
     }
@@ -51,20 +49,6 @@ public class Command implements Serializable {
      */
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    /**
-     * @param _id {@link #_id}
-     */
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
-    /**
-     * @return {@link #_id}
-     */
-    public ObjectId get_id() {
-        return this._id;
     }
 
     /**
@@ -104,18 +88,18 @@ public class Command implements Serializable {
             return false;
         }
         Command command1 = (Command) o;
-        return Objects.equals(this._id, command1._id) && Objects.equals(this.command, command1.command) && Objects
+        return Objects.equals(this.command, command1.command) && Objects
                 .equals(this.description, command1.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this._id, this.command, this.description);
+        return Objects.hash(this.command, this.description);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Command.class.getSimpleName() + "[", "]").add("id='" + this._id + "'").add(
+        return new StringJoiner(", ", Command.class.getSimpleName() + "[", "]").add(
                 "command='" + this.command + "'").add("description='" + this.description + "'").toString();
     }
 }
