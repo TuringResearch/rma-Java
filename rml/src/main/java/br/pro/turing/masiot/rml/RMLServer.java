@@ -106,7 +106,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
             ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject, dataListType);
             if (dataArrayList != null && !dataArrayList.isEmpty()) {
                 final Data data = dataArrayList.get(0);
-                this.deviceConnectionStateUpdater.pingDeviceByDeviceName(data.getDeviceName());
+                this.deviceConnectionStateUpdater.pingDevice(data.getDeviceName());
                 ServiceManager.getInstance().dataService.saveAll(dataArrayList);
             }
         }
@@ -129,15 +129,14 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
                     "Device " + newDevice.getDeviceName() + " was already registered. This Device will be logged in.");
         }
         newDevice.setGatewayUUID(message.getGatewayId().toString());
-//        newDevice.setUUID(message.getSenderId().toString());
+        newDevice.setUUID(message.getSenderId().toString());
         newDevice.setConnectionState(ConnectionState.ONLINE.getState());
         ServiceManager.getInstance().deviceService.save(newDevice);
 
-        this.deviceConnectionStateUpdater.pingDevice(newDevice);
+        this.deviceConnectionStateUpdater.pingDevice(newDevice.getDeviceName());
 
         // Responding that device registration was successful.
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");
-        System.out.println("Chegou na RML: UUID: " + newDevice.getUUID() + "    GUUID: " + newDevice.getGatewayUUID());
         sendMessage(message.getGatewayId(), message.getSenderId(),
                 ServiceManager.getInstance().jsonService.toJson(newDevice));
     }
@@ -155,7 +154,6 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         LOGGER.info("Delagating command to " + deviceByCommand.getDeviceName() + ".");
         UUID gatewayId = UUID.fromString(deviceByCommand.getGatewayUUID());
         UUID receiverId = UUID.fromString(deviceByCommand.getUUID());
-        System.out.println("Criando ação: UUID: " + deviceByCommand.getUUID() + "    GUUID: " + deviceByCommand.getGatewayUUID());
 
         sendMessage(gatewayId, receiverId, ServiceManager.getInstance().jsonService.toJson(newAction));
     }

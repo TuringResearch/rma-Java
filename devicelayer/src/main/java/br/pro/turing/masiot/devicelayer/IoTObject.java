@@ -87,7 +87,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         LOGGER.info("Connecting this device (" + device.getDeviceName() + ") to RML.");
         this.gatewayAddress = new InetSocketAddress(gatewayIP, gatewayPort);
         try {
-            connection = new MrUdpNodeConnection(UUID.fromString(this.device.getUUID()));
+            connection = new MrUdpNodeConnection();
             connection.addNodeConnectionListener(this);
             connection.connect(gatewayAddress);
 
@@ -176,7 +176,6 @@ public abstract class IoTObject implements NodeConnectionListener {
         LOGGER.info("Logging in or registering this device (" + device.getDeviceName() + ") in RML.");
         Message message = new ApplicationMessage();
         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(this.device));
-        System.out.println("Depois de conectar. Registrando: UUID: " + device.getUUID() + "    GUUID: " + device.getGatewayUUID());
         try {
             connection.sendMessage(message);
         } catch (IOException e) {
@@ -198,7 +197,6 @@ public abstract class IoTObject implements NodeConnectionListener {
         if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Device.class.getName())) {
             this.device = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Device.class);
             LOGGER.info("This device (" + this.device.getDeviceName() + ") is online on RML.");
-            System.out.println("Registrado: UUID: " + device.getUUID() + "    GUUID: " + device.getGatewayUUID());
         } else if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Action.class.getName())) {
             Action action = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Action.class);
             LOGGER.info("A new action was request: " + action.toString());

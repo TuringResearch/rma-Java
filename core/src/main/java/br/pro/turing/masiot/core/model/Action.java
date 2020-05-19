@@ -157,8 +157,8 @@ public class Action implements Serializable {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Action.class.getSimpleName() + "[", "]").add("className='" + this.className + "'")
-                .add("_id=" + this._id).add("instant=" + this.instant).add("deviceName='" + this.deviceName + "'").add(
-                        "resourceName='" + this.resourceName + "'").add("command='" + this.command + "'").toString();
+        return new StringJoiner(", ", Action.class.getSimpleName() + "[", "]").add("instant=" + this.instant).add(
+                "deviceName='" + this.deviceName + "'").add("resourceName='" + this.resourceName + "'").add(
+                "command='" + this.command + "'").toString();
     }
 }

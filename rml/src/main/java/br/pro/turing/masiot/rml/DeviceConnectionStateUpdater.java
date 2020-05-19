@@ -2,10 +2,8 @@ package br.pro.turing.masiot.rml;
 
 import br.pro.turing.masiot.core.model.ConnectionState;
 import br.pro.turing.masiot.core.model.Device;
-import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
-import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -24,17 +22,13 @@ public class DeviceConnectionStateUpdater implements Runnable {
 
     private Map<String, LocalDateTime> deviceCurrentUpdateMap;
 
-    private Map<String, Device> deviceMap;
-
     public DeviceConnectionStateUpdater() {
         this.deviceCurrentUpdateMap = new HashMap<>();
-        this.deviceMap = new HashMap<>();
     }
 
     public void init() {
         final List<Device> devices = ServiceManager.getInstance().deviceService.findAll();
         for (Device device : devices) {
-            this.deviceMap.put(device.getDeviceName(), device);
             this.deviceCurrentUpdateMap.put(device.getDeviceName(), null);
             device.setConnectionState(ConnectionState.OFFLINE.getState());
         }
@@ -49,7 +43,7 @@ public class DeviceConnectionStateUpdater implements Runnable {
             List<Device> devicesChanged = new ArrayList<>();
             this.deviceCurrentUpdateMap.forEach((deviceName, localDateTime) -> {
                 if (localDateTime != null) {
-                    Device device = this.deviceMap.get(deviceName);
+                    Device device = ServiceManager.getInstance().deviceService.findById(deviceName);
                     if (localDateTime.until(LocalDateTime.now(), ChronoUnit.MILLIS) > device.getCycleDelayInMillis()
                             && device.getConnectionState().equals(ConnectionState.ONLINE.getState())) {
                         device.setConnectionState(ConnectionState.OFFLINE.getState());
@@ -75,19 +69,11 @@ public class DeviceConnectionStateUpdater implements Runnable {
         }
     }
 
-    public void pingDevice(Device device) {
-        if (!this.deviceMap.containsKey(device.getDeviceName())) {
-            this.deviceMap.put(device.getDeviceName(), device);
-            this.deviceCurrentUpdateMap.put(device.getDeviceName(), LocalDateTime.now());
+    public void pingDevice(String deviceName) {
+        if (!this.deviceCurrentUpdateMap.containsKey(deviceName)) {
+            this.deviceCurrentUpdateMap.put(deviceName, LocalDateTime.now());
         } else {
-            this.deviceCurrentUpdateMap.replace(device.getDeviceName(), LocalDateTime.now());
-        }
-    }
-
-    public void pingDeviceByDeviceName(String deviceName) {
-        final Device device = this.deviceMap.get(deviceName);
-        if (device != null) {
-            pingDevice(device);
+            this.deviceCurrentUpdateMap.replace(deviceName, LocalDateTime.now());
         }
     }
 }

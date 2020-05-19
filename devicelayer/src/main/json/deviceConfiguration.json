@@ -2,7 +2,6 @@
   "deviceName": "device1",
   "name": "Device 1",
   "description": "This is the Device 1",
-  "UUID": "ceb8e927-5959-4dc6-9acb-99826caeef38",
   "cycleDelayInMillis": 5000,
   "resourceList": [
     {
