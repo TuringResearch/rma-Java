@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceBox extends VBox {
@@ -31,10 +32,16 @@ public class ResourceBox extends VBox {
 
     private Resource resource;
 
-    public ResourceBox(Device device, Resource resource) {
+    private ConnectionStateBox connectionStateBox;
+
+    private ArrayList<Button> buttonList;
+
+    public ResourceBox(Device device, Resource resource, ConnectionStateBox connectionStateBox) {
         super();
         this.device = device;
         this.resource = resource;
+        this.connectionStateBox = connectionStateBox;
+        this.buttonList = new ArrayList<>();
 
         this.getStyleClass().addAll("resource-box");
         this.setAlignment(Pos.CENTER);
@@ -44,6 +51,9 @@ public class ResourceBox extends VBox {
         this.getChildren().add(buildHeadBox());
         this.getChildren().add(buildValueBox());
         this.getChildren().add(buildCommandButtonPane());
+
+        this.connectionStateBox.connectionStateProperty().addListener(
+                (observable, oldValue, newValue) -> buttonList.forEach(bt -> bt.setDisable(!newValue)));
     }
 
     private HBox buildHeadBox() {
@@ -86,6 +96,7 @@ public class ResourceBox extends VBox {
             commandButton.setOnAction(event -> {
                 UiApplication.RML_BRIDGE.createAction(LocalDateTime.now(), this.device, this.resource, command);
             });
+            buttonList.add(commandButton);
         }
         return commandButtonPane;
     }

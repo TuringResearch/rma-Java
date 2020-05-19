@@ -47,7 +47,7 @@ public class DeviceBox extends VBox {
         resourcePane.setMaxWidth(325);
 
         for (Resource resource : this.device.getResourceList()) {
-            ResourceBox resourceBox = new ResourceBox(this.device, resource);
+            ResourceBox resourceBox = new ResourceBox(this.device, resource, this.connectionStateBox);
             resourcePane.getChildren().add(resourceBox);
         }
         return resourcePane;

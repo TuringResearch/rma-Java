@@ -4,12 +4,15 @@ import br.pro.turing.masiot.core.model.ConnectionState;
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class ConnectionStateBox extends Circle {
 
     private Device device;
+
+    private SimpleBooleanProperty connectionState = new SimpleBooleanProperty(false);
 
     public ConnectionStateBox(Device device) {
         this.device = device;
@@ -27,7 +30,10 @@ public class ConnectionStateBox extends Circle {
                 this.device = ServiceManager.getInstance().deviceService.findById(this.device.getDeviceName());
                 final ConnectionState state = ConnectionState.get(this.device.getConnectionState());
                 if (state != null) {
-                    Platform.runLater(() -> ConnectionStateBox.this.setState(state));
+                    this.connectionState.set(state.equals(ConnectionState.ONLINE));
+                    Platform.runLater(() -> {
+                        ConnectionStateBox.this.setState(state);
+                    });
                 }
 
                 long duration = System.currentTimeMillis() - t1;
@@ -46,5 +52,9 @@ public class ConnectionStateBox extends Circle {
         } else if (state.equals(ConnectionState.OFFLINE)) {
             this.setFill(Color.RED);
         }
+    }
+
+    public SimpleBooleanProperty connectionStateProperty() {
+        return connectionState;
     }
 }
