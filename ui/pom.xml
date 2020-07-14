@@ -45,5 +45,10 @@
             <artifactId>applicationlayer</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.8</version>
+        </dependency>
     </dependencies>
 </project>

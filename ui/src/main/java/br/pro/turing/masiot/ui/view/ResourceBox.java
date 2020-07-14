@@ -6,15 +6,18 @@ import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.ui.UiApplication;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -63,7 +66,28 @@ public class ResourceBox extends VBox {
         Label resourceNameLabel = new Label(this.resource.getResourceName());
         resourceNameLabel.getStyleClass().add("h6-label");
 
-        headBox.getChildren().addAll(resourceNameLabel);
+        FontAwesomeIconView chartIcon = new FontAwesomeIconView(FontAwesomeIcon.LINE_CHART);
+        chartIcon.setSize("20px");
+        chartIcon.setFill(Color.color(0.03, 0.45, 0.34));
+        chartIcon.setOnMouseClicked(event -> {
+            ResourceChart resourceChart = new ResourceChart(this.device, this.resource);
+            Scene scene = new Scene(resourceChart, 1080, 720);
+            String styleSheetPath = getClass().getResource("/style.css").toExternalForm();
+            scene.getStylesheets().add(styleSheetPath);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            resourceChart.startPlotting();
+        });
+
+        Region r1 = new Region();
+        r1.setStyle("-fx-min-width: 20px;");
+        Region r2 = new Region();
+        HBox.setHgrow(r2, Priority.ALWAYS);
+        Region r3 = new Region();
+        HBox.setHgrow(r3, Priority.ALWAYS);
+
+        headBox.getChildren().addAll(r1, r2, resourceNameLabel, r3, chartIcon);
         return headBox;
     }
 
@@ -88,10 +112,10 @@ public class ResourceBox extends VBox {
         commandButtonPane.setAlignment(Pos.TOP_LEFT);
         commandButtonPane.setHgap(2);
         commandButtonPane.setVgap(2);
-        commandButtonPane.setMaxWidth(150);
         for (Command command : this.resource.getCommandList()) {
             Button commandButton = new Button(command.getCommand());
             commandButton.getStyleClass().add("command-button");
+            commandButton.prefWidthProperty().bind(commandButtonPane.widthProperty().divide(2).subtract(2));
             commandButtonPane.getChildren().add(commandButton);
             commandButton.setOnAction(event -> {
                 UiApplication.RML_BRIDGE.createAction(LocalDateTime.now(), this.device, this.resource, command);

@@ -1,0 +1,10 @@
+mas pumpMasIoT {
+	agent pumpAgent : pumpAgent.asl {
+    	focus: sprWorkspace.pump
+    }
+
+	workspace sprWorkspace {
+		artifact pump : PumpArtifact()
+	}
+}
+

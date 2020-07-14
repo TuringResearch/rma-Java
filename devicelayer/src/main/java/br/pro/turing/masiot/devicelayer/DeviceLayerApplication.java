@@ -87,6 +87,7 @@ public class DeviceLayerApplication {
         return new IoTObject(device) {
             DecimalFormat df = new DecimalFormat("0.00");
             Random random = new Random();
+            Random boolRandom = new Random();
 
             @Override
             protected ArrayList<Data> buildDataBuffer() {
@@ -95,7 +96,11 @@ public class DeviceLayerApplication {
                     final LocalDateTime now = LocalDateTime.now();
                     String value = IoTObject.DATE_TIME_FORMATTER.format(now) + IoTObject.SPLIT_TIME;
                     for (int i = 0; i < this.getDevice().getCycleDelayInMillis(); i += resource.getWaitTimeInMillis()) {
-                        value += df.format(random.nextDouble()) + IoTObject.SPLIT_VALUE;
+                        if (resource.getResourceName().equals("irrigador")) {
+                            value += (boolRandom.nextBoolean() ? "Ligado" : "Desligado") + IoTObject.SPLIT_VALUE;
+                        } else {
+                            value += df.format(random.nextDouble() * 100) + IoTObject.SPLIT_VALUE;
+                        }
                     }
                     value = value.substring(0, value.length() - 1);
 

@@ -1,23 +1,41 @@
 {
-  "deviceName": "device50",
-  "name": "Device 50",
-  "description": "This is the Device 50",
+  "deviceName": "pump",
+  "name": "Pump",
+  "description": "This is the Pump",
   "cycleDelayInMillis": 5000,
   "resourceList": [
     {
-      "resourceName": "lamp",
-      "name": "Lamp",
-      "description": "This is the Lamp",
-      "port": "COM3",
-      "dataUnit": "%",
-      "waitTimeInMillis": 5000,
+      "resourceName": "motor",
+      "name": "Motor",
+      "description": "This is the motor actuator",
+      "port": "COM6",
+      "dataUnit": "",
+      "waitTimeInMillis": 1000,
       "commandList": [
         {
-          "command": "turnOn",
+          "command": "on",
           "description": "The command to turns on this resource"
         },
         {
-          "command": "turnOff",
+          "command": "off",
+          "description": "The command to turns off this resource"
+        }
+      ]
+    },
+    {
+      "resourceName": "locker",
+      "name": "Locker",
+      "description": "This is the motor lacker actuator",
+      "port": "COM6",
+      "dataUnit": "",
+      "waitTimeInMillis": 1000,
+      "commandList": [
+        {
+          "command": "canOp",
+          "description": "The command to turns on this resource"
+        },
+        {
+          "command": "cannotOp",
           "description": "The command to turns off this resource"
         }
       ]
@@ -26,7 +44,7 @@
       "resourceName": "temperature",
       "name": "Temperature",
       "description": "This is the Temperature",
-      "port": "COM3",
+      "port": "COM6",
       "dataUnit": "°C",
       "waitTimeInMillis": 1000
     }

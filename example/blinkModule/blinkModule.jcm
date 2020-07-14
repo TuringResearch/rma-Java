@@ -1,0 +1,18 @@
+mas blinkModule {
+	agent sensorAgent : sensorAgent.asl {
+    	focus: sensorWkp.sensor
+    }
+
+	agent actuatorAgent : actuatorAgent.asl {
+    	focus: actuatorWkp.actuator
+    }
+	
+	workspace sensorWkp {
+		artifact sensor: SensorArtifact()
+	}
+	
+	workspace actuatorWkp {
+		artifact actuator: ActuatorArtifact()
+	}
+}
+

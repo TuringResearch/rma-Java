@@ -3,8 +3,11 @@ package br.pro.turing.masiot.ui;
 import br.pro.turing.masiot.applicationlayer.RMLBridge;
 import br.pro.turing.masiot.ui.view.DevicePane;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class UiApplication extends Application {
 
@@ -19,5 +22,13 @@ public class UiApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent e) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 }

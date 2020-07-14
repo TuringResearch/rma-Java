@@ -44,7 +44,6 @@ public class DeviceBox extends VBox {
         resourcePane.setAlignment(Pos.TOP_LEFT);
         resourcePane.setHgap(5);
         resourcePane.setVgap(5);
-        resourcePane.setMaxWidth(325);
 
         for (Resource resource : this.device.getResourceList()) {
             ResourceBox resourceBox = new ResourceBox(this.device, resource, this.connectionStateBox);

@@ -6,6 +6,17 @@
     -fx-text-color: #073F2F;
     -fx-separator-color: linear-gradient(to right, transparent, #073F2F, transparent);
 }
+.chart-line-symbol {
+    -fx-background-color: black, black;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+.chart-series-line {
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
+}
+.default-color0.chart-line-symbol { -fx-background-color: black, black; }
 
 .device-pane {
     -fx-background-color: -fx-base;
