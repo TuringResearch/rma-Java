@@ -7,6 +7,7 @@ import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -57,7 +58,7 @@ public class DeviceLayerApplication {
             Device newDevice = IoTObject.buildDeviceByConfigFile(deviceConfigurationFilePath);
             final IoTObject ioSTObject = createIoTObject(newDevice);
             ioSTObject.connect(gatewayIP, gatewayPort);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             LOGGER.severe(e.getMessage());
             System.exit(SYSTEM_EXIT_DEVICE_CONFIG_FILE_NOT_FOUND);
         }

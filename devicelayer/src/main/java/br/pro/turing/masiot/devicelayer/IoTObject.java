@@ -2,7 +2,6 @@ package br.pro.turing.masiot.devicelayer;
 
 import br.pro.turing.masiot.core.model.*;
 import br.pro.turing.masiot.core.service.ServiceManager;
-import br.pro.turing.masiot.core.utils.LoggerUtils;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
@@ -13,12 +12,13 @@ import lac.cnclib.sddl.serialization.Serialization;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.UUID;
 
 /**
  * IoT Object is a device able of (i) connecting and registering in the RML when it starts. It is initially configured
@@ -37,11 +37,6 @@ public abstract class IoTObject implements NodeConnectionListener {
     /** Timestamp format for miclocontroller buffer. */
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm:ss.SSS");
-
-    /** Logger. */
-//    private static final Logger LOGGER = LoggerUtils.initLogger(IoTObject.class.getClassLoader()
-//                    .getResourceAsStream("br/pro/turing/masiot/devicelayer/devicelayer.logging.properties"),
-//            IoTObject.class.getSimpleName());
 
     /** IoT by ContextNet connection instance. */
     private MrUdpNodeConnection connection;
@@ -73,16 +68,44 @@ public abstract class IoTObject implements NodeConnectionListener {
         return ServiceManager.getInstance().jsonService.fromJson(jsonFile, Device.class);
     }
 
-//    private static String getUUIDFromFile() throws Exception {
-//        File file = new File(".device");
-//        if (!file.exists()) {
-//            throw new Exception();
-//        }
-//
-//        InputStream inputStream = new FileInputStream(file);
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//    }
+    /**
+     * Search by an UUID if exists.
+     *
+     * @return UUID or empty text.
+     */
+    private String getUUIDFromFile() throws IOException {
+        File file = new File(".device");
+        if (!file.exists()) {
+            return "";
+        }
+
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            final String uuid;
+            uuid = bufferedReader.readLine();
+            return uuid;
+        } finally {
+            inputStream.close();
+        }
+    }
+
+    /**
+     * Create a file if not exists and write a new UUID value.
+     *
+     * @param uuid UUID.
+     * @throws IOException
+     */
+    private void setUUIDToFile(String uuid) throws IOException {
+        File file = new File(".device");
+        if (!file.exists()) {
+            Files.createFile(file.toPath());
+        }
+        FileWriter writer = new FileWriter(".device");
+        writer.write(uuid);
+        writer.close();
+    }
 
     /**
      * Connects to the RML.
@@ -90,16 +113,13 @@ public abstract class IoTObject implements NodeConnectionListener {
      * @param gatewayIP   Gateway IP.
      * @param gatewayPort Gateway port.
      */
-    public void connect(String gatewayIP, int gatewayPort) {
-//        LOGGER.info("Connecting this device (" + device.getDeviceName() + ") to RML.");
+    public void connect(String gatewayIP, int gatewayPort) throws IOException {
         this.gatewayAddress = new InetSocketAddress(gatewayIP, gatewayPort);
-        try {
-            connection = new MrUdpNodeConnection();
-            connection.addNodeConnectionListener(this);
-            connection.connect(gatewayAddress);
-        } catch (IOException e) {
-//            LOGGER.severe("I/O exception error while try to connect this device to RML.");
-        }
+        final String uuid = this.getUUIDFromFile();
+        connection = uuid.isEmpty() ? new MrUdpNodeConnection() : new MrUdpNodeConnection(UUID.fromString(uuid));
+        connection.addNodeConnectionListener(this);
+
+        connection.connect(gatewayAddress);
     }
 
     /**
@@ -122,20 +142,17 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     private void startCycle() {
         new Thread(() -> {
-//            LOGGER.info("Starting RML client cycle.");
             while (true) {
                 final long t1 = System.currentTimeMillis();
                 if (this.device.getConnectionState().equals(ConnectionState.ONLINE.getState())) {
                     final ArrayList<Data> dataList = buildDataBuffer();
                     if (!dataList.isEmpty()) {
-//                        LOGGER.fine("Sending data...");
                         Message message = new ApplicationMessage();
                         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(dataList));
                         try {
                             connection.sendMessage(message);
                         } catch (IOException e) {
-//                            LOGGER.severe(
-//                                    "I/O error while trying to send a message when this client connects with RML");
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -144,7 +161,7 @@ public abstract class IoTObject implements NodeConnectionListener {
                     Thread.sleep(duration < this.device.getCycleDelayInMillis() ?
                                  this.device.getCycleDelayInMillis() - duration : 0);
                 } catch (InterruptedException e) {
-//                    LOGGER.severe(e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }).start();
@@ -178,14 +195,12 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     @Override
     public void connected(NodeConnection nodeConnection) {
-//        LOGGER.info("Device (" + device.getDeviceName() + ") connected.");
-//        LOGGER.info("Logging in or registering this device (" + device.getDeviceName() + ") in RML.");
         Message message = new ApplicationMessage();
         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(this.device));
         try {
             connection.sendMessage(message);
         } catch (IOException e) {
-//            LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
+            e.printStackTrace();
         }
     }
 
@@ -202,10 +217,15 @@ public abstract class IoTObject implements NodeConnectionListener {
         String messageReceived = (String) Serialization.fromJavaByteStream(message.getContent());
         if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Device.class.getName())) {
             this.device = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Device.class);
-//            LOGGER.info("This device (" + this.device.getDeviceName() + ") is online on RML.");
+            try {
+                if (this.getUUIDFromFile().isEmpty()) {
+                    this.setUUIDToFile(this.device.getUUID());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Action.class.getName())) {
             Action action = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Action.class);
-//            LOGGER.info("A new action was request: " + action.toString());
             this.onAction(action);
         }
     }
@@ -221,7 +241,6 @@ public abstract class IoTObject implements NodeConnectionListener {
     @Override
     public final void reconnected(NodeConnection nodeConnection, SocketAddress socketAddress, boolean b, boolean b1) {
         this.device.setConnectionState(ConnectionState.ONLINE.getState());
-//        LOGGER.warning("This device (" + this.device.getDeviceName() + ") was reconnected");
     }
 
     /**
@@ -232,7 +251,6 @@ public abstract class IoTObject implements NodeConnectionListener {
     @Override
     public final void disconnected(NodeConnection nodeConnection) {
         this.device.setConnectionState(ConnectionState.OFFLINE.getState());
-//        LOGGER.severe("This device (" + this.device.getDeviceName() + ") was disconnected.");
     }
 
     /**
@@ -248,14 +266,11 @@ public abstract class IoTObject implements NodeConnectionListener {
         errorMessageLog.append("Unsent mesage(s):");
         list.forEach(message -> errorMessageLog.append("\n")
                 .append(Serialization.fromJavaByteStream(message.getContent()).toString()));
-//        LOGGER.severe(errorMessageLog.toString());
         if (this.device.getConnectionState().equals(ConnectionState.ONLINE.getState())) {
-//            LOGGER.info("Resending messages");
             for (Message message : list) {
                 try {
                     connection.sendMessage(message);
                 } catch (IOException e) {
-//                    LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
                     return;
                 }
             }
