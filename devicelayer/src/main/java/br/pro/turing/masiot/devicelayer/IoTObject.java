@@ -1,6 +1,9 @@
 package br.pro.turing.masiot.devicelayer;
 
-import br.pro.turing.masiot.core.model.*;
+import br.pro.turing.masiot.core.model.Action;
+import br.pro.turing.masiot.core.model.Data;
+import br.pro.turing.masiot.core.model.Device;
+import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
@@ -46,6 +49,9 @@ public abstract class IoTObject implements NodeConnectionListener {
 
     /** IP socket address of the ContextNet gateway. */
     private InetSocketAddress gatewayAddress;
+
+    /** State of connection. */
+    private boolean connected = false;
 
     /**
      * Constructor.
@@ -144,7 +150,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         new Thread(() -> {
             while (true) {
                 final long t1 = System.currentTimeMillis();
-                if (this.device.getConnectionState().equals(ConnectionState.ONLINE.getState())) {
+                if (this.connected) {
                     final ArrayList<Data> dataList = buildDataBuffer();
                     if (!dataList.isEmpty()) {
                         Message message = new ApplicationMessage();
@@ -199,6 +205,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(this.device));
         try {
             connection.sendMessage(message);
+            this.connected = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -240,7 +247,7 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     @Override
     public final void reconnected(NodeConnection nodeConnection, SocketAddress socketAddress, boolean b, boolean b1) {
-        this.device.setConnectionState(ConnectionState.ONLINE.getState());
+        this.connected = true;
     }
 
     /**
@@ -250,7 +257,7 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     @Override
     public final void disconnected(NodeConnection nodeConnection) {
-        this.device.setConnectionState(ConnectionState.OFFLINE.getState());
+        this.connected = false;
     }
 
     /**
@@ -266,13 +273,11 @@ public abstract class IoTObject implements NodeConnectionListener {
         errorMessageLog.append("Unsent mesage(s):");
         list.forEach(message -> errorMessageLog.append("\n")
                 .append(Serialization.fromJavaByteStream(message.getContent()).toString()));
-        if (this.device.getConnectionState().equals(ConnectionState.ONLINE.getState())) {
-            for (Message message : list) {
-                try {
-                    connection.sendMessage(message);
-                } catch (IOException e) {
-                    return;
-                }
+        for (Message message : list) {
+            try {
+                connection.sendMessage(message);
+            } catch (IOException e) {
+                return;
             }
         }
     }

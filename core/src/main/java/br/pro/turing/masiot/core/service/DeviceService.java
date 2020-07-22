@@ -1,12 +1,10 @@
 package br.pro.turing.masiot.core.service;
 
-import br.pro.turing.masiot.core.model.ConnectionState;
 import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.repository.DataRepository;
 import br.pro.turing.masiot.core.repository.DeviceRepository;
-import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,23 +42,6 @@ public class DeviceService {
     }
 
     /**
-     * Find connection state by device.
-     *
-     * @param device Device.
-     * @return Connection state.
-     */
-    public ConnectionState findCurrentConnectionState(Device device) {
-        for (Resource resource : device.getResourceList()) {
-            final List<Data> byResourceAndGte = this.dataRepository.findByResourceAndGte(device, resource,
-                    LocalDateTime.now().plusSeconds(-10));
-            if (byResourceAndGte != null & !byResourceAndGte.isEmpty()) {
-                return ConnectionState.ONLINE;
-            }
-        }
-        return ConnectionState.OFFLINE;
-    }
-
-    /**
      * Save a device.
      *
      * @param device Device.
@@ -79,7 +60,7 @@ public class DeviceService {
     }
 
     /**
-     * Find Device bu deviceName.
+     * Find Device by deviceName.
      *
      * @param deviceName Device name.
      * @return Device found.
@@ -89,12 +70,22 @@ public class DeviceService {
     }
 
     /**
-     * Find device by command ID.
+     * Find device by name.
      *
-     * @param command Command ID.
-     * @return Device found.
+     * @param deviceName Device name.
+     * @return Device.
      */
-    public Device findByCommand(String command) {
-        return this.deviceRepository.findByCommand(command);
+    public Device findByDeviceName(String deviceName) {
+        return this.deviceRepository.findByDeviceName(deviceName);
+    }
+
+    /**
+     * Update the date of the last update of this device.
+     *
+     * @param deviceName Device name.
+     * @return Device.
+     */
+    public void updateLast(String deviceName) {
+        this.deviceRepository.updateLast(deviceName);
     }
 }

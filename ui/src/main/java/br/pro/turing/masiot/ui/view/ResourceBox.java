@@ -9,6 +9,7 @@ import br.pro.turing.masiot.ui.UiApplication;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -35,15 +36,12 @@ public class ResourceBox extends VBox {
 
     private Resource resource;
 
-    private ConnectionStateBox connectionStateBox;
-
     private ArrayList<Button> buttonList;
 
-    public ResourceBox(Device device, Resource resource, ConnectionStateBox connectionStateBox) {
+    public ResourceBox(Device device, Resource resource, SimpleBooleanProperty connected) {
         super();
         this.device = device;
         this.resource = resource;
-        this.connectionStateBox = connectionStateBox;
         this.buttonList = new ArrayList<>();
 
         this.getStyleClass().addAll("resource-box");
@@ -55,8 +53,20 @@ public class ResourceBox extends VBox {
         this.getChildren().add(buildValueBox());
         this.getChildren().add(buildCommandButtonPane());
 
-        this.connectionStateBox.connectionStateProperty().addListener(
-                (observable, oldValue, newValue) -> buttonList.forEach(bt -> bt.setDisable(!newValue)));
+        buttonList.forEach(bt -> bt.setDisable(!connected.getValue()));
+        valueLabel.setDisable(!connected.getValue());
+        unitLabel.setDisable(!connected.getValue());
+        connected.addListener((observable, oldValue, newValue) -> {
+            buttonList.forEach(bt -> bt.setDisable(!newValue));
+            valueLabel.setDisable(!newValue);
+            unitLabel.setDisable(!newValue);
+            if (!newValue) {
+                Platform.runLater(() -> {
+                    valueLabel.setText(UNAVAILABLE_VALUE);
+                    unitLabel.setText("");
+                });
+            }
+        });
     }
 
     private HBox buildHeadBox() {
@@ -99,7 +109,7 @@ public class ResourceBox extends VBox {
         this.valueLabel = new Label(UNAVAILABLE_VALUE);
         this.valueLabel.getStyleClass().add("h3-label");
 
-        this.unitLabel = new Label(resource.getDataUnit());
+        this.unitLabel = new Label();
         this.unitLabel.getStyleClass().add("h5-label");
         valueBox.getChildren().addAll(this.valueLabel, this.unitLabel);
         startResource();
@@ -137,7 +147,10 @@ public class ResourceBox extends VBox {
                     dataList.sort((o1, o2) -> o1.getInstant().compareTo(o2.getInstant()));
                     Data data = dataList.get(dataList.size() - 1);
 
-                    Platform.runLater(() -> this.valueLabel.setText(data.getValue()));
+                    Platform.runLater(() -> {
+                        this.valueLabel.setText(data.getValue());
+                        this.unitLabel.setText(resource.getDataUnit());
+                    });
                 }
                 long duration = System.currentTimeMillis() - t1;
                 try {

@@ -1,5 +1,5 @@
 {
-  "deviceName": "pump",
+  "deviceName": "pump2",
   "name": "Pump",
   "description": "This is the Pump",
   "cycleDelayInMillis": 5000,

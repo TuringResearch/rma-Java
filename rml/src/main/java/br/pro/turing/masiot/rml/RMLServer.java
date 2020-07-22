@@ -1,7 +1,6 @@
 package br.pro.turing.masiot.rml;
 
 import br.pro.turing.masiot.core.model.Action;
-import br.pro.turing.masiot.core.model.ConnectionState;
 import br.pro.turing.masiot.core.model.Data;
 import br.pro.turing.masiot.core.model.Device;
 import br.pro.turing.masiot.core.service.ServiceManager;
@@ -18,6 +17,7 @@ import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -39,13 +39,10 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
     /** Security Descriptor Definition Language layer. */
     private SddlLayer core;
 
-    private DeviceConnectionStateUpdater deviceConnectionStateUpdater;
-
     /**
      * Constructor.
      */
     public RMLServer() {
-        deviceConnectionStateUpdater = new DeviceConnectionStateUpdater();
     }
 
     /**
@@ -65,9 +62,6 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         Object toMobileNodeTopic = this.core.createTopic(PrivateMessage.class, PrivateMessage.class.getSimpleName());
         this.core.createDataWriter(toMobileNodeTopic);
         LOGGER.info("RML server running.");
-
-        this.deviceConnectionStateUpdater.init();
-        new Thread(this.deviceConnectionStateUpdater).start();
 
         synchronized (this) {
             try {
@@ -106,7 +100,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
             ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject, dataListType);
             if (dataArrayList != null && !dataArrayList.isEmpty()) {
                 final Data data = dataArrayList.get(0);
-                this.deviceConnectionStateUpdater.pingDevice(data.getDeviceName());
+                ServiceManager.getInstance().deviceService.updateLast(data.getDeviceName());
                 ServiceManager.getInstance().dataService.saveAll(dataArrayList);
             }
         }
@@ -130,10 +124,8 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         }
         newDevice.setGatewayUUID(message.getGatewayId().toString());
         newDevice.setUUID(message.getSenderId().toString());
-        newDevice.setConnectionState(ConnectionState.ONLINE.getState());
+        newDevice.setLocalLastUpdate(LocalDateTime.now());
         ServiceManager.getInstance().deviceService.save(newDevice);
-
-        this.deviceConnectionStateUpdater.pingDevice(newDevice.getDeviceName());
 
         // Responding that device registration was successful.
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");

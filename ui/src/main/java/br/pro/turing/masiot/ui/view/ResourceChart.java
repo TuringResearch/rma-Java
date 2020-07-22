@@ -75,7 +75,7 @@ public class ResourceChart extends LineChart {
      */
     public void startPlotting() {
         this.timer = new Timer(ONE_SECOND, e -> {
-            long initialTime = e.getWhen() - (20 * ONE_MINUTE);
+            long initialTime = e.getWhen() - (1 * ONE_MINUTE);
             long finalTime = e.getWhen();
             Platform.runLater(() -> {
                 this.xAxis.setLowerBound(initialTime);

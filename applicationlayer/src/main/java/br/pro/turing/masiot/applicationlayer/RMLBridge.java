@@ -1,6 +1,9 @@
 package br.pro.turing.masiot.applicationlayer;
 
-import br.pro.turing.masiot.core.model.*;
+import br.pro.turing.masiot.core.model.Action;
+import br.pro.turing.masiot.core.model.Command;
+import br.pro.turing.masiot.core.model.Device;
+import br.pro.turing.masiot.core.model.Resource;
 import br.pro.turing.masiot.core.service.ServiceManager;
 import br.pro.turing.masiot.core.utils.LoggerUtils;
 import lac.cnclib.net.NodeConnection;
@@ -32,9 +35,6 @@ public class RMLBridge implements NodeConnectionListener {
 
     /** IP socket address of the ContextNet gateway. */
     private InetSocketAddress gatewayAddress;
-
-    /** Connection state of the Application layer. */
-    private ConnectionState connectionState = ConnectionState.OFFLINE;
 
     /**
      * Connects to the RML.
@@ -84,7 +84,6 @@ public class RMLBridge implements NodeConnectionListener {
     @Override
     public void connected(NodeConnection nodeConnection) {
         LOGGER.info("Client connected.");
-        this.connectionState = ConnectionState.ONLINE;
     }
 
     /**
@@ -98,7 +97,6 @@ public class RMLBridge implements NodeConnectionListener {
     @Override
     public void reconnected(NodeConnection nodeConnection, SocketAddress socketAddress, boolean b, boolean b1) {
         LOGGER.info("Client reconnected.");
-        this.connectionState = ConnectionState.ONLINE;
     }
 
     /**
@@ -109,7 +107,6 @@ public class RMLBridge implements NodeConnectionListener {
     @Override
     public void disconnected(NodeConnection nodeConnection) {
         LOGGER.info("Client disconnected.");
-        this.connectionState = ConnectionState.OFFLINE;
     }
 
     /**
@@ -126,15 +123,13 @@ public class RMLBridge implements NodeConnectionListener {
         list.forEach(message -> errorMessageLog.append("\n")
                 .append(Serialization.fromJavaByteStream(message.getContent()).toString()));
         LOGGER.severe(errorMessageLog.toString());
-        if (this.connectionState.equals(ConnectionState.ONLINE)) {
-            LOGGER.info("Resending messages");
-            for (Message message : list) {
-                try {
-                    connection.sendMessage(message);
-                } catch (IOException e) {
-                    LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
-                    return;
-                }
+        LOGGER.info("Resending messages");
+        for (Message message : list) {
+            try {
+                connection.sendMessage(message);
+            } catch (IOException e) {
+                LOGGER.severe("I/O error while trying to send a message when this client connects with RML");
+                return;
             }
         }
     }

@@ -5,10 +5,9 @@ import org.bson.types.ObjectId;
 import org.jongo.marshall.jackson.oid.MongoId;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 /**
  * In the Device Layer of the Resource Management Architecture (RMA). (1) Devices are IoT Objects able of connecting,
@@ -56,8 +55,8 @@ public class Device implements Serializable {
     /** Environment ID of this device. */
     private ObjectId environmentId;
 
-    /** State of connection. */
-    private String connectionState = ConnectionState.OFFLINE.getState();
+    /** Last update date of this device. */
+    private Date lastUpdate;
 
     /**
      * MongoDB constructor.
@@ -206,17 +205,24 @@ public class Device implements Serializable {
     }
 
     /**
-     * @return {@link #connectionState}
+     * @return {@link #lastUpdate}
      */
-    public String getConnectionState() {
-        return this.connectionState;
+    public LocalDateTime getLocalLastUpdate() {
+        return LocalDateTime.ofInstant(this.lastUpdate.toInstant(), ZoneId.systemDefault());
     }
 
     /**
-     * @param connectionState {@link #connectionState}
+     * @return {@link #lastUpdate}
      */
-    public void setConnectionState(String connectionState) {
-        this.connectionState = connectionState;
+    public Date getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    /**
+     * @param lastUpdate {@link #lastUpdate}
+     */
+    public void setLocalLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = Date.from(lastUpdate.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     @Override

@@ -1,13 +1,14 @@
 package br.pro.turing.masiot.core.repository;
 
 import br.pro.turing.masiot.core.model.Device;
-import br.pro.turing.masiot.core.model.Device;
-import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,6 @@ public class DeviceRepository implements MongoRepository<Device, ObjectId> {
         }
         return DeviceRepository.instance;
     }
-
 
     @Override
     public <S extends Device> S save(S var1) {
@@ -87,11 +87,26 @@ public class DeviceRepository implements MongoRepository<Device, ObjectId> {
 
     }
 
-    public Device findById(String deviceName) {
-        return collection.findOne("{_id: '" + deviceName + "'}").as(Device.class);
+    public Device findById(String id) {
+        return collection.findOne("{_id: '" + id + "'}").as(Device.class);
+    }
+
+    public Device findByDeviceName(String deviceName) {
+        return collection.findOne("{deviceName: '" + deviceName + "'}").as(Device.class);
     }
 
     public Device findByCommand(String command) {
         return collection.findOne("{'resourceList.commandList': {$elemMatch: {_id: #}}}", command).as(Device.class);
+    }
+
+    /**
+     * Update the date of the last update of this device.
+     *
+     * @param deviceName Device name.
+     */
+    public void updateLast(String deviceName) {
+        Date date = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        collection.update("{_id: #}", deviceName).with("{$set:{lastUpdate: #}}",
+                date);
     }
 }

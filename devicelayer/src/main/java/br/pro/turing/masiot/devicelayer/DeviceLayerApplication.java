@@ -9,6 +9,7 @@ import br.pro.turing.masiot.core.utils.LoggerUtils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -86,7 +87,6 @@ public class DeviceLayerApplication {
      */
     private static IoTObject createIoTObject(Device device) {
         return new IoTObject(device) {
-            DecimalFormat df = new DecimalFormat("0.00");
             Random random = new Random();
             Random boolRandom = new Random();
 
@@ -100,7 +100,7 @@ public class DeviceLayerApplication {
                         if (resource.getResourceName().equals("irrigador")) {
                             value += (boolRandom.nextBoolean() ? "Ligado" : "Desligado") + IoTObject.SPLIT_VALUE;
                         } else {
-                            value += df.format(random.nextDouble() * 100) + IoTObject.SPLIT_VALUE;
+                            value += (random.nextDouble() * 100) + IoTObject.SPLIT_VALUE;
                         }
                     }
                     value = value.substring(0, value.length() - 1);
