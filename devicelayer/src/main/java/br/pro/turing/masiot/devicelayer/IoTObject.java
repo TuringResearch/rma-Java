@@ -205,6 +205,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(this.device));
         try {
             connection.sendMessage(message);
+            // TODO Log here for the TIME CONNECTION SEND
             this.connected = true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -223,6 +224,7 @@ public abstract class IoTObject implements NodeConnectionListener {
     public final void newMessageReceived(NodeConnection nodeConnection, Message message) {
         String messageReceived = (String) Serialization.fromJavaByteStream(message.getContent());
         if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Device.class.getName())) {
+            // TODO Log here for the TIME CONNECTION RECEIVE
             this.device = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Device.class);
             try {
                 if (this.getUUIDFromFile().isEmpty()) {

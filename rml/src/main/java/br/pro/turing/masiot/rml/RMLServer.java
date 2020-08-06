@@ -89,12 +89,14 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         String javaObject = (String) Serialization.fromJavaByteStream(message.getContent());
 
         if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Device.class.getName())) {
+            // TODO Log here for the DEVICE TIME CONNECTION RECEIVE
             Device newDevice = ServiceManager.getInstance().jsonService.fromJson(javaObject, Device.class);
             startDevice(message, newDevice);
         } else if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Action.class.getName())) {
             Action newAction = ServiceManager.getInstance().jsonService.fromJson(javaObject, Action.class);
             delegateAction(newAction);
         } else if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Data.class.getName())) {
+            // TODO Log here for the DEVICE TIME PROCESS
             final Type dataListType = new TypeToken<ArrayList<Data>>() {
             }.getType();
             ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject, dataListType);
@@ -102,6 +104,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
                 final Data data = dataArrayList.get(0);
                 ServiceManager.getInstance().deviceService.updateLast(data.getDeviceName());
                 ServiceManager.getInstance().dataService.saveAll(dataArrayList);
+                // TODO Log here for the DEVICE TIME PROCESS
             }
         }
     }
@@ -131,6 +134,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");
         sendMessage(message.getGatewayId(), message.getSenderId(),
                 ServiceManager.getInstance().jsonService.toJson(newDevice));
+        // TODO Log here for the DEVICE TIME CONNECTION SEND
     }
 
     /**
