@@ -11,15 +11,15 @@ It is a layer of the RMA composed of applications that users access to interact 
 ## Commands
 
 ### Install ContextNet and OpenSplice
-Go to ContectNet folder and execute, in administrator mode, the file install.bat. If you already have the OpenSplica environment variables, remove these.[
+Go to ContectNet folder and execute, in administrator mode, the file install.bat. If you already have the OpenSplica environment variables, remove these.
 
 ### Create the rma pacckages
 In the rma-java root: mvn clean package
 
 ### Run rml
-Inside the rma/rml/target directory, get the .jar file and run:
-java -jar rml-VERSION.jar <gatewayIP1> <gatewayPort1> <gatewayIP2> <gatewayPort2> <...>
+Inside the rma/rml/target directory, get the rml-VERSION.jar file and run:
+*java -jar rml-VERSION.jar <gatewayIP1> <gatewayPort1> <gatewayIP2> <gatewayPort2> <...>*
     
 ### Run devicelayer
-Inside the rma/devicelayer/target directory, get the .jar file and run:
-java -jar devicelayer-VERSION.jar <gatewayIP> <gatewayPort> <ConfigJsonFile>
+Inside the rma/devicelayer/target directory, get the devicelayer-VERSION.jar file and run:
+*java -jar devicelayer-VERSION.jar <gatewayIP> <gatewayPort> <ConfigJsonFile>*
