@@ -25,7 +25,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>br.pro.turing.masiot.rml.RMLApplication</mainClass>
+                            <mainClass>br.pro.turing.rma.rml.RMLApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

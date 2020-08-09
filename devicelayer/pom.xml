@@ -25,7 +25,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>br.pro.turing.masiot.devicelayer.DeviceLayerApplication</mainClass>
+                            <mainClass>br.pro.turing.rma.devicelayer.DeviceLayerApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
