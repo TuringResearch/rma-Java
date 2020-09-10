@@ -11,15 +11,25 @@ It is a layer of the RMA composed of applications that users access to interact 
 ## Commands
 
 ### Install ContextNet and OpenSplice
-Go to ContectNet folder and execute, in administrator mode, the file install.bat. If you already have the OpenSplica environment variables, remove these.
+- [Click here](https://1drv.ms/u/s!AvIsgxTTFPWkiiampwSrpS5toXG2) to download the ContextNet folder.
+- Extract the ContextNet.zip to a safe folder. There is no need to create a ContextNet folder for this.
+- Go to ContextNet folder and execute, in administrator mode, the file install.bat. If you already have the OpenSplica
+ environment variables, remove these.
 
-### Create the rma pacckages
+### Install database
+In the core/script folder:
+- Edit the mongoService.bat file replacing all *@basePath* with the desired folder where you want to install the
+ database.
+- Save the mongoService.bat file.
+- run as administrator the command *call mongoService.bat*
+
+### Create the RMA packages
 In the rma-java root: mvn clean package
 
-### Run rml
-Inside the rma/rml/target directory, get the rml-VERSION.jar file and run:
-*java -jar rml-VERSION.jar <gatewayIP1> <gatewayPort1> <gatewayIP2> <gatewayPort2> <...>*
+### Run RML
+Inside the rml/target directory, get the rml-VERSION.jar file and run:
+*java -jar rml-1.0.0-SNAPSHOT.jar <gatewayIP1> <gatewayPort1> <gatewayIP2> <gatewayPort2> <...>*
     
-### Run devicelayer
+### Run IoT Object
 Inside the rma/devicelayer/target directory, get the devicelayer-VERSION.jar file and run:
-*java -jar devicelayer-VERSION.jar <gatewayIP> <gatewayPort> <ConfigJsonFile>*
+*java -jar devicelayer-1.0.0-SNAPSHOT.jar <gatewayIP> <gatewayPort> <ConfigJsonFile>*
