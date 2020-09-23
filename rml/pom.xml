@@ -65,10 +65,10 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>LAC PUC-Rio</id>
-            <url>https://bitbucket.org/endler/contextnet-dependencies/raw/master/</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>LAC PUC-Rio</id>-->
+<!--            <url>https://bitbucket.org/endler/contextnet-dependencies/raw/master/</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 </project>
