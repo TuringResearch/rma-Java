@@ -37,6 +37,9 @@ public abstract class IoTObject implements NodeConnectionListener {
     /** Splitter value for microcontrollers buffer to separate the measures. */
     protected static final String SPLIT_VALUE = ";";
 
+    /** Tamanho máximo da mensagem em byte. */
+    private static final int MAX_MESSAGE_BYTE = 2000;
+
     /** Timestamp format for miclocontroller buffer. */
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm:ss.SSS");
@@ -201,15 +204,19 @@ public abstract class IoTObject implements NodeConnectionListener {
      */
     @Override
     public void connected(NodeConnection nodeConnection) {
-        Message message = new ApplicationMessage();
-        message.setContentObject(ServiceManager.getInstance().jsonService.toJson(this.device));
-        try {
-            connection.sendMessage(message);
-            // TODO Log here for the TIME CONNECTION SEND
+        new Thread(() -> {
+            String msg = ServiceManager.getInstance().jsonService.toJson(this.device);
+            Message message = new ApplicationMessage();
+            message.setContentObject(msg);
+            try {
+                nodeConnection.sendMessage(message);
+                // TODO Log here for the TIME CONNECTION SEND
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
             this.connected = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     /**
