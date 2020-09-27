@@ -127,14 +127,13 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         }
         newDevice.setGatewayUUID(message.getGatewayId().toString());
         newDevice.setUUID(message.getSenderId().toString());
+        newDevice.setLocalLastUpdate(LocalDateTime.now());
+        ServiceManager.getInstance().deviceService.save(newDevice);
 
         // Responding that device registration was successful.
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");
         sendMessage(message.getGatewayId(), message.getSenderId(),
                 ServiceManager.getInstance().jsonService.toJson(newDevice));
-
-        newDevice.setLocalLastUpdate(LocalDateTime.now());
-        ServiceManager.getInstance().deviceService.save(newDevice);
         // TODO Log here for the DEVICE TIME CONNECTION SEND
     }
 

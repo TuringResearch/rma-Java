@@ -1,5 +1,6 @@
 package br.pro.turing.rma.core.service;
 
+import br.pro.turing.rma.core.utils.Constants;
 import com.google.gson.*;
 
 import java.io.Reader;
@@ -22,7 +23,7 @@ public class JsonService {
      * Constructor.
      */
     private JsonService() {
-        this.gson = new Gson();
+        this.gson = new GsonBuilder().setDateFormat(Constants.DATE_FORMAT).create();
     }
 
     /**
