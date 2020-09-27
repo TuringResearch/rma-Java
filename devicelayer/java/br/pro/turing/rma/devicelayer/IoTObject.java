@@ -210,11 +210,11 @@ public abstract class IoTObject implements NodeConnectionListener {
             message.setContentObject(msg);
             try {
                 nodeConnection.sendMessage(message);
-                // TODO Log here for the TIME CONNECTION SEND
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
             }
+            // TODO Log here for the TIME CONNECTION SEND
             this.connected = true;
         }).start();
     }
