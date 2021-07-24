@@ -22,6 +22,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 /**
  * IoT Object is a device able of (i) connecting and registering in the RML when it starts. It is initially configured
@@ -30,6 +31,8 @@ import java.util.UUID;
  * the device's actuators.
  */
 public abstract class IoTObject implements NodeConnectionListener {
+
+    private Logger logger = Logger.getLogger("IoTObject");
 
     /** Splitter value for microcontrollers buffer to separate timestamp and measures. */
     protected static final String SPLIT_TIME = "    ";
@@ -153,6 +156,7 @@ public abstract class IoTObject implements NodeConnectionListener {
         new Thread(() -> {
             while (true) {
                 final long t1 = System.currentTimeMillis();
+                logger.info(";in;" + System.nanoTime());
                 if (this.connected) {
                     final ArrayList<Data> dataList = buildDataBuffer();
                     if (!dataList.isEmpty()) {
@@ -165,6 +169,7 @@ public abstract class IoTObject implements NodeConnectionListener {
                         }
                     }
                 }
+                logger.info(";out;" + System.nanoTime());
                 final long duration = System.currentTimeMillis() - t1;
                 try {
                     Thread.sleep(duration < this.device.getCycleDelayInMillis() ?
