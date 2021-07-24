@@ -11,6 +11,7 @@ import lac.cnclib.net.mrudp.MrUdpNodeConnection;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.message.Message;
 import lac.cnclib.sddl.serialization.Serialization;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -22,7 +23,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 /**
  * IoT Object is a device able of (i) connecting and registering in the RML when it starts. It is initially configured
@@ -32,7 +32,9 @@ import java.util.logging.Logger;
  */
 public abstract class IoTObject implements NodeConnectionListener {
 
-    private Logger logger = Logger.getLogger("IoTObject");
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger("[IoT Object]");
+
+    java.util.logging.Logger loggerJava = java.util.logging.Logger.getLogger("IoTObject");
 
     /** Splitter value for microcontrollers buffer to separate timestamp and measures. */
     protected static final String SPLIT_TIME = "    ";
@@ -156,20 +158,25 @@ public abstract class IoTObject implements NodeConnectionListener {
         new Thread(() -> {
             while (true) {
                 final long t1 = System.currentTimeMillis();
-                logger.info(";in;" + System.nanoTime());
+                loggerJava.info(";start;" + System.nanoTime());
+                loggerJava.info(";in;" + System.nanoTime());
                 if (this.connected) {
                     final ArrayList<Data> dataList = buildDataBuffer();
                     if (!dataList.isEmpty()) {
                         Message message = new ApplicationMessage();
                         message.setContentObject(ServiceManager.getInstance().jsonService.toJson(dataList));
                         try {
+                            // TODO Log for the TIME SEND DATA
+                            logger.info(
+                                    "\t" + device.getDeviceName() + "\t" + System.currentTimeMillis() + "\t\t\tDATA");
                             connection.sendMessage(message);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                logger.info(";out;" + System.nanoTime());
+                loggerJava.info(";out;" + System.nanoTime());
+                loggerJava.info(";end;" + System.nanoTime());
                 final long duration = System.currentTimeMillis() - t1;
                 try {
                     Thread.sleep(duration < this.device.getCycleDelayInMillis() ?
@@ -214,12 +221,13 @@ public abstract class IoTObject implements NodeConnectionListener {
             Message message = new ApplicationMessage();
             message.setContentObject(msg);
             try {
+                // TODO Log here for the TIME CONNECTION SEND
+                logger.info("\t" + device.getDeviceName() + "\t" + System.currentTimeMillis() + "\t\t\tCONN");
                 nodeConnection.sendMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
             }
-            // TODO Log here for the TIME CONNECTION SEND
             this.connected = true;
         }).start();
     }
@@ -236,7 +244,6 @@ public abstract class IoTObject implements NodeConnectionListener {
     public final void newMessageReceived(NodeConnection nodeConnection, Message message) {
         String messageReceived = (String) Serialization.fromJavaByteStream(message.getContent());
         if (ServiceManager.getInstance().jsonService.jasonIsObject(messageReceived, Device.class.getName())) {
-            // TODO Log here for the TIME CONNECTION RECEIVE
             this.device = ServiceManager.getInstance().jsonService.fromJson(messageReceived, Device.class);
             try {
                 if (this.getUUIDFromFile().isEmpty()) {

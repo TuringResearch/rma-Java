@@ -14,6 +14,7 @@ import lac.cnet.sddl.objects.PrivateMessage;
 import lac.cnet.sddl.udi.core.SddlLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -30,6 +31,8 @@ import java.util.logging.Logger;
  * clients to visualize environments and its resources and for agents to access physical resources.
  */
 public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
+
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger("[RML]");
 
     /** Logger. */
     private static final Logger LOGGER = LoggerUtils.initLogger(
@@ -81,9 +84,11 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
      *
      * @param topicSample Topic sample.
      */
+    int count = 0;
     @Override
     public void onNewData(ApplicationObject topicSample) {
         LOGGER.fine("New message received");
+        final long messageArriveTime = System.currentTimeMillis();
 
         Message message = (Message) topicSample;
         String javaObject = (String) Serialization.fromJavaByteStream(message.getContent());
@@ -91,6 +96,7 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
         if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Device.class.getName())) {
             // TODO Log here for the DEVICE TIME CONNECTION RECEIVE
             Device newDevice = ServiceManager.getInstance().jsonService.fromJson(javaObject, Device.class);
+            logger.info(++count + "\t" + newDevice.getDeviceName() + "\t\t" + messageArriveTime + "\t\tCONN");
             startDevice(message, newDevice);
         } else if (ServiceManager.getInstance().jsonService.jasonIsObject(javaObject, Action.class.getName())) {
             Action newAction = ServiceManager.getInstance().jsonService.fromJson(javaObject, Action.class);
@@ -102,9 +108,11 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
             ArrayList<Data> dataArrayList = ServiceManager.getInstance().jsonService.fromJson(javaObject, dataListType);
             if (dataArrayList != null && !dataArrayList.isEmpty()) {
                 final Data data = dataArrayList.get(0);
+                logger.info(++count + "\t" + data.getDeviceName() + "\t\t" + messageArriveTime + "\t\tDATA");
                 ServiceManager.getInstance().deviceService.updateLast(data.getDeviceName());
                 ServiceManager.getInstance().dataService.saveAll(dataArrayList);
                 // TODO Log here for the DEVICE TIME PROCESS
+                logger.info(count + "\t" + data.getDeviceName() + "\t\t\t" + System.currentTimeMillis() + "\tDATA");
             }
         }
     }
@@ -132,9 +140,10 @@ public class RMLServer implements UDIDataReaderListener<ApplicationObject> {
 
         // Responding that device registration was successful.
         LOGGER.info("Device " + newDevice.getDeviceName() + " ready.");
+        // TODO Log here for the DEVICE TIME CONNECTION SEND
+        logger.info(count + "\t" + newDevice.getDeviceName() + "\t\t\t" + System.currentTimeMillis() + "\tCONN");
         sendMessage(message.getGatewayId(), message.getSenderId(),
                 ServiceManager.getInstance().jsonService.toJson(newDevice));
-        // TODO Log here for the DEVICE TIME CONNECTION SEND
     }
 
     /**

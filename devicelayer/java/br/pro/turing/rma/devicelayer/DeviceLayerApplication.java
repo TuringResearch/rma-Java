@@ -82,8 +82,13 @@ public class DeviceLayerApplication {
      */
     private static IoTObject createIoTObject(Device device) {
         return new IoTObject(device) {
-            Random random = new Random();
-            Random boolRandom = new Random();
+            final Random random = new Random();
+
+            final Random boolRandom = new Random();
+
+            @Override
+            protected void onAction(Action action) {
+            }
 
             @Override
             protected ArrayList<Data> buildDataBuffer() {
@@ -103,10 +108,6 @@ public class DeviceLayerApplication {
                     dataArrayList.addAll(this.extractValue(resource, value));
                 }
                 return dataArrayList;
-            }
-
-            @Override
-            protected void onAction(Action action) {
             }
         };
     }
