@@ -19,7 +19,7 @@
     <modules>
         <module>core</module>
         <module>devicelayer</module>
-        <module>ui</module>
+<!--        <module>ui</module>-->
         <module>rml</module>
         <module>applicationlayer</module>
     </modules>
